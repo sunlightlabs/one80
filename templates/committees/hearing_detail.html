@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block content %}
+
+    <div class="hearing-title{% if not hearing.is_public %} unpublished{% endif %}">
+        <h2>{{ hearing.title }}</h2> a hearing of the <span class="committee">{{ hearing.committee.name }}</span></p>
+    </div>
+    
+    <div class="photo-viewer">
+        <ul class="container">
+            {% for size in photos %}
+                <li>
+                    <a href="{% url photo_detail hearing.slug size.photo.pk %}"><img src="{{ size.image.url }}" class="thumb"></a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="container">
+        {% if hearing.description %}
+            {{ hearing.description|markdown }}
+        {% endif %}
+    </div>
+
+{% endblock %}

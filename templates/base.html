@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>180° Project by the Sunlight Foundation</title>
+        <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+        <style>
+            * { font-family: sans-serif; margin: 0; padding: 0; }
+            
+            a { color: #065692; }
+            a:hover {
+                -webkit-transition-property: color;
+                   -moz-transition-property: color;
+                     -o-transition-property: color;
+                        transition-property: color;
+                -webkit-transition-duration: 1s;
+                   -moz-transition-duration: 1s;
+                     -o-transition-duration: 1s;
+                        transition-duration: 1s;
+                color: #925A06;
+            }
+            
+            header {
+                width: 1000px;
+                margin: 0 auto;
+                padding: 1em 0;
+            }
+            header a { text-decoration: none; }
+            header h1 {
+                font-family: Questrial, sans-serif;
+                font-weight: bold;
+                margin-bottom: 0.2em;
+            }
+            header h2 {
+                font-family: Questrial, sans-serif;
+                font-size: 100%;
+                font-weight: normal;
+                margin-left: 0.4em;
+            }
+            header h1 small { font-size: 40%; }
+            
+            .hearing-title {
+                border-top: 1px solid #666;
+                color: #444;
+                margin: 0 auto;
+                padding: 1em 0;
+                width: 1000px;
+            }
+            .hearing-title h2 {
+                display: inline;
+                font-weight: normal;
+                padding-right: 0.3em;
+            }
+            
+            .clear { clear: both; }
+            
+            .container {
+                margin: 0 auto;
+                width: 1000px;
+            }
+            
+            .photo-viewer {
+                background: #000;
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333', endColorstr='#000');
+                background: -webkit-linear-gradient(top, #333, #222);
+                background: -moz-linear-gradient(top,  #333,  #222);
+                background: -o-linear-gradient(top,  #333,  #222);
+                background: -ms-linear-gradient(top,  #333,  #222);
+                background: linear-gradient(top,  #333,  #222);
+                padding: 1em 0;
+            }
+            .photo-viewer img {
+                border: 1px solid #444;
+                -webkit-box-shadow: 0 0 10px #111;
+                   -moz-box-shadow: 0 0 10px #111;
+                        box-shadow: 0 0 10px #111;
+            }
+            .photo-viewer img.full { width: 1000px; }
+            .photo-viewer img.thumb { width: 300px; }
+            .photo-viewer ul li { display: inline; padding-right: 2.7em; }
+            .photo-viewer .controls { margin: 1em 0 0 0; text-align: right; }
+            .photo-viewer a {
+                color: #999;
+                text-decoration: none;
+                text-shadow: 2px 2px 4px #000;
+            }
+            .photo-viewer a:hover { color: #FFF; }
+            .photo-viewer a.add:before { content: "+ "; }
+            
+            .photo-viewer-nav a img { opacity: 0.5; width: 150px; }
+            .photo-viewer-nav a:hover img { opacity: 1; }
+            .photo-viewer-nav a {
+                border: 1px solid #444;
+                display: inline-block;
+                margin: 0 1em;
+                height: 99px;
+                width: 150px;
+            }
+            .photo-viewer-nav a.previous { background: url(/static/images/photo-viewer-nav.png) top left; }
+            .photo-viewer-nav a.next { background: url(/static/images/photo-viewer-nav.png) top right; }
+            .photo-viewer-nav div.placeholder {
+                background-color: #eee;
+                display: inline-block;
+                margin: 0 1em;
+                width: 150px;
+                height: 99px;
+            }
+            
+            div.content { float: left; margin-bottom: 4em; padding-top: 2em; width: 600px; }
+            
+            div.sidebar { float: right; margin-bottom: 4em; padding-top: 2em; width: 400px; }
+            
+            footer {
+                border-top: 1px solid #666;
+                padding: 4em 0;
+            }
+            
+            
+            
+            
+            
+            .annotation {
+                border: 1px solid #999;
+                background-color: transparent;
+                background-color: rgba(255, 255, 255, 0.2);
+                position: absolute;
+            }
+            .annotation:hover {
+                border: 1px solid #FFF;
+            }
+            .annotation .content {
+                background-color: #FFF;
+                border: 1px solid #666;
+                display: none;
+                font-size: 90%;
+                line-height: 120%;
+                padding: 0.5em 1em;
+                position: absolute;
+                width: 200px;
+                -webkit-border-radius: 5px;
+                   -moz-border-radius: 5px;
+                        border-radius: 5px;
+                -webkit-box-shadow: 1px 1px 8px #222;
+                   -moz-box-shadow: 1px 1px 8px #222;
+                        box-shadow: 1px 1px 8px #222;
+                z-index: 1000;
+            }
+            .annotation .content .name { display: block; font-weight: bold; margin-bottom: 0.3em; }
+            .annotation .content .org { display: block; font-size: 90%; }
+            
+        </style>
+        {% block css %}{% endblock %}
+    </head>
+    <body>
+        <header>
+            <a href="/">
+                <hgroup>
+                    <h1>180° Project</h1>
+                    <h2>from the Sunlight Foundation</h2>
+                </hgroup>
+            </a>
+        </header>
+        <div>
+            {% block content %}
+            
+            {% endblock %}
+        </div>
+        <footer class="clear container">
+            &nbsp;asdf
+        </footer>
+        {% block js %}{% endblock %}
+    </body>
+</html>

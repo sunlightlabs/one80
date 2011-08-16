@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "committees.committee", "fields": {"chamber": "H", "name": "House Agricultural Committee"}}, {"pk": 1, "model": "committees.hearing", "fields": {"start_datetime": null, "title": "Barley: What's it good for?", "location": "", "committee": 1, "is_public": true, "slug": "barley-whats-it-good"}}]

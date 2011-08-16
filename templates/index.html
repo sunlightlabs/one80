@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul>
+        {% for hearing in hearings %}
+            <li>
+                {% if not hearing.is_public %}PRIVATE{% endif %}
+                <a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a> from the {{ hearing.committee.name }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

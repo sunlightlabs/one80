@@ -1,3 +1,5 @@
 *.pyc
 data/*.db
-media/**/*.jpg
+media/*
+*.DS_Store
+local_settings.py

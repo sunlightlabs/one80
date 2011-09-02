@@ -1,6 +1,14 @@
 from django.shortcuts import get_object_or_404, render
-from one80.committees.models import Hearing
+
+from one80.committees.models import Committee, Hearing
 from one80.photos.models import Size
+
+def committee_detail(request, slug):
+    committee = get_object_or_404(Committee, slug=slug)
+    context = {
+        'committee': committee,
+    }
+    return render(request, "committees/committee_detail.html", context)
 
 def hearing_detail(request, slug):
     hearing = get_object_or_404(Hearing, slug=slug)

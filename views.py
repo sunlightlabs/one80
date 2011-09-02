@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from one80.committees.models import Hearing
+
+from one80.committees.models import Committee, Hearing
+from one80.photos.models import Photo, Annotation
 
 def index(request):
-    
-    hearings = Hearing.objects.all()
-    
-    # add filter if user is not staff
-    if not request.user.is_staff:
-        hearings = hearings.filter(is_public=True)
-        
-    return render(request, "index.html", {'hearings': hearings})
+    context = {
+        'latest_hearings': Hearing.objects.published()[:10].select_related(),
+        'latest_annotations': Annotation.objects.published()[:10].select_related(),
+        'committees': Committee.objects.all().select_related(),
+    }
+    return render(request, 'index.html', context)

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load markup %}
+{% load markup one80_tags %}
 
 {% block content %}
 
     <div class="hearing-title{% if not hearing.is_public %} unpublished{% endif %}">
         <h2>{{ hearing.title }}</h2> a hearing of the <span class="committee">{{ hearing.committee.name }}</span></p>
     </div>
-    
+
     <div class="photo-viewer">
         <ul class="container">
             {% for size in photos %}
@@ -20,6 +20,11 @@
     <div class="container">
         {% if hearing.description %}
             {{ hearing.description|markdown }}
+        {% endif %}
+        {% if hearing.annotated_names_with_urls %}
+        <h3>In attendance</h3>
+        <p>{% for name in hearing.annotated_names_with_urls %}{{ name.0|link_if:name.1 }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}</p>
         {% endif %}
     </div>
 

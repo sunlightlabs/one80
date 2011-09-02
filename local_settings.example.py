@@ -30,6 +30,29 @@ TIME_ZONE = 'America/Chicago'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.google.GoogleBackend',
+    'social_auth.backends.yahoo.YahooBackend',
+)
+
+AUTHENTICATION_SERVICES = (
+    ('twitter', 'http://twitter.com'),
+    ('facebook', 'http://facebook.com'),
+    ('google', 'http://google.com'),
+    ('yahoo', 'http://yahoo.com'),
+)
+
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+FACEBOOK_APP_ID = ''
+FACEBOOK_API_SECRET = ''
+GOOGLE_CONSUMER_KEY = ''
+GOOGLE_CONSUMER_SECRET = ''
+GOOGLE_DISPLAY_NAME = '180&deg; Project'
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.

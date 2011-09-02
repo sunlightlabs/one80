@@ -66,12 +66,25 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'one80.middleware.CompletedProfileMiddleware',
 )
 
 ROOT_URLCONF = 'one80.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
+    'social_auth.context_processors.social_auth_by_type_backends',
+    'one80.context_processors.authentication_services',
 )
 
 INSTALLED_APPS = (
@@ -83,12 +96,26 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'debug_toolbar',
+    'social_auth',
+    'south',
+    'one80',
+    'one80.auth',
     'one80.committees',
+    'one80.people',
     'one80.photos',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
+
+AUTH_PROFILE_MODULE = 'auth.UserProfile'
+LOGIN_URL = '/180/login/'
+LOGIN_REDIRECT_URL = '/180/login/complete/'
+LOGOUT_URL = '/180/logout/'
+FACEBOOK_EXTENDED_PERMISSIONS = ['email',]
+COMPLETE_PROFILE_MESSAGE = 'You\'re almost done, we just need an email address or phone number to complete your profile.'
+ADMIN_COMPLETE_PROFILE_MESSAGE = 'Your profile is not complete. Go here to add an email address or phone nubmer.'
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block userbar %}{% endblock %}
+
+{% block content %}
+
+    <div id="login_options">
+        <ul>
+        {% for service in authentication_services %}
+            <li><a href="{% url socialauth_begin service.0 %}">{{ service.0|title }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+
+{% endblock content %}

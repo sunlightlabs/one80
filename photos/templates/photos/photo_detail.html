@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load photo_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/annotation.css" type="text/css"></link>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/jquery-ui-1.8.15.min.js" type="text/javascript"></script>
+    <script src="/static/js/jquery.annotate.js" type="text/javascript"></script>
+    <script>
+        (function($, undefined){
+            $(function(){
+                // domready stuff here
+                $('.content ul.tagged a').hover(function(){
+                    $('.image-annotate-canvas').mouseover()
+                        .find('.image-annotate-area[data-id='+$(this).attr('data-id') + ']').mouseover();
+                }, function(){
+                    $('.image-annotate-canvas')
+                        .find('.image-annotate-area[data-id='+$(this).attr('data-id') + ']').mouseout()
+                        .end()
+                        .mouseout();
+                }).not('.delete, .approve').click(function(e){
+                    e.preventDefault();
+                });
+            });
+            $(window).load(function(){
+                $('img.full').each(function(){
+                    var width = $(this).width();
+                    $(this).annotateImage({
+                        editable: {{ request.user.is_authenticated|lower }},
+                        getUrl: 'annotations.json?size=' + width,
+                        saveUrl: 'annotations.json?action=save&size=' + width,
+                        deleteUrl: 'annotations.json?action=delete'
+                    });
+                });
+            });
+        })(jQuery);
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="hearing-title{% if not hearing.is_public %} unpublished{% endif %}">
+        <h2><a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a></h2> a hearing of the <span class="committee">{{ hearing.committee.name }}</span></p>
+    </div>
+
+    <div class="photo-viewer">
+        {% if user.is_anonymous %}
+        <div class="prompt-for-login"><a href="{% url login %}">Log in to add notes</a></div>
+        {% endif %}
+        <div class="container">
+            <img src="{{ fullsize.image.url }}" class="full">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h3>In this photo...</h3>
+            <ul class="tagged">
+                {% for annot in annotations %}
+                    <li>
+                        <a href="{{ annot.url }}" data-id={{ annot.id }}>{{ annot }}</a> {% annotation_buttons annot %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="sidebar">
+            <div class="photo-viewer-nav">
+                {% if previous_photo %}
+                    <a href="{% url photo_detail hearing.slug previous_photo.pk %}" class="previous" title="prevous hearing photo"><img src="{% getsize previous_photo 150 99 %}"></a>
+                {% else %}
+                    <div class="placeholder"></div>
+                {% endif %}
+                {% if next_photo %}
+                    <a href="{% url photo_detail hearing.slug next_photo.pk %}" class="next" title="next hearing photo"><img src="{% getsize next_photo 150 99 %}"></a>
+                {% else %}
+                    <div class="placeholder"></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

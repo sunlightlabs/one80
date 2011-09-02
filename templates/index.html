@@ -1,12 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <h2>The latest hearings</h2>
     <ul>
-        {% for hearing in hearings %}
+        {% for hearing in latest_hearings %}
             <li>
                 {% if not hearing.is_public %}PRIVATE{% endif %}
                 <a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a> from the {{ hearing.committee.name }}
             </li>
+        {% endfor %}
+    </ul>
+    <h3>Browse by committee</h3>
+    <ul>
+        {% for committee in committees %}
+        <li><a href="{% url committee_detail committee.slug %}">{{ committee.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <h3>Recently tagged</h3>
+    <ul>
+        {% for annot in latest_annotations %}
+        <li>
+            <a href="{% url photo_detail annot.photo.hearing.slug annot.photo.id %}">
+            <img src="{{ annot.thumbnail.url }}" width="72" />
+            <strong>{{ annot }}</strong>
+            <small>At {{ annot.photo.hearing }}</small>
+            </a>
+        </li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="committee-title">
+    <h2>{{ committee.name }}</h2>
+    <p><span class="chamber">{{ committee.chamber_name }}</span></p>
+</div>
+
+<h3>Hearings</h3>
+<ul>
+{% for hearing in committee.hearings.published %}
+    <li>
+        <a href="{% url hearing_detail hearing.slug %}" class="hearing {% if not hearing.is_public %} unpublished{% endif %}">{{ hearing }}</a>
+        <small>Tagged: {% for name in hearing.annotated_names %}{{ name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
+    </li>
+{% endfor %}
+</ul>
+{% endblock content %}

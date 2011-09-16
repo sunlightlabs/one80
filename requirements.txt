@@ -3,6 +3,7 @@ PIL
 django-debug-toolbar
 django-extensions
 django-social-auth
+gunicorn==0.12.0
 markdown
 python-dateutil==1.5
 python-linkedin

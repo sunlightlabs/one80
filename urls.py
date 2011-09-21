@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^annotation/(?P<annot_id>\d+)/delete/$', 'one80.photos.views.delete_annotation', name='annotation_delete'),
 
     # google site verification
-    url(r'^google28b165dcee3ec76d.html$', direct_to_template, {'template': 'google_site_verification.html'})
+    url(r'^google28b165dcee3ec76d.html$', direct_to_template, {'template': 'google_site_verification.html'}),
 
     # homepage
     url(r'^$', 'one80.views.index', name='index'),

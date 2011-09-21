@@ -1,4 +1,5 @@
 # Django settings for one80 project.
+import datetime
 import os
 import sys
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -30,7 +31,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -52,6 +53,21 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+MEDIASYNC = {
+    'BACKEND': 'mediasync.backends.s3',
+    'AWS_BUCKET': "assets.sunlightfoundation.com",
+    'AWS_PREFIX': "one80/static",
+    'DOCTYPE': 'xhtml',
+    'CACHE_BUSTER': datetime.datetime.now().sprintf('%s'), #only ok with 1 web head!!
+    'JOINED': {
+        'scripts/production.js': (
+            'scripts/jquery-1.5.min.js',
+            'scripts/jquery.placehold-0.2.min.js',
+            'scripts/act.js',
+        ),
+    }
+}
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -95,9 +111,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.markup',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+    'mediasync',
     'social_auth',
     'south',
     'one80',

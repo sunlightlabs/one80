@@ -59,7 +59,7 @@ MEDIASYNC = {
     'AWS_BUCKET': "assets.sunlightfoundation.com",
     'AWS_PREFIX': "one80/static",
     'DOCTYPE': 'xhtml',
-    'CACHE_BUSTER': datetime.datetime.now().sprintf('%s'), #only ok with 1 web head!!
+    'CACHE_BUSTER': datetime.datetime.now().strftime('%s'), #only ok with 1 web head!!
     'JOINED': {
         'scripts/production.js': (
             'scripts/jquery-1.5.min.js',

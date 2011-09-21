@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^login/$', 'one80.auth.views.login_begin', name='login'),
     url(r'^login/complete/$', 'one80.auth.views.login_complete', name='login_complete'),
     url(r'^logout/$', 'one80.auth.views.logout_begin', name='logout'),
-    url(r'^logout/complete/$', 'django.contrib.auth.views.logout', {'next_page': '/180/', 'redirect_field_name': 'next'}, name='logout_complete'),
+    url(r'^logout/complete/$', 'django.contrib.auth.views.logout', {'next_page': '/', 'redirect_field_name': 'next'}, name='logout_complete'),
     url(r'^profile/$', 'one80.auth.views.profile', name='profile'),
     url(r'^', include('social_auth.urls')),
 

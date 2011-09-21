@@ -119,9 +119,9 @@ INSTALLED_APPS = (
 INTERNAL_IPS = ('127.0.0.1',)
 
 AUTH_PROFILE_MODULE = 'auth.UserProfile'
-LOGIN_URL = '/180/login/'
-LOGIN_REDIRECT_URL = '/180/login/complete/'
-LOGOUT_URL = '/180/logout/'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/login/complete/'
+LOGOUT_URL = '/logout/'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email',]
 COMPLETE_PROFILE_MESSAGE = 'You\'re almost done, we just need an email address or phone number to complete your profile.'
 ADMIN_COMPLETE_PROFILE_MESSAGE = 'Your profile is not complete. Go here to add an email address or phone nubmer.'

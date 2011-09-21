@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.core.urlresolvers import reverse
+from django.views.generic.simple import direct_to_template
 
 admin.autodiscover()
 
@@ -22,6 +23,10 @@ urlpatterns = patterns('',
     url(r'^annotation/(?P<annot_id>\d+)/approve/$', 'one80.photos.views.approve_annotation', name='annotation_approve'),
     url(r'^annotation/(?P<annot_id>\d+)/delete/$', 'one80.photos.views.delete_annotation', name='annotation_delete'),
 
+    # google site verification
+    url(r'^google28b165dcee3ec76d.html$', direct_to_template, {'template': 'google_site_verification.html'})
+
+    # homepage
     url(r'^$', 'one80.views.index', name='index'),
 )
 

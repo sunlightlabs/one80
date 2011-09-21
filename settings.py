@@ -60,13 +60,6 @@ MEDIASYNC = {
     'AWS_PREFIX': "one80/static",
     'DOCTYPE': 'xhtml',
     'CACHE_BUSTER': datetime.datetime.now().strftime('%s'), #only ok with 1 web head!!
-    'JOINED': {
-        'scripts/production.js': (
-            'scripts/jquery-1.5.min.js',
-            'scripts/jquery.placehold-0.2.min.js',
-            'scripts/act.js',
-        ),
-    }
 }
 
 # List of callables that know how to import templates from various sources.

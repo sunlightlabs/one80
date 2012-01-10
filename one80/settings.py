@@ -130,7 +130,13 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 
+
+# Finally, import local settings if they exist.
 try:
     from local_settings import *
 except ImportError:
-    sys.stderr.write("Unable to load local settings. Make sure local_settings.py exists and is free of errors.\n")
+    # this could be heroku, don't barf yet
+    if 'LOCAL_SETTINGS' in os.environ.keys():
+        pass
+    else:
+        sys.stderr.write("Unable to load local settings. Make sure local_settings.py exists and is free of errors.\n")

@@ -1,5 +1,7 @@
 import inboxinfluence
 import crunchbase
+import os
+import pickle
 import yql
 
 from django.conf import settings
@@ -101,3 +103,11 @@ class Personify(object):
             self.title = data.positions[0].title
         except:
             pass
+
+# Merge local settings from os.environ
+
+try:
+    from local_settings import *
+except ImportError:
+    if 'LOCAL_SETTINGS' in os.environ.keys():
+        settings.__dict__.update(pickle.loads(os.environ['LOCAL_SETTINGS']))

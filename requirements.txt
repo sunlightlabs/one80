@@ -11,7 +11,7 @@ python-linkedin
 requests
 south
 yql
--e git+https://github.com/sunlightlabs/python-transparencydata.git#egg=python-transparencydata-dev
--e git+https://github.com/dandrinkard/python-inboxinfluence.git#egg=python_inboxinfluence-dev
--e git+https://github.com/dandrinkard/python-crunchbase.git#egg=python_crunchbase-dev
--e git+https://github.com/liberation/django-jsonfield.git#egg=jsonfield
+git+https://github.com/sunlightlabs/python-transparencydata.git
+git+https://github.com/dandrinkard/python-inboxinfluence.git
+git+https://github.com/dandrinkard/python-crunchbase.git
+git+https://github.com/liberation/django-jsonfield.git

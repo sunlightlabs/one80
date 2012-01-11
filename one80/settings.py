@@ -138,6 +138,7 @@ try:
 except ImportError:
     # this could be heroku, don't barf yet
     if 'LOCAL_SETTINGS' in os.environ.keys():
-        pass
+        from django.conf import settings
+        settings.__dict__.update(json.loads(os.environ['LOCAL_SETTINGS']))
     else:
         sys.stderr.write("Unable to load local settings. Make sure local_settings.py exists and is free of errors.\n")

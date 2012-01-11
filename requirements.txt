@@ -6,6 +6,7 @@ django-mediasync>=2.2.0
 django-social-auth
 gunicorn==0.12.0
 markdown
+psycopg2
 python-dateutil==1.5
 python-linkedin
 requests

@@ -1,7 +1,7 @@
 import inboxinfluence
 import crunchbase
 import os
-import pickle
+import json
 import yql
 
 from django.conf import settings
@@ -110,4 +110,4 @@ try:
     from local_settings import *
 except ImportError:
     if 'LOCAL_SETTINGS' in os.environ.keys():
-        settings.__dict__.update(pickle.loads(os.environ['LOCAL_SETTINGS']))
+        settings.__dict__.update(json.loads(os.environ['LOCAL_SETTINGS']))

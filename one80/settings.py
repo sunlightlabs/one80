@@ -60,6 +60,7 @@ MEDIASYNC = {
     'AWS_PREFIX': "one80/static",
     'DOCTYPE': 'xhtml',
     'CACHE_BUSTER': datetime.datetime.now().strftime('%s'), #only ok with 1 web head!!
+    'SERVE_REMOTE': True,
 }
 
 # List of callables that know how to import templates from various sources.

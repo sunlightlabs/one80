@@ -5,8 +5,10 @@ from one80.auth.models import UserProfile
 
 
 class UserProfileForm(forms.ModelForm):
-    phone = USPhoneNumberField(required=False)
-    email = forms.EmailField(required=False)
+    phone = USPhoneNumberField(required=False,
+                               widget=forms.TextInput(attrs={'placeholder': '202-555-1234'}))
+    email = forms.EmailField(required=False,
+                             widget=forms.TextInput(attrs={'placeholder': 'person@example.com'}))
 
     class Meta:
         model = UserProfile

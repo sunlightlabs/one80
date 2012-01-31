@@ -1,31 +1,16 @@
 {% extends "base.html" %}
 {% load media photo_tags %}
 
+{% block title %}{{ hearing.title }} :: {{ block.super }}{% endblock %}
 {% block css %}
     <link rel="stylesheet" href="{% media_url 'css/annotation.css' %}" type="text/css"></link>
 {% endblock %}
 
 {% block js %}
-    <script src="{% media_url 'js/jquery-ui-1.8.15.min.js' %}" type="text/javascript"></script>
-    <script src="{% media_url 'js/jquery.annotate.js' %}" type="text/javascript"></script>
     <script>
         (function($, undefined){
-            $(function(){
-                // domready stuff here
-                $('.content ul.tagged a').hover(function(){
-                    $('.image-annotate-canvas').mouseover()
-                        .find('.image-annotate-area[data-id='+$(this).attr('data-id') + ']').mouseover();
-                }, function(){
-                    $('.image-annotate-canvas')
-                        .find('.image-annotate-area[data-id='+$(this).attr('data-id') + ']').mouseout()
-                        .end()
-                        .mouseout();
-                }).not('.delete, .approve').click(function(e){
-                    e.preventDefault();
-                });
-            });
             $(window).load(function(){
-                $('img.full').each(function(){
+                $('img#img_gallery').each(function(){
                     var width = $(this).width();
                     $(this).annotateImage({
                         editable: {{ request.user.is_authenticated|lower }},
@@ -39,45 +24,81 @@
     </script>
 {% endblock %}
 
+{% block contentwrapid %}main_1col{% endblock %}
+{% block contentid %}wrapper_img_gallery{% endblock %}
+{% block contentclass %}{% endblock %}
 {% block content %}
-    <div class="hearing-title{% if not hearing.is_public %} unpublished{% endif %}">
-        <h2><a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a></h2> a hearing of the <span class="committee">{{ hearing.committee.name }}</span></p>
-    </div>
+<div id="banner_gallery" role="banner">
 
-    <div class="photo-viewer">
-        {% if user.is_anonymous %}
-        <div class="prompt-for-login"><a href="{% url login %}">Log in to add notes</a></div>
+    <!-- #h2_hearing and #span_hearing must be generated to match the photograph -->
+
+    <h2 id="h2_hearing">{{ hearing.title }}</h2>
+    <!-- <a href="{% url hearing_detail hearing.slug %}"> --><span id="span_hearing" class="h2_sub">a hearing of the {{ hearing.committee.name}}</span><!-- </a> -->
+</div>
+<img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
+<a href="#" id="image_annotate-add" class="replace">Tag This Photo!</a>
+{% endblock content %}
+
+{% block secondary %}
+<section class="list_col-left">
+    <h3>Appearing in this photo...</h3>
+    <ol id="img_gallery_tagged" class="list_columns tagged">
+        {% for annot in annotations %}
+        <li><a href="{{ annot.url }}" data-id={{ annot.id }}>{{ annot }}</a> {% annotation_buttons annot %}
+            <span class="list_title">{{ annot.title }}, </span><span class="list_employer">{{ annot.organization }}</span>
+        </li>
+        {% empty %}
+        <li>No tags yet. Little help?</li>
+        {% endfor %}
+    </ol>
+    {# <span class="list_view-all"><a href="#">View All Appearances >></a></span> #}
+</section>
+
+<section id="carousel_gallery" role="complementary">
+    <h3>More Photos in this Hearing</h3>
+    <div id="carousel_wrapper" class="box">
+        {% if previous_photo %}
+        <a id="arrow_prev" class="replace" href="{% url photo_detail hearing.slug previous_photo.pk %}" title="previous">previous</a>
+        {% else %}
+        <a href="#" id="arrow_prev" class="none"></a>
         {% endif %}
-        <div class="container">
-            <img src="{{ fullsize.image.url }}" class="full">
-        </div>
+        <ol>
+            {% if previous_photo %}
+            <li>
+                <a href="{% url photo_detail hearing.slug previous_photo.pk %}" title="hearing page">
+                    <img class="tagged_thumbnails-hrz" src="{% getsize previous_photo 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
+                    <span class="recent_hearings">Previous photo</span>
+                </a>
+                <span class="hearing-tags">({{ previous_photo.annotations.published.count }} people identified)</span>
+            </li>
+            {% else %}
+            <li>
+                <img class="tagged_thumbnails-hrz" src="{% media_url %}/images/no_photo_thumb.jpg" alt="no photo to show" />
+                <span class="recent_hearings"><a href="#" title="hearing page">You are at the first photo</a></span>
+            </li>
+            {% endif %}
+            {% if next_photo %}
+            <li>
+                <a href="{% url photo_detail hearing.slug next_photo.pk %}" class="recent_hearings" title="hearing page">
+                    <img class="tagged_thumbnails-hrz" src="{% getsize next_photo 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
+                    <span class="recent_hearings">Next Photo</span>
+                </a>
+                <span class="hearing-date">({{ next_photo.annotations.published.count }} people identified)</span>
+            </li>
+            {% else %}
+            <li>
+                <img class="tagged_thumbnails-hrz" src="{% media_url %}/images/no_photo_thumb.jpg" alt="no photo to show" />
+                <span class="recent_hearings"><a href="#" title="hearing page">You are at the last photo</a></span>
+            </li>
+            {% endif %}
+        </ol>
+        {% if next_photo %}
+        <a id="arrow_fw" class="replace" href="{% url photo_detail hearing.slug next_photo.pk %}" title="forward">forward</a>
+        {% else %}
+        <a href="#" id="arrow_fw" class="none"></a>
+        {% endif %}
+        <div class="clear"></div>
     </div>
-
-    <div class="container">
-        <div class="content">
-            <h3>In this photo...</h3>
-            <ul class="tagged">
-                {% for annot in annotations %}
-                    <li>
-                        <a href="{{ annot.url }}" data-id={{ annot.id }}>{{ annot }}</a> {% annotation_buttons annot %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="sidebar">
-            <div class="photo-viewer-nav">
-                {% if previous_photo %}
-                    <a href="{% url photo_detail hearing.slug previous_photo.pk %}" class="previous" title="prevous hearing photo"><img src="{% getsize previous_photo 150 99 %}"></a>
-                {% else %}
-                    <div class="placeholder"></div>
-                {% endif %}
-                {% if next_photo %}
-                    <a href="{% url photo_detail hearing.slug next_photo.pk %}" class="next" title="next hearing photo"><img src="{% getsize next_photo 150 99 %}"></a>
-                {% else %}
-                    <div class="placeholder"></div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-{% endblock %}
+</section>
+<div class="clear"></div>
+{% endblock secondary %}

@@ -119,12 +119,12 @@ class Size(models.Model):
         return annots
 
     def annotations_as_user(self, user):
-
         annots = []
         for annot in self.photo.annotations.published(user):
             annots.append(annot.to_dict(self.width, self.height, user))
 
         return annots
+
 
 class AnnotationManager(models.Manager):
     use_for_related_fields = True
@@ -209,6 +209,7 @@ class Annotation(models.Model):
     @property
     def hearing(self):
         return self.photo.hearing
+
 
     def area(self, img_width, img_height):
 

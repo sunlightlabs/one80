@@ -1,0 +1,7 @@
+{{ object.name }}
+{{ object.chamber }}
+{% comment %}
+{% for hearing in object.hearings.items %}
+{{ hearing.name }}
+{% endfor %}
+{% endcomment %}

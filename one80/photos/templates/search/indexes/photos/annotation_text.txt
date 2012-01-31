@@ -1,0 +1,4 @@
+{{ object.name }}
+{{ object.title }}
+{{ object.organization }}
+{{ object.hearing.title }}

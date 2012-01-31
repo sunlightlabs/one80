@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load media one80_tags repl %}
+
+{% block title %}{{ person.name }} :: {{ block.super }}{% endblock %}
+
+{% block contentwrapid %}main_1col{% endblock %}
+{% block contentid %}main_column-wrapper{% endblock %}
+{% block contentclass %}margin_1col{% endblock %}
+{% block content %}
+<h2 id="h2_name">{{ person.name }}</h2>
+{% if person.title %}<span id="h2_title">{{ person.title }},</span>{% endif %}
+{% if person.organization %}<span id="h2_company">{{ person.organization }}</span>{% endif %}
+{% if person.url %}<p>{{ person.url|link_if:person.url }}</p>{% endif %}
+
+{% if recent_hearings %}
+<h3>Recent Appearances</h3>
+<ol id="list_2up">
+    {% for hearing in recent_hearings %}
+    <li class="list_columns2">
+        <a href="{% url hearing_detail hearing.slug %}" class="list_hearing" title="hearing page">{{ hearing.title }}</a>
+        <span class="committee-sm"><a href="{% url committee_detail hearing.committee.slug %}" title="committee page">{{ hearing.committee.name }}</a></span>
+    </li>
+    {% endfor %}
+</ol>
+{% endif %}
+{% endblock content %}
+
+{% block secondary %}
+{% if person.annotations %}
+<section id="carousel_attendee" role="complementary">
+    <h3>Tags of {{ person.name }}</h3>
+    <div id="carousel_wrapper2" class="box">
+        <a href="#" id="arrow_prev" class="replace" title="previous">previous</a>
+        <ol>
+            {% for tag in person.annotations.all %}
+            <li class="recent_hearings">
+                <a href="{% url hearing_detail tag.photo.hearing.slug %}" title="hearing page">
+                    <img src="{{ tag.thumbnail.url }}" alt="a small photo of {{ tag.name }}" class="tagged_thumbnails-md" /><br/>
+                    <span>{{ tag.hearing.title }}</span>
+                </a>
+                <span class="hearing-date">({{ tag.published_date|date:"n/j/Y" }})</span>
+            </li>
+            {% endfor %}
+        </ol>
+        <a id="arrow_fw" class="replace" href="#" title="forward">forward</a>
+    </div>
+</section>
+{% endif %}
+{% endblock secondary %}

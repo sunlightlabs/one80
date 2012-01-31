@@ -1,0 +1,13 @@
+{{ object.title }}
+{{ object.chamber }}
+{{ object.description }}
+{{ object.start_datetime }}
+{{ object.location }}
+{{ object.committee }}
+{% comment %}
+{% for photo in object.photos.items %}
+{% for annot in photo.annotations.items %}
+{{ annot.first_name }} {{ annot.last_name }} {{ annot.organization }}
+{% endfor %}
+{% endfor %}
+{% endcomment %}

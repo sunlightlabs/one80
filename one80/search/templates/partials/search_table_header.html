@@ -1,0 +1,43 @@
+{% if result_type == 'annotations' %}
+<colgroup class="long" span="1"></colgroup>
+<colgroup class="long" span="1"></colgroup>
+<colgroup span="1"></colgroup>
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Hearing</th>
+        <th>Date</th>
+    </tr>
+</thead>
+{% endif %}
+{% if result_type == 'people' %}
+<colgroup class="long" span="1"></colgroup>
+<colgroup span="2"></colgroup>
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Employer</th>
+    </tr>
+</thead>
+{% endif %}
+{% if result_type == 'hearings' %}
+<colgroup class="long" span="1"></colgroup>
+<colgroup class="long" span="1"></colgroup>
+<colgroup span="1"></colgroup>
+<thead>
+    <tr>
+        <th>Hearing Name</th>
+        <th>Sponsoring Committee</th>
+        <th>Date</th>
+    </tr>
+</thead>
+{% endif %}
+{% if result_type == 'committees' %}
+<thead>
+    <tr>
+        <th>Committee Name</th>
+        <th>Chamber</th>
+    </tr>
+</thead>
+{% endif %}

@@ -1,0 +1,7 @@
+{{ object.name }}
+{{ object.position }}
+{% comment %}
+{% for key, val in extra.items %}
+{{ key }} {{ val }}
+{% endfor %}
+{% endcomment %}

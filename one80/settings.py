@@ -63,6 +63,19 @@ MEDIASYNC = {
     'DOCTYPE': 'xhtml',
     'CACHE_BUSTER': datetime.datetime.now().strftime('%s'), #only ok with 1 web head!!
     'SERVE_REMOTE': True,
+    'JOINED': {
+        'css/joined.css': [
+            'css/style.css',
+            'css/annotation.css',
+        ],
+        'js/joined.js': [
+            'js/vendor/jquery.min.js',
+            'js/vendor/jquery-ui.min.js',
+            'js/vendor/jquery.annotate.js',
+            'js/vendor/moment.js',
+            'js/app.js',
+        ],
+    },
 }
 
 # List of callables that know how to import templates from various sources.
@@ -112,11 +125,15 @@ INSTALLED_APPS = (
     'mediasync',
     'social_auth',
     'south',
+    # 'whoosh',
+    'haystack',
     'one80',
     'one80.auth',
     'one80.committees',
     'one80.people',
     'one80.photos',
+    'one80.search',
+    'template_repl',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -128,6 +145,11 @@ LOGOUT_URL = '/logout/'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email',]
 COMPLETE_PROFILE_MESSAGE = 'You\'re almost done, we just need an email address or phone number to complete your profile.'
 ADMIN_COMPLETE_PROFILE_MESSAGE = 'Your profile is not complete. Go here to add an email address or phone nubmer.'
+
+# search
+HAYSTACK_SITECONF = 'one80.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'xapian'
+HAYSTACK_XAPIAN_PATH = '%s/data/xapian/one80_index' % PROJECT_ROOT
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,

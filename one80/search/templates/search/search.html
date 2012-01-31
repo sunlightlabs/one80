@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load media search_tags repl %}
+
+{% block title %}Search Results :: {{ block.super }}{% endblock %}
+
+{% block contentwrapid %}main_1col{% endblock %}
+{% block contentclass %}margin_1col{% endblock %}
+
+{% block content %}
+<h2 class="h2_internal">Matching results for: <span id="h2_results">{{ query|escape }}</span></h2>
+{% for result_type, results in facet_results.items %}
+<div class="table_wrapper">
+    <h3>Matching {{ result_type|search_display_name|title }} <span class="nmbr_results">{% templatetag openbrace %}{{ results.count }}{% templatetag closebrace %}</span></h3>
+    <table id="table_{{ result_type|search_display_name }}" class="tables">
+        {% include 'partials/search_table_header.html' %}
+        <tbody>
+            {% for result in results.objects %}
+            {% include 'partials/search_result.html' %}
+            {% empty %}
+            <tr>
+                <td colspan="3">No matches found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <span class="list_view-all"><a href="{% url narrowed_search result_type %}?q={{ query|urlencode }}">View More {{ result_type|search_display_name|title }} &raquo;</a></span>
+</div>
+{% empty %}
+<div class="table_wrapper">
+    <p>No matches found.</p>
+</div>
+{% endfor %}
+{% endblock content %}

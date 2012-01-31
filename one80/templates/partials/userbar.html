@@ -1,16 +1,11 @@
-<hgroup id="userbar">
-    {% with request.user as user %}
-
-    {% if user.is_authenticated %}
-        <a href="{% url profile %}" class="avatar"><img src="{{ user.profile.avatar }}" alt="Avatar for" height="16" /></a>
-        <a href="{% url profile %}">{{ user.username }}</a>
-        {% if user.is_staff %}
-            <a href="{% url admin:index %}">Admin</a>
-        {% endif %}
-        <a href="{% url logout %}">Log out</a>
-    {% else %}
-        <a href="{% url login %}">Log in</a>
+{% with request.user as user %}
+{% if user.is_authenticated %}
+    <li id="link_account"><a class="replace" href="{% url profile %}" title="account settings">account settings</a></li>
+    {% if user.is_staff %}
+    <li id="admin"><a href="{% url admin:index %}" class="replace">admin</a></li>
     {% endif %}
-
-    {% endwith %}
-</hgroup>
+    <li id="link_logout"><a href="{% url logout %}">logout {{ user.username }}</a></li>
+{% else %}
+    <li id="link_login"><a href="{% url login %}">sign up or login</a></li>
+{% endif %}
+{% endwith %}

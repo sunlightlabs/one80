@@ -20,7 +20,8 @@ class Committee(models.Model):
 
     @property
     def chamber_name(self):
-        return [chamber[1] for chamber in CHAMBERS if chamber[0] == self.chamber][0]
+        return self.get_chamber_display()
+
 
 class HearingManager(models.Manager):
     use_for_related_fields = True

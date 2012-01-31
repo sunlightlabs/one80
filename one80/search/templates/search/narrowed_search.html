@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load media search_tags %}
+
+{% block title %}Search Results :: {{ result_type|search_display_name|title }} :: {{ block.super }}{% endblock %}
+
+{% block contentwrapid %}main_1col{% endblock %}
+{% block contentclass %}margin_1col{% endblock %}
+
+{% block content %}
+<h2 class="h2_internal">All {{ result_type|search_display_name }} for: <span id="h2_results">{{ query|escape }}</span></h2>
+
+<div class="table_wrapper">
+    <table id="table_{{ result_type|search_display_name }}" class="tables">
+        {% include 'partials/search_table_header.html' %}
+        <tbody>
+            {% for result in page.object_list %}
+            {% include 'partials/search_result.html' %}
+            {% empty %}
+            <tr>
+                <td colspan="3">No matches found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

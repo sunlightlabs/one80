@@ -24,7 +24,7 @@ def photo_detail(request, slug, photo_id):
     context = {
         'hearing': hearing,
         'photo': photo,
-        'fullsize': photo.get_size(1000),
+        'fullsize': photo.get_size(902),
         'annotations': photo.annotations.published(request.user),
         'previous_photo': previous_photo,
         'next_photo': next_photo,
@@ -33,7 +33,7 @@ def photo_detail(request, slug, photo_id):
 
 def photo_annotations(request, slug, photo_id):
     '''Handles all photo annotation CRUD operations'''
-    size = int(request.GET.get('size', 1000))
+    size = int(request.GET.get('size', 902))
     action = request.GET.get('action', 'get')
     hearing = get_object_or_404(Hearing, slug=slug)
     try:

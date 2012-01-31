@@ -1,9 +1,45 @@
 {% extends 'base.html' %}
+{% load media %}
 
+{% block js %}
+{{ block.super }}
+{% js js/vendor/moment.js %}
+<script type="text/javascript">
+(function($){
+    window.one80 || (one80 = {})
+    one80.timeNames = {
+        'Morning':[0, 11],
+        'Afternoon':[12, 17],
+        'Evening':[18, 23],
+    }
+    var hours = moment().hours();
+    $.each(one80.timeNames, function(i, range){
+        var t = one80.timeNames[i]
+        if(hours >= t[0] && hours <= t[1]){
+            one80.timeName = i;
+            return false;
+        }
+    });
+    $(function(){
+        $('span.timename').html('Good ' + one80.timeName);
+    });
+})(jQuery);
+</script>
+{% endblock js %}
+{% block contentwrapid %}main_1col{% endblock %}
+{% block contentclass %}margin_1col{% endblock %}
 {% block content %}
-<form method="post">
+<h2 class="h2_internal"><span class="timename">Hello</span>, {{ user.username }}!</h2>
+<h3>Stay Connected!</h3>
+<p id="p_internal2">
+    By providing your email address or mobile number, you will help us
+    contact you in case there are questions or problems with one of your tags.
+</p>
+<form id="form_account" method="post">
     {% csrf_token %}
+    <ul>
     {{ form.as_ul }}
-    <input type="submit" value="submit" />
+    </ul>
+    <button id="button_update" class="replace">update</button>
 </form>
 {% endblock content %}

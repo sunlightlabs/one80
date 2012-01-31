@@ -2,6 +2,7 @@ Django==1.3
 PIL
 django-debug-toolbar
 django-extensions
+django-haystack
 django-mediasync>=2.2.0
 django-social-auth
 gunicorn==0.12.0
@@ -11,6 +12,8 @@ python-dateutil==1.5
 python-linkedin
 requests
 south
+# whoosh
+xapian-haystack
 yql
 git+https://github.com/sunlightlabs/python-transparencydata.git
 git+https://github.com/dandrinkard/python-inboxinfluence.git

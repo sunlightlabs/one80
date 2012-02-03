@@ -80,6 +80,14 @@ button {  width: auto; overflow: visible; }
     clear: both;
 }
 
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
 .replace {
     text-indent: -9999em;
     display: block;
@@ -138,6 +146,10 @@ body {
     border-color:rgba(163,148,143,0.5);
     border-collapse: separate;
 }
+.tables .right {
+    text-align: right;
+    padding-right: 1em;
+}
 
 .mid {
     width: 35%;
@@ -183,7 +195,7 @@ h1 a {
 }
 
 #header_nav {
-    width: 261px;
+/*    width: 261px;*/
     padding: 22px 0 0 0;
     float: right;
 }
@@ -299,6 +311,7 @@ input::-webkit-input-placeholder {
 #main_2col, #main_1col {
     margin: 10px auto 0;
     padding: 33px 25px 50px;
+    position:relative;
 }
 
 #main_2col {
@@ -455,11 +468,23 @@ w/the identical ones used in #banner_feature a:, Chrome didn't like it*/
     border: 4px solid #000;
 }
 
+.feature-link {
+    display:block;
+    width:670px;
+    height:400px;
+    position:absolute;
+    left:25px;
+    top:35px;
+    z-index:2;
+
+}
+
 #wrapper_img_gallery {
     width: 902px;
     height: 539px;
     margin: 0 0 16px 0;
     border: 4px solid #000;
+    position:relative;
 }
 
 #img_gallery {
@@ -483,9 +508,10 @@ w/the identical ones used in #banner_feature a:, Chrome didn't like it*/
     text-transform: uppercase;
 }
 
-#banner_callout, #image_annotate-add {
+#banner_callout, #image-annotate-add {
     width: 161px;
     height: 31px;
+    text-indent:-9999px;
     background: url('../images/tag-this-photo.png') top left no-repeat;
     position: absolute;
     z-index: 5;
@@ -495,8 +521,10 @@ w/the identical ones used in #banner_feature a:, Chrome didn't like it*/
     margin: -83px 0 0 -18px;
 }
 
-#image_annotate-add {
-    margin: -50px 0 0 -18px;
+body #wrapper_img_gallery #image-annotate-add {
+    top:auto;
+    bottom:10px;
+    left:-18px;
 }
 
 .list_col-wrapper {
@@ -746,6 +774,10 @@ h3 {
     margin: 10px 0 25px 0;
 }
 
+#p_internal3 {
+    margin: 0 44px 0 0;
+}
+
 #h3_account {
     margin: 35px 0 0 0;
 }
@@ -886,6 +918,42 @@ h3 {
 
 .col_sort-push {
     padding-left: 8px;
+}
+
+#photo_grid {
+    margin-top: 30px;
+}
+
+#photo_grid li {
+    width: 251px;
+    margin: 0 40px 40px 0;
+    text-align: center;
+    float: left;
+}
+
+.grid_names, .grid_tagged {
+    width: 245px;
+    font-family: "futura-pt", "Helvetica", Arial, sans-serif;
+    font-size: 18px;
+    margin: 5px 0 7px;
+    display: block;
+}
+
+.grid_names {
+    font-weight: 500;
+    padding-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.grid_thumbnails {
+    border: 4px #000 solid;
+}
+
+.grid_sub {
+    font-size: 14px;
+    display: block;
 }
 
 #subnav {

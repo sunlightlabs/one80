@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load one80_tags leaderboard_tags %}
+
+{% block title %}Leaderboard :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2 class="h2_internal">The Leaderboard</h2>
+
+<div class="table_wrapper">
+    <table id="table_leaderboard" class="tables">
+        <colgroup span="1"></colgroup>
+        <colgroup class="long" span="1"></colgroup>
+        <colgroup span="1"></colgroup>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Person</th>
+                <th>Appearances</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leader in leaders %}
+            {% with forloop.counter as i %}
+            <tr>
+                <td class="right">{% unique_rank i %}</td>
+                <td><a href="{% url person_detail leader.slug %}">
+                    {{ leader.name }}
+                    {% if leader.position %} -
+                    <span class="position">{{ leader.position }}</span>
+                    {% endif %}
+                    </a>
+                </td>
+                <td class="right">
+                    {{ leader.num_tags }}
+                </td>
+            </tr>
+            {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

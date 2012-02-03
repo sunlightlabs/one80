@@ -1,6 +1,21 @@
 /// <reference path="jquery-1.2.6-vsdoc.js" />
 (function($) {
 
+    $.deparam || ($.deparam = function(qs) {
+      var params, pieces;
+      params = {};
+      if (!qs) {
+        return params;
+      }
+      pieces = qs.split(/[&=]/);
+      $.each(pieces, function(idx, val) {
+        if (idx % 2) {
+          return params[pieces[idx - 1]] = val;
+        }
+      });
+      return params;
+    });
+
     $.fn.annotateImage = function(options) {
         /// <summary>
         ///   Creates annotations on the given image.
@@ -21,7 +36,10 @@
         this.notes = opts.notes;
 
         // Add the canvas
-        this.canvas = $('<div class="image-annotate-canvas"><div class="image-annotate-view"></div><div class="image-annotate-edit"><div class="image-annotate-edit-area"></div></div></div>');
+        this.canvas = $('<div class="image-annotate-canvas">\
+                           <div class="image-annotate-view"></div>\
+                           <div class="image-annotate-edit"><div class="image-annotate-edit-area"></div></div>\
+                         </div>');
         this.canvas.children('.image-annotate-edit').hide();
         this.canvas.children('.image-annotate-view').hide();
         this.image.after(this.canvas);
@@ -36,16 +54,16 @@
         // Add the behavior: hide/show the notes when hovering the picture
         this.canvas.hover(function() {
             if ($(this).children('.image-annotate-edit').css('display') == 'none') {
-                $(this).children('.image-annotate-view').show();
+                $(this).children('.image-annotate-view').stop().show();
             }
         }, function() {
-            $(this).children('.image-annotate-view').hide();
+            $(this).children('.image-annotate-view').stop().hide();
         });
 
         this.canvas.children('.image-annotate-view').hover(function() {
-            $(this).show();
+            $(this).stop().show();
         }, function() {
-            $(this).hide();
+            $(this).stop().hide();
         });
 
         // load the notes
@@ -58,8 +76,15 @@
         // Add the "Add a note" button
         if (this.editable) {
             this.button = $('<a class="image-annotate-add" id="image-annotate-add" href="#">Add Note</a>');
-            this.button.click(function() {
-                $.fn.annotateImage.add(image);
+            this.button.click(function(evt) {
+                evt.preventDefault();
+                var opts = {}
+                if($(evt.target).hasClass('image-annotate-view')){
+                    opts.left = (evt.layerX || evt.offsetX) - 30;
+                    opts.top = (evt.layerY || evt.offsetY) - 30;
+                }
+                var editable = new $.fn.annotateEdit(image, null, opts);
+                $.fn.annotateImage.add(image, editable);
             });
             this.canvas.after(this.button);
         }
@@ -122,7 +147,7 @@
         return now.getTime();
     };
 
-    $.fn.annotateImage.add = function(image) {
+    $.fn.annotateImage.add = function(image, editable) {
         /// <summary>
         ///   Adds a note to the image.
         /// </summary>
@@ -130,7 +155,9 @@
             image.mode = 'edit';
 
             // Create/prepare the editable note elements
-            var editable = new $.fn.annotateEdit(image);
+            if(!editable){
+              var editable = new $.fn.annotateEdit(image);
+            }
 
             $.fn.annotateImage.createSaveButton(editable, image);
             $.fn.annotateImage.createCancelButton(editable, image);
@@ -141,19 +168,12 @@
         /// <summary>
         ///   Creates a Save button on the editable note.
         /// </summary>
-        var ok = $('<a class="image-annotate-edit-ok">OK</a>');
+        var ok = $('<button class="replace" id="image-annotate-edit-ok"><span>OK</span></button>');
 
-        ok.click(function() {
+        ok.click(function(evt) {
+            evt.preventDefault();
             var form = $('#image-annotate-edit-form form');
             $.fn.annotateImage.appendPosition(form, editable);
-            // update editable.note
-            $.extend(editable.note, {
-              first_name: form.find('input[name=first]').eq(0).val(),
-              last_name: form.find('input[name=last]').eq(0).val(),
-              title: form.find('input[name=title]').eq(0).val(),
-              organization: form.find('input[name=org]').eq(0).val(),
-
-            });
 
             image.mode = 'view';
 
@@ -162,41 +182,41 @@
                 $.ajax({
                     url: image.saveUrl,
                     data: form.serialize(),
-                    error: function(e) { alert("An error occured saving that note.") },
+                    error: function(e) { alert("An error occured saving your note.") },
                     success: function(data) {
                       if (data.id != undefined) {
-                        editable.note.id = data.id;
-                        foo = editable;
+                        $.extend(editable.note, data);
+                        // Add to canvas
+                        if (!note) {
+                            editable.note.editable = true;
+                            note = new $.fn.annotateView(image, editable.note)
+                            image.notes.push(editable.note);
+                        }
+
+                        note.resetPosition(editable);
+
+                        editable.destroy();
+                        image.trigger('mouseenter');
                       }
                     },
                     dataType: "json"
                 });
             }
-
-            // Add to canvas
-            if (!note) {
-                editable.note.editable = true;
-                note = new $.fn.annotateView(image, editable.note)
-                image.notes.push(editable.note);
-            }
-
-            note.resetPosition(editable);
-
-            editable.destroy();
         });
-        editable.form.append(ok);
+        editable.form.find('form div.clear:last').before(ok);
     };
 
     $.fn.annotateImage.createCancelButton = function(editable, image) {
         /// <summary>
         ///   Creates a Cancel button on the editable note.
         /// </summary>
-        var cancel = $('<a class="image-annotate-edit-close">Cancel</a>');
-        cancel.click(function() {
+        var cancel = $('<button class="replace" id="image-annotate-edit-close"><span>Cancel</span></button>');
+        cancel.click(function(evt) {
+            evt.preventDefault()
             editable.destroy();
             image.mode = 'view';
         });
-        editable.form.append(cancel);
+        editable.form.find('form div.clear:last').before(cancel);
     };
 
     $.fn.annotateImage.saveAsHtml = function(image, target) {
@@ -219,7 +239,7 @@
         return '&lt;input type="hidden" name="' + name + '" value="' + value + '" /&gt;<br />';
     };
 
-    $.fn.annotateEdit = function(image, note) {
+    $.fn.annotateEdit = function(image, note, opts) {
         /// <summary>
         ///   Defines an editable annotation area.
         /// </summary>
@@ -230,10 +250,10 @@
         } else {
             var newNote = new Object();
             newNote.id = "new";
-            newNote.top = 30;
-            newNote.left = 30;
-            newNote.width = 30;
-            newNote.height = 30;
+            newNote.top = (opts && opts.top) || (this.image.height() - 60) / 2;
+            newNote.left = (opts && opts.left) || (this.image.width() - 60) / 2;
+            newNote.width = 60;
+            newNote.height = 60;
             newNote.first_name = "";
             newNote.last_name = "";
             newNote.organization = "";
@@ -250,26 +270,36 @@
         this.area.css('top', this.note.top + 'px');
 
         // Show the edition canvas and hide the view canvas
-        image.canvas.children('.image-annotate-view').hide();
+        image.canvas.children('.image-annotate-view').stop().hide();
         image.canvas.children('.image-annotate-edit').show();
 
         // Add the note (which we'll load with the form afterwards)
         var form = $('<div id="image-annotate-edit-form">\
-                        <p id="image-annotate-edit-form-header">Who is this?</p>\
                         <form>\
-                          <ul>\
-                          <li><label for="image-annotate-first">First name:</label><input type="text" id="image-annotate-first" name="first" value="' + this.note.first_name + '" /></li>\
-                          <li class="last"><label for="image-annotate-last">Last name:</label><input type="text" id="image-annotate-last" name="last" value="' + this.note.last_name + '" /></li>\
-                          <li><label for="image-annotate-title">Title:</label><input type="text" id="image-annotate-title" name="title" value="' + this.note.title + '" /></li>\
-                          <li class="last"><label for="image-annotate-org">Organization:</label><input type="text" id="image-annotate-org" name="org" value="' + this.note.organization + '" /></li>\
+                          <p id="image-annotate-edit-form-header">Who is this?</p>\
+                          <ul class="clearfix">\
+                          <li><label for="image-annotate-first">First name:</label>\
+                            <input type="text" class="required" id="image-annotate-first" placeholder="first name" name="first" value="' + this.note.first_name + '" />\
+                          </li>\
+                          <li class="last"><label for="image-annotate-last">Last name:</label>\
+                            <input type="text" class="required" id="image-annotate-last" placeholder="last name" name="last" value="' + this.note.last_name + '" />\
+                          </li>\
+                          <li><label for="image-annotate-title">Title:</label>\
+                            <input type="text" class="required" id="image-annotate-title" placeholder="title" name="title" value="' + this.note.title + '" />\
+                          </li>\
+                          <li class="last"><label for="image-annotate-org">Organization:</label>\
+                            <input type="text" class="required" id="image-annotate-org" placeholder="organization" name="org" value="' + this.note.organization + '" />\
+                          </li>\
                           </ul>\
+                          <input type="hidden" class="suggest-hint" value="" />\
+                          <div class="clear"></div>\
                         </form>\
                       </div>');
         this.form = form;
 
         $('body').append(this.form);
-        this.form.css('left', this.area.offset().left + 'px');
-        this.form.css('top', (parseInt(this.area.offset().top) + parseInt(this.area.height()) + 7) + 'px');
+        this.form.css('left', this.image.canvas.offset().left + this.note.left - 35);
+        this.form.css('top', this.image.canvas.offset().top + this.note.top + this.note.height + 5);
 
         // Set the area as a draggable/resizable element contained in the image canvas.
         // Would be better to use the containment option for resizable but buggy
@@ -320,7 +350,13 @@
         this.editable = (note.editable && image.editable);
 
         // Add the area
-        this.area = $('<div data-id="' + note.id + '" class="image-annotate-area' + (this.editable ? ' image-annotate-area-editable' : '') + '"><div>' + (note.url? '<a target="_blank" href="' + note.url + '"></a>': '') + '</div></div>');
+        this.area = $('<div data-id="' +
+                      note.id +
+                      '" class="image-annotate-area' +
+                      (this.editable ? ' image-annotate-area-editable' : '') +
+                      '"><div>' +
+                      (note.url? '<a target="_blank" href="' + note.url + '"></a>': '') +
+                      '</div></div>');
         if (!note.is_public)
           this.area.addClass('needs-approval');
         image.canvas.children('.image-annotate-view').prepend(this.area);
@@ -345,10 +381,13 @@
         // Edit a note feature
         if (this.editable) {
             var form = this;
-            this.area.click(function() {
+            this.area.click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 form.edit();
             });
         }
+        window.annot = this;
     };
 
     $.fn.annotateView.prototype.formatForm = function(note) {
@@ -357,7 +396,12 @@
         approval_class = ' needs-approval';
         approval_text = ' <span class="needs-approval">(Unapproved)</span>';
       }
-      return $('<div class="image-annotate-note' + approval_class + '"><span class="name">' + note.display_name + approval_text + '</span><span class="org">'+ note.position + '</span>' + ((note.url)? '<a href="' + note.url + '">' + note.url.split('/')[2] + '</a>' : '') + '</div>');
+      return $('<div class="image-annotate-note' + approval_class + '"><span class="name">' +
+               note.display_name + approval_text +
+               '</span><span class="org">'+
+               note.position + '</span>' +
+               ((note.url)? '<a href="' + note.url + '">' + note.url.split('/')[2] + '</a>' : '') +
+               '</div>');
       }
 
     $.fn.annotateView.prototype.setPosition = function() {
@@ -415,8 +459,9 @@
             $.fn.annotateImage.createSaveButton(editable, this.image, annotation);
 
             // Add the delete button
-            var del = $('<a class="image-annotate-edit-delete">Delete</a>');
-            del.click(function() {
+            var del = $('<button class="replace" id="image-annotate-edit-delete"><span>Delete</span></button>');
+            del.click(function(evt) {
+                evt.preventDefault();
                 var form = $('#image-annotate-edit-form form');
 
                 $.fn.annotateImage.appendPosition(form, editable)
@@ -433,7 +478,7 @@
                 editable.destroy();
                 annotation.destroy();
             });
-            editable.form.append(del);
+            editable.form.find('form div.clear:last').before(del);
 
             $.fn.annotateImage.createCancelButton(editable, this.image);
         }
@@ -451,7 +496,7 @@
         form.append(areaFields);
     }
 
-    $.fn.annotateView.prototype.resetPosition = function(editable) {
+    $.fn.annotateView.prototype.resetPosition = function(editable) {;
         /// <summary>
         ///   Sets the position of an annotation.
         /// </summary>

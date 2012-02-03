@@ -5,21 +5,42 @@ from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify
 from jsonfield.fields import JSONField
 
+class PersonManager(models.Manager):
+    use_for_related_fields = True
+
+    def with_counts(qset, **kwargs):
+        min_tags = kwargs.get('min_tags', None)
+        qset = qset.extra(select={
+            'num_tags': '''SELECT COUNT(photos_annotation.id) AS num_tags
+                           FROM photos_annotation
+                           WHERE photos_annotation.is_public = 1
+                           AND photos_annotation.person_id = people_person.id
+                           '''
+            }).order_by('-num_tags')
+        if min_tags is not None:
+            qset = qset.extra(where=['num_tags >= %d' % min_tags])
+
+        return qset
+
 class Person(models.Model):
     slug = models.SlugField(max_length=50)
     first_name = models.CharField(max_length=50, blank=True, default='')
-    middle_name = models.CharField(max_length=50, blank=True, default='')
     last_name = models.CharField(max_length=50, blank=True, default='')
     organization = models.CharField(max_length=255, blank=True, default='')
     title = models.CharField(max_length=50, blank=True, default='')
     url = models.URLField(verify_exists=False, blank=True, default='')
     extra = JSONField(blank=True, default='{}', help_text='JSON string of extra data key/value pairs')
 
+    objects = PersonManager()
+
     class Meta:
         verbose_name_plural = 'people'
 
     def __unicode__(self):
-        return "%s, %s - %s at %s" % (self.last_name, self.first_name, self.title, self.organization)
+        try:
+            return "%s, %s - %s at %s" % (self.last_name, self.first_name, self.title, self.organization)
+        except:
+            return self.name()
 
     @property
     def name(self):
@@ -28,6 +49,20 @@ class Person(models.Model):
     @property
     def position(self):
         return "%s%s" % (self.title + ', ' if self.title else '', self.organization)
+
+    @property
+    def desc(self):
+        return self.__unicode__()
+
+    def to_suggest(self):
+        return {
+            'id': self.id,
+            'text': self.desc,
+            'first': self.first_name,
+            'last': self.last_name,
+            'org': self.organization,
+            'title': self.title,
+        }
 
 def ensure_unique_slug(sender, *args, **kwargs):
     instance = kwargs['instance']

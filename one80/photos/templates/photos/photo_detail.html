@@ -2,9 +2,6 @@
 {% load media photo_tags %}
 
 {% block title %}{{ hearing.title }} :: {{ block.super }}{% endblock %}
-{% block css %}
-    <link rel="stylesheet" href="{% media_url 'css/annotation.css' %}" type="text/css"></link>
-{% endblock %}
 
 {% block js %}
     <script>
@@ -19,12 +16,56 @@
                         deleteUrl: 'annotations.json?action=delete'
                     });
                 });
+
+                $('.image-annotate-view').click(function(evt){
+                    if($(evt.target).is('.image-annotate-view')){
+                        $('#image-annotate-add').trigger(evt);
+                    }
+                });
+
+                $('#image-annotate-add').each(function(){
+                    $('.image-annotate-view').css('cursor', 'pointer');
+                }).click(function(evt){
+                    setTimeout(function(){
+                        $('#image-annotate-edit-form input.suggest-hint').trigger('create.suggest');
+                    }, 100);
+                })
+
+                $('body').delegate('#image-annotate-edit-form input.suggest-hint', 'create.suggest', function(){
+                    var field = $(this)
+                    $(this).jsonSuggest({
+                        url: '/people/suggest.json',
+                        onSelect: function(item){
+                            var fields = field.parents('form').find('input.required');
+                            fields.filter('[name=first]').val(item.first);
+                            fields.filter('[name=last]').val(item.last);
+                            fields.filter('[name=title]').val(item['title']);
+                            fields.filter('[name=org]').val(item.org);
+                        },
+                        maxHeight: 120 });
+                });
+                $('body').delegate('#image-annotate-edit-form input.required', 'keyup', function(evt){
+                    var inputs = $(this).parents('form').find('input[type=text]'),
+                        values = [],
+                        suggestField = $(this).parents('form').find('input.suggest-hint').eq(0),
+                        orig = suggestField.val();
+                    $(inputs).each(function(){
+                        if($(this).val()){
+                            values.push($(this).val());
+                        }
+                    });
+                    suggestField.val(values.join(' '));
+                    if(evt.keyCode == 38 || evt.keyCode == 40 || evt.keyCode == 13){
+                        suggestField.trigger(evt);
+                    } else if(suggestField.val() != orig){
+                        suggestField.trigger('keyup');
+                    }
+                });
             });
         })(jQuery);
     </script>
 {% endblock %}
 
-{% block contentwrapid %}main_1col{% endblock %}
 {% block contentid %}wrapper_img_gallery{% endblock %}
 {% block contentclass %}{% endblock %}
 {% block content %}
@@ -44,7 +85,7 @@
     <h3>Appearing in this photo...</h3>
     <ol id="img_gallery_tagged" class="list_columns tagged">
         {% for annot in annotations %}
-        <li><a href="{{ annot.url }}" data-id={{ annot.id }}>{{ annot }}</a> {% annotation_buttons annot %}
+        <li><a href="{% if annot.person.slug %}{% url person_detail annot.person.slug %}{% else %}#{% endif %}" data-id={{ annot.id }}>{{ annot }}</a> {% annotation_buttons annot %}
             <span class="list_title">{{ annot.title }}, </span><span class="list_employer">{{ annot.organization }}</span>
         </li>
         {% empty %}
@@ -69,7 +110,7 @@
                     <img class="tagged_thumbnails-hrz" src="{% getsize previous_photo 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
                     <span class="recent_hearings">Previous photo</span>
                 </a>
-                <span class="hearing-tags">({{ previous_photo.annotations.published.count }} people identified)</span>
+                <span class="hearing-tags">{% templatetag openbrace %} {{ previous_photo.annotations.published.count }} tag{{ previous_photo.annotations.published.count|pluralize }} {% templatetag closebrace %}</span>
             </li>
             {% else %}
             <li>
@@ -83,7 +124,7 @@
                     <img class="tagged_thumbnails-hrz" src="{% getsize next_photo 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
                     <span class="recent_hearings">Next Photo</span>
                 </a>
-                <span class="hearing-date">({{ next_photo.annotations.published.count }} people identified)</span>
+                <span class="hearing-date">{% templatetag openbrace %} {{ next_photo.annotations.published.count }} tag{{ next_photo.annotations.published.count|pluralize }} {% templatetag closebrace %}</span>
             </li>
             {% else %}
             <li>

@@ -2,7 +2,7 @@
 {% if user.is_authenticated %}
     <li id="link_account"><a class="replace" href="{% url profile %}" title="account settings">account settings</a></li>
     {% if user.is_staff %}
-    <li id="admin"><a href="{% url admin:index %}" class="replace">admin</a></li>
+    <li id="admin"><a href="{% url admin:index %}">admin</a></li>
     {% endif %}
     <li id="link_logout"><a href="{% url logout %}">logout {{ user.username }}</a></li>
 {% else %}

@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block contentwrapid %}main_2col{% endblock %}
+{% block contentid %}main_column-wrapper{% endblock %}
+{% block contentclass %}float_2col{% endblock %}
 {% block content %}
 <div id="banner_feature" role="banner">
     <h2>Click. Tag. Identify.</h2>
@@ -14,6 +17,7 @@
 
 {% with latest_hearings.0 as hearing %}
 <img src="{{ featured_photo.image.url }}" alt="The audience at {{ hearing.title }}" id="img_feature" />
+<a href="{% url photo_detail hearing.slug featured_photo.photo.id %}" class="feature-link replace">Click to tag.</a>
 <div class="img_caption">figure 1. <span id="caption_hearing-name">{{ hearing.title }}</span> (taken <span id="caption_hearing-date">{{ hearing.start_datetime|date:"n/j/y"}}</span>)
 <a href="{% url photo_detail hearing.slug featured_photo.photo.id %}" id="banner_callout" class="replace">Tag This Photo!</a>
 </div>
@@ -44,16 +48,16 @@
 
 <section class="list_col-wrapper">
     <h3>Most Appearances</h3>
-    {% comment %}
     <ol class="list_columns">
         {% for leader in leaderboard %}
-        <li><a href="#">{{ leader.first_name }} {{ leader.last_name }}</a>
+        <li><a href="{% url person_detail leader.slug %}">{{ leader.name }} {% templatetag openbrace %}{{ leader.num_tags }}{% templatetag closebrace %}</a>
+            {% if leader.organization %}
             <span class="list_title">{{ leader.title }}, </span><span class="list_employer">{{ leader.organization }}</span>
+            {% endif %}
         </li>
         {% endfor %}
     </ol>
-    {% endcomment %}
-    <span class="list_view-all"><a href="#">View All Appearances &raquo;</a></span>
+    <span class="list_view-all"><a href="{% url leaderboard %}">View Full Leaderboard &raquo;</a></span>
 </section>
 {% endblock content %}
 

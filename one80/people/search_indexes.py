@@ -4,9 +4,10 @@ from haystack import site
 from one80.people.models import Person
 
 
-class PersonIndex(SearchIndex):
+class PersonIndex(RealTimeSearchIndex):
     text = CharField(document=True, use_template=True)
     result_type = CharField(faceted=True)
+    desc = CharField(model_attr='desc')
     name = CharField(model_attr='name')
     position = CharField(model_attr='position')
 

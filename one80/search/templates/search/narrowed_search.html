@@ -3,9 +3,6 @@
 
 {% block title %}Search Results :: {{ result_type|search_display_name|title }} :: {{ block.super }}{% endblock %}
 
-{% block contentwrapid %}main_1col{% endblock %}
-{% block contentclass %}margin_1col{% endblock %}
-
 {% block content %}
 <h2 class="h2_internal">All {{ result_type|search_display_name }} for: <span id="h2_results">{{ query|escape }}</span></h2>
 

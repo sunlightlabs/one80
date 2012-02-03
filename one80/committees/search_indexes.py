@@ -16,7 +16,7 @@ class CommitteeIndex(SearchIndex):
         return obj._meta.verbose_name_plural.lower()
 
     def prepare_hearings(self, obj):
-        return [hearing for hearing in obj.hearings.all()]
+        return [hearing for hearing in obj.hearings.published()]
 
     def index_queryset(self):
         return Committee.objects.all()
@@ -37,7 +37,7 @@ class HearingIndex(SearchIndex):
 
     def prepare_people(self, obj):
         return [annotation.name for annotation in chain.from_iterable([
-                    photo.annotations.all() for photo in obj.photos.all()
+                    photo.annotations.published() for photo in obj.photos.all()
                     ])]
 
     def index_queryset(self):

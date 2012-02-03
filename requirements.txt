@@ -12,8 +12,8 @@ python-dateutil==1.5
 python-linkedin
 requests
 south
-# whoosh
-xapian-haystack
+whoosh
+# xapian-haystack
 yql
 git+https://github.com/sunlightlabs/python-transparencydata.git
 git+https://github.com/dandrinkard/python-inboxinfluence.git

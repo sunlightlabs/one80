@@ -3,7 +3,8 @@ from haystack.forms import ModelSearchForm, FacetedSearchForm
 from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
 
-sqs = SearchQuerySet().facet('result_type')
+# sqs = SearchQuerySet().facet('result_type')
+sqs = SearchQuerySet()
 
 urlpatterns = patterns('one80.search.views',
     url(r'^$', 'search', {'searchqueryset': sqs}, name='search'),

@@ -1,9 +1,24 @@
+from django.conf import settings
+from django.core.paginator import Paginator, InvalidPage
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
 from one80.committees.models import Committee, Hearing
 from one80.photos.models import Size
 
 def committee_list(request):
+    committee_list = Committee.objects.all()
+    paginator = Paginator(committee_list, settings.PAGINATE)
+    page = request.GET.get('page', 1)
+    try:
+        committees = paginator.page(page)
+    except InvalidPage:
+        raise Http404
+
+    context = {
+        'page': committees,
+    }
+
     return render(request, "committees/committee_list.html", context)
 
 def committee_detail(request, slug):
@@ -14,6 +29,18 @@ def committee_detail(request, slug):
     return render(request, "committees/committee_detail.html", context)
 
 def hearing_list(request):
+    hearing_list = Hearing.objects.all()
+    paginator = Paginator(hearing_list, settings.PAGINATE)
+    page = request.GET.get('page', 1)
+    try:
+        hearings = paginator.page(page)
+    except InvalidPage:
+        raise Http404
+
+    context = {
+        'page': hearings,
+    }
+
     return render(request, "committees/hearing_list.html", context)
 
 def hearing_detail(request, slug):

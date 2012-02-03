@@ -3,9 +3,6 @@
 
 {% block title %}Search Results :: {{ block.super }}{% endblock %}
 
-{% block contentwrapid %}main_1col{% endblock %}
-{% block contentclass %}margin_1col{% endblock %}
-
 {% block content %}
 <h2 class="h2_internal">Matching results for: <span id="h2_results">{{ query|escape }}</span></h2>
 {% for result_type, results in facet_results.items %}
@@ -23,8 +20,9 @@
             {% endfor %}
         </tbody>
     </table>
-
+    {% if results.count > 5 %}
     <span class="list_view-all"><a href="{% url narrowed_search result_type %}?q={{ query|urlencode }}">View More {{ result_type|search_display_name|title }} &raquo;</a></span>
+    {% endif %}
 </div>
 {% empty %}
 <div class="table_wrapper">

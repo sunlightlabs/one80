@@ -5,8 +5,8 @@
 {{ object.location }}
 {{ object.committee }}
 {% comment %}
-{% for photo in object.photos.items %}
-{% for annot in photo.annotations.items %}
+{% for photo in object.photos %}
+{% for annot in photo.annotations.published %}
 {{ annot.first_name }} {{ annot.last_name }} {{ annot.organization }}
 {% endfor %}
 {% endfor %}

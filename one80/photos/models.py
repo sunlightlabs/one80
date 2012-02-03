@@ -6,7 +6,7 @@ import os
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save
 from django.template import Context
 from django.template.loader import get_template
 from PIL import Image
@@ -243,6 +243,10 @@ class Annotation(models.Model):
     def is_editable_by(self, user=None):
         if not user:
             return False
+
+        if user.is_superuser:
+            return True
+
         if (user.id == self.created_by.id and not self.is_public):
             return True
 
@@ -303,18 +307,11 @@ class Annotation(models.Model):
         self.thumbnail.save(self.get_filename(), ContentFile(bffr.getvalue()), save=False)
         bffr.close()
 
-def create_annotation_handler(sender, instance, created, *args, **kwargs):
-    if created:
-        from one80 import spellcheck
-        from one80 import Personify
-        try:
-            name = spellcheck("%s %s" % (instance.first_name, instance.last_name))
-            person_d = Personify(name).__dict__
-            extra = person_d.pop('extra')
-            url = person_d.pop('url')
-            instance.person = Person.objects.get_or_create(defaults={'extra': extra, 'url': url}, **person_d)[0]
-            instance.save()
-        except Exception as e:
-            print e
+def save_annotation_handler(sender, instance, *args, **kwargs):
+    if instance.is_public and not instance.person:
+        instance.person = Person.objects.get_or_create(first_name=instance.first_name,
+                                                       last_name=instance.last_name,
+                                                       title=instance.title,
+                                                       organization=instance.organization,)[0]
 
-post_save.connect(create_annotation_handler, sender=Annotation)
+pre_save.connect(save_annotation_handler, sender=Annotation)

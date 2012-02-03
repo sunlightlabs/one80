@@ -1,4 +1,5 @@
 *.pyc
-one80/data/*.db
+one80/data/*
+one80/media/*
 *.DS_Store
 local_settings.py

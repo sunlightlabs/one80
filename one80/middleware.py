@@ -27,7 +27,7 @@ class CompletedProfileMiddleware(object):
             except Resolver404:
                 return
 
-            if not complete:
+            if not complete and not request.path_info.startswith('/static') and not request.path_info.startswith('/media'):
                 # don't redirect if we're already on the profile page, or are logging out
                 if loc.url_name in ['profile', 'logout'] or loc.app_name == 'admin':
                     if loc.url_name == 'profile':

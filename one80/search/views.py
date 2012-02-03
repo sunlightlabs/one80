@@ -26,17 +26,12 @@ def search(request, template='search/search.html', load_all=True,
     else:
         form = form_class(searchqueryset=searchqueryset, load_all=load_all)
 
-    # only get faceted results if there were matches
     facet_results = {}
     if results:
-        facet_counts = results.facet_counts()['fields']['result_type']
-        for result_type in facet_counts:
-            if result_type[1] > 0:
-                facet_results[result_type[0]] = {
-                    'count': result_type[1],
-                    'objects': SearchQuerySet().filter(content=query,
-                                                       result_type__exact=result_type[0])[:int(results_per_page)],
-                }
+        for name in settings.FACET_FIELDS:
+            facet_sqs = results.filter(result_type__exact=name)
+            if facet_sqs.count():
+                facet_results[name] = {'count': facet_sqs.count(), 'objects': facet_sqs[:int(results_per_page)]}
 
     context = {
         'form': form,

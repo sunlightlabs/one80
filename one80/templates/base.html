@@ -56,7 +56,7 @@
         </header>
         {% endblock header %}
 
-        <div id="{% block contentwrapid %}main_2col{% endblock %}" class="{% block contentwrapclass %}matte{% endblock %}">
+        <div id="{% block contentwrapid %}main_1col{% endblock %}" class="{% block contentwrapclass %}matte{% endblock %}">
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -64,7 +64,7 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <div id="{% block contentid %}main_column-wrapper{% endblock %}" class="{% block contentclass %}float_2col{% endblock %}" role="main">
+            <div id="{% block contentid %}main_column-wrapper{% endblock %}" class="{% block contentclass %}margin_1col{% endblock %}" role="main">
                 {% block content %}{% endblock %}
             </div>
 

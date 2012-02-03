@@ -1,7 +1,7 @@
 {{ object.name }}
 {{ object.chamber }}
 {% comment %}
-{% for hearing in object.hearings.items %}
+{% for hearing in object.hearings.published %}
 {{ hearing.name }}
 {% endfor %}
 {% endcomment %}

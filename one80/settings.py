@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import sys
+import xapian
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -71,8 +72,10 @@ MEDIASYNC = {
         'js/joined.js': [
             'js/vendor/jquery.min.js',
             'js/vendor/jquery-ui.min.js',
-            'js/vendor/jquery.annotate.js',
+            'js/vendor/jquery.annotate.custom.js',
+            'js/vendor/jquery.jsonSuggest-2.js',
             'js/vendor/moment.js',
+            'js/vendor/jquery.mouseover-gallery.js',
             'js/app.js',
         ],
     },
@@ -144,12 +147,27 @@ LOGIN_REDIRECT_URL = '/login/complete/'
 LOGOUT_URL = '/logout/'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email',]
 COMPLETE_PROFILE_MESSAGE = 'You\'re almost done, we just need an email address or phone number to complete your profile.'
-ADMIN_COMPLETE_PROFILE_MESSAGE = 'Your profile is not complete. Go here to add an email address or phone nubmer.'
+ADMIN_COMPLETE_PROFILE_MESSAGE = 'Your profile is not complete. Go here to add an email address or phone number.'
+
+PAGINATE = 15
 
 # search
+FACET_FIELDS = ('annotations', 'hearings', 'committees', 'people')
 HAYSTACK_SITECONF = 'one80.search_sites'
-HAYSTACK_SEARCH_ENGINE = 'xapian'
-HAYSTACK_XAPIAN_PATH = '%s/data/xapian/one80_index' % PROJECT_ROOT
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_WHOOSH_PATH = '%s/data/whoosh/one80_index' % PROJECT_ROOT
+# HAYSTACK_XAPIAN_PATH = '%s/data/xapian/one80_index' % PROJECT_ROOT
+# HAYSTACK_XAPIAN_FLAGS = (
+#     xapian.QueryParser.FLAG_PHRASE |
+#     xapian.QueryParser.FLAG_BOOLEAN |
+#     xapian.QueryParser.FLAG_LOVEHATE |
+#     xapian.QueryParser.FLAG_WILDCARD |
+#     xapian.QueryParser.FLAG_PURE_NOT |
+#     xapian.QueryParser.FLAG_PARTIAL
+# )
+# HAYSTACK_SEARCH_ENGINE = 'solr'
+# HAYSTACK_SOLR_URL = 'http://localhost:8983/solr/one80'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = PAGINATE
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,

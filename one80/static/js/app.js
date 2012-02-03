@@ -38,9 +38,8 @@ jQuery.noConflict();
       $(this).toggleClass('toggled');
     });
 
-    // activate photo detail canvas
+    // activate photo detail canvas when links below are hovered
     $('#img_gallery_tagged a').hover(function(){
-      console.log('mosued')
         $('.image-annotate-canvas').mouseover()
             .find('.image-annotate-area[data-id='+$(this).attr('data-id') + ']').mouseover();
     }, function(){
@@ -48,9 +47,12 @@ jQuery.noConflict();
             .find('.image-annotate-area[data-id='+$(this).attr('data-id') + ']').mouseout()
             .end()
             .mouseout();
-    }).not('.delete, .approve').click(function(e){
-        e.preventDefault();
     });
+
+
+
+    // mouseover galleries
+    $('.image_previews').mouseoverGallery();
   });
 
 })(jQuery);

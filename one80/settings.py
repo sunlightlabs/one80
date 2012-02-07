@@ -171,7 +171,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # Finally, import local settings if they exist.
 try:
-    from local_settings import *
+    from one80.local_settings import *
 except ImportError:
     # this could be heroku, don't barf yet
     if 'LOCAL_SETTINGS' in os.environ.keys():

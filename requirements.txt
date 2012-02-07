@@ -14,8 +14,8 @@ requests
 south
 whoosh
 yql
-git+https://github.com/sunlightlabs/python-transparencydata.git
-git+https://github.com/dandrinkard/python-inboxinfluence.git
-git+https://github.com/dandrinkard/python-crunchbase.git
-git+https://github.com/liberation/django-jsonfield.git
+-e git+https://github.com/sunlightlabs/python-transparencydata.git#egg=python_transparencydata-dev
+-e git+https://github.com/dandrinkard/python-inboxinfluence.git#egg=python_inboxinfluence-dev
+-e git+https://github.com/dandrinkard/python-crunchbase.git#egg=python_crunchbase-dev
+-e git+https://github.com/liberation/django-jsonfield.git#egg=django_jsonfield-dev
 -e git+https://github.com/dandrinkard/django-postmark.git#egg=django_postmark-dev

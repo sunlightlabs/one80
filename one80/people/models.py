@@ -9,17 +9,16 @@ class PersonManager(models.Manager):
     use_for_related_fields = True
 
     def with_counts(qset, **kwargs):
-        min_tags = kwargs.get('min_tags', None)
+        min_tags = kwargs.get('min_tags', 0)
         qset = qset.extra(select={
             'num_tags': '''SELECT COUNT(photos_photo.hearing_id) AS num_tags
                            FROM photos_photo
                            LEFT JOIN photos_annotation ON(photos_photo.id = photos_annotation.photo_id)
                            WHERE photos_annotation.is_public = TRUE
                            AND photos_annotation.person_id = people_person.id
-                           '''
+                           AND num_tags >= %d
+                           ''' % min_tags
             }).order_by('-num_tags')
-        if min_tags is not None:
-            qset = qset.extra(where=['num_tags >= %d' % min_tags])
 
         return qset
 

@@ -20,7 +20,7 @@ class PersonManager(models.Manager):
                            AND photos_annotation.person_id = people_person.id
                            '''
                            },
-            where=['num_tags >= %d' % min_tags]
+            # where=['num_tags >= %d' % min_tags]
             ).order_by('-num_tags')
 
         return qset

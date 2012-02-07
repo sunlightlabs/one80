@@ -69,7 +69,7 @@
         <ol>
             {% for annot in latest_annotations %}
             <li>
-                <img src="{{ annot.thumbnail.url }}" alt="{{ annot.first_name }} {{ annot.last_name}}" class="tagged_thumbnails" />
+                <a href="{% url photo_detail annot.photo.hearing.slug annot.photo.id %}"><img src="{{ annot.thumbnail.url }}" alt="{{ annot.first_name }} {{ annot.last_name}}" class="tagged_thumbnails" /></a>
                 <h5 class="tagged_names"><a href="{% url photo_detail annot.photo.hearing.slug annot.photo.id %}">{{ annot.first_name }} {{ annot.last_name }}</a></h5>
                 {% if annot.title or annot.organization %}
                 <dl>

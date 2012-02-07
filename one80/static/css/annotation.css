@@ -165,7 +165,7 @@ body.logged-in #wrapper_img_gallery #image-annotate-add {
     background-position: 0 -25px;
 }
 .image-annotate-edit-area {
-    border 1px solid #e1ddd1;
+    border: 1px solid #e1ddd1;
     background: rgba(255,255,255,.15);
     cursor: move;
 

@@ -32,7 +32,7 @@ class Person(models.Model):
     organization = models.CharField(max_length=255, blank=True, default='')
     title = models.CharField(max_length=50, blank=True, default='')
     url = models.URLField(verify_exists=False, blank=True, default='')
-    extra = JSONField(blank=True, default='{}', help_text='JSON string of extra data key/value pairs')
+    extra = JSONField(blank=True, null=True, help_text='JSON string of extra data key/value pairs')
 
     objects = PersonManager()
 

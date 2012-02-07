@@ -15,7 +15,7 @@ def index(request):
         'latest_hearings': hearings[:10],
         'latest_annotations': Annotation.objects.published().select_related()[:3],
         'committees': Committee.objects.all().select_related(),
-        'featured_photo': hearings[0].photos.all()[0].sizes.all()[1],
+        'featured_photo': hearings[0].photos.all()[0],
         'leaderboard': Person.objects.with_counts(min_tags=1)[:5]
     }
 

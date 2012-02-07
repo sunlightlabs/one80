@@ -12,14 +12,15 @@ class PersonManager(models.Manager):
         min_tags = kwargs.get('min_tags', 0)
         qset = qset.extra(
             select={
-            'num_tags': '''SELECT COUNT(photos_photo.hearing_id) AS num_tags
+            'num_tags': '''SELECT COUNT(DISTINCT photos_photo.hearing_id) AS num_tags
                            FROM photos_photo
                            LEFT JOIN photos_annotation ON(photos_photo.id = photos_annotation.photo_id)
                            LEFT JOIN people_person ON(photos_annotation.person_id = people_person.id)
-                           WHERE photos_annotation.is_public = TRUE
+                           WHERE photos_annotation.is_public = %r
                            AND photos_annotation.person_id = people_person.id
                            '''
                            },
+            select_params=(True,),
             # where=['num_tags >= %d' % min_tags]
             ).order_by('-num_tags')
 

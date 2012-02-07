@@ -16,7 +16,7 @@ class PersonManager(models.Manager):
                            FROM photos_photo
                            LEFT JOIN photos_annotation ON(photos_photo.id = photos_annotation.photo_id)
                            LEFT JOIN people_person ON(photos_annotation.person_id = people_person.id)
-                           WHERE photos_annotation.is_public = %r
+                           WHERE photos_annotation.is_public = %s
                            AND photos_annotation.person_id = people_person.id
                            '''
                            },

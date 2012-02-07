@@ -159,7 +159,7 @@ class Annotation(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     organization = models.CharField(max_length=128, blank=True)
-    title = models.CharField(max_length=128, blank=True)
+    title = models.CharField(max_length=255, blank=True)
     url = models.URLField(verify_exists=True, blank=True)
 
     person = models.ForeignKey(Person, related_name='annotations', blank=True, null=True)

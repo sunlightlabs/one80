@@ -18,11 +18,11 @@ class PersonManager(models.Manager):
         return qset
 
 class Person(models.Model):
-    slug = models.SlugField(max_length=50)
-    first_name = models.CharField(max_length=50, blank=True, default='')
-    last_name = models.CharField(max_length=50, blank=True, default='')
-    organization = models.CharField(max_length=255, blank=True, default='')
-    title = models.CharField(max_length=50, blank=True, default='')
+    slug = models.SlugField(max_length=64)
+    first_name = models.CharField(max_length=64, blank=True, default='')
+    last_name = models.CharField(max_length=64, blank=True, default='')
+    organization = models.CharField(max_length=128, blank=True, default='')
+    title = models.CharField(max_length=255, blank=True, default='')
     url = models.URLField(verify_exists=False, blank=True, default='')
     extra = JSONField(blank=True, null=True, help_text='JSON string of extra data key/value pairs')
 

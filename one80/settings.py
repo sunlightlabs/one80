@@ -136,13 +136,13 @@ INSTALLED_APPS = (
     'whoosh',
     'haystack',
     'postmark',
+    'gunicorn',
     'one80',
     'one80.auth',
     'one80.committees',
     'one80.people',
     'one80.photos',
     'one80.search',
-    'template_repl',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)

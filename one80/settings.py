@@ -3,7 +3,6 @@ import datetime
 import json
 import os
 import sys
-import xapian
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -171,7 +170,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # Finally, import local settings if they exist.
 try:
-    from one80.local_settings import *
+    from local_settings import *
 except ImportError:
     # this could be heroku, don't barf yet
     if 'LOCAL_SETTINGS' in os.environ.keys():

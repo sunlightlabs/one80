@@ -18,7 +18,7 @@
             <li>
                 <a href="{% url photo_detail hearing.slug photo.pk %}">
                 <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ hearing.title }}" class="grid_thumbnails" />
-                <span class="grid_tagged">Tagged: <span class="nmbr_tagged">{% templatetag openbrace %}{{ photo.annotations|length }}{% templatetag closebrace %}</span></span>
+                <span class="grid_tagged">Tagged: <span class="nmbr_tagged">{% templatetag openbrace %}{{ photo.annotations.published.count }}{% templatetag closebrace %}</span></span>
                 </a>
             </li>
             {% endfor %}

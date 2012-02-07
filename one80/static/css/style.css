@@ -460,6 +460,9 @@ h2 {
     font-size: 20px;
     line-height: 49px;
 }
+#h2_hearing {
+    line-height:1em;
+}
 
 p#h2_message {
     line-height:1.4em;

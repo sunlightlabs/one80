@@ -72,8 +72,11 @@ MEDIASYNC = {
         'js/joined.js': [
             'js/vendor/jquery.min.js',
             'js/vendor/jquery-ui.min.js',
+            'js/vendor/jquery.ba-throttle-debounce.js',
             'js/vendor/jquery.annotate.custom.js',
             'js/vendor/jquery.jsonSuggest-2.js',
+            'js/vendor/jquery.carouFredSel-5.5.0.js',
+            'js/vendor/jquery.scrollExtend.js',
             'js/vendor/moment.js',
             'js/vendor/jquery.mouseover-gallery.js',
             'js/app.js',
@@ -93,6 +96,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'one80.middleware.CompletedProfileMiddleware',
 )
@@ -123,13 +127,15 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.markup',
     'django.contrib.messages',
+    'django.contrib.flatpages',
     'django_extensions',
     'debug_toolbar',
     'mediasync',
     'social_auth',
     'south',
-    # 'whoosh',
+    'whoosh',
     'haystack',
+    'postmark',
     'one80',
     'one80.auth',
     'one80.committees',
@@ -156,17 +162,6 @@ FACET_FIELDS = ('annotations', 'hearings', 'committees', 'people')
 HAYSTACK_SITECONF = 'one80.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_WHOOSH_PATH = '%s/data/whoosh/one80_index' % PROJECT_ROOT
-# HAYSTACK_XAPIAN_PATH = '%s/data/xapian/one80_index' % PROJECT_ROOT
-# HAYSTACK_XAPIAN_FLAGS = (
-#     xapian.QueryParser.FLAG_PHRASE |
-#     xapian.QueryParser.FLAG_BOOLEAN |
-#     xapian.QueryParser.FLAG_LOVEHATE |
-#     xapian.QueryParser.FLAG_WILDCARD |
-#     xapian.QueryParser.FLAG_PURE_NOT |
-#     xapian.QueryParser.FLAG_PARTIAL
-# )
-# HAYSTACK_SEARCH_ENGINE = 'solr'
-# HAYSTACK_SOLR_URL = 'http://localhost:8983/solr/one80'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = PAGINATE
 
 DEBUG_TOOLBAR_CONFIG = {

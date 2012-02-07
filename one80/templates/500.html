@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2 class="h2_internal">Server Error</h2>
+<p id="h2_message">Well, that's not supposed to happen. Please <a href="{% url contact %}">let us know</a> and we'll have it fixed ASAP.</p>
+{% endblock content %}

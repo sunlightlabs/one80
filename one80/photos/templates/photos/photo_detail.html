@@ -77,7 +77,11 @@
     <!-- <a href="{% url hearing_detail hearing.slug %}"> --><span id="span_hearing" class="h2_sub">a hearing of the {{ hearing.committee.name}}</span><!-- </a> -->
 </div>
 <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
-<a href="#" id="image_annotate-add" class="replace">Tag This Photo!</a>
+{% comment %}
+{% if request.user.is_anonymous %}
+<a href="{% url login %}" class="image-annotate-add">Login to tag this photo</a>
+{% endif %}
+{% endcomment %}
 {% endblock content %}
 
 {% block secondary %}
@@ -96,48 +100,21 @@
 </section>
 
 <section id="carousel_gallery" role="complementary">
-    <h3>More Photos in this Hearing</h3>
+    <h3>All Photos in this Hearing</h3>
     <div id="carousel_wrapper" class="box">
-        {% if previous_photo %}
-        <a id="arrow_prev" class="replace" href="{% url photo_detail hearing.slug previous_photo.pk %}" title="previous">previous</a>
-        {% else %}
-        <a href="#" id="arrow_prev" class="none"></a>
-        {% endif %}
-        <ol>
-            {% if previous_photo %}
-            <li>
-                <a href="{% url photo_detail hearing.slug previous_photo.pk %}" title="hearing page">
-                    <img class="tagged_thumbnails-hrz" src="{% getsize previous_photo 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
-                    <span class="recent_hearings">Previous photo</span>
+        <a id="arrow_prev" class="replace" href="#" title="previous">previous</a>
+        <ol class="clearfix">
+            {% for thumb in hearing.photos.all %}
+            <li class="{% if photo.pk == thumb.pk %}current{% endif %}">
+                <a href="{% url photo_detail hearing.slug thumb.pk %}" title="hearing page">
+                    <img class="tagged_thumbnails-hrz" src="{% getsize thumb 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
+                    <span class="recent_hearings">{{ thumb.name }}</span>
                 </a>
-                <span class="hearing-tags">{% templatetag openbrace %} {{ previous_photo.annotations.published.count }} tag{{ previous_photo.annotations.published.count|pluralize }} {% templatetag closebrace %}</span>
+                <span class="hearing-tags">{% templatetag openbrace %} {{ thumb.annotations.published.count }} tag{{ thumb.annotations.published.count|pluralize }} {% templatetag closebrace %}</span>
             </li>
-            {% else %}
-            <li>
-                <img class="tagged_thumbnails-hrz" src="{% media_url %}/images/no_photo_thumb.jpg" alt="no photo to show" />
-                <span class="recent_hearings"><a href="#" title="hearing page">You are at the first photo</a></span>
-            </li>
-            {% endif %}
-            {% if next_photo %}
-            <li>
-                <a href="{% url photo_detail hearing.slug next_photo.pk %}" class="recent_hearings" title="hearing page">
-                    <img class="tagged_thumbnails-hrz" src="{% getsize next_photo 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
-                    <span class="recent_hearings">Next Photo</span>
-                </a>
-                <span class="hearing-date">{% templatetag openbrace %} {{ next_photo.annotations.published.count }} tag{{ next_photo.annotations.published.count|pluralize }} {% templatetag closebrace %}</span>
-            </li>
-            {% else %}
-            <li>
-                <img class="tagged_thumbnails-hrz" src="{% media_url %}/images/no_photo_thumb.jpg" alt="no photo to show" />
-                <span class="recent_hearings"><a href="#" title="hearing page">You are at the last photo</a></span>
-            </li>
-            {% endif %}
+            {% endfor %}
         </ol>
-        {% if next_photo %}
-        <a id="arrow_fw" class="replace" href="{% url photo_detail hearing.slug next_photo.pk %}" title="forward">forward</a>
-        {% else %}
-        <a href="#" id="arrow_fw" class="none"></a>
-        {% endif %}
+        <a id="arrow_fw" class="replace" href="#" title="forward">forward</a>
         <div class="clear"></div>
     </div>
 </section>

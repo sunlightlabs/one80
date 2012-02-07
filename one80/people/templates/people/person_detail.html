@@ -31,7 +31,7 @@
         <ol>
             {% for tag in person.annotations.published %}
             <li class="recent_hearings">
-                <a href="{% url hearing_detail tag.photo.hearing.slug %}" title="hearing page">
+                <a href="{% url photo_detail tag.photo.hearing.slug tag.photo.pk %}" title="hearing page">
                     <img src="{{ tag.thumbnail.url }}" alt="a small photo of {{ tag.name }}" class="tagged_thumbnails-md" /><br/>
                     <span>{{ tag.hearing.title }}</span>
                 </a>

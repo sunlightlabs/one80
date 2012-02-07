@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2 class="h2_internal">Page Not Found (404)</h2>
+<p id="h2_message">Sorry, that page either was moved or does not exist. Try going back to the <a href="{% url index %}">homepage</a> or searching with the form below.
+    If you believe you reached this message in error, please <a href="{% url contact %}">let us know</a>.</p>
+{% endblock content %}

@@ -82,7 +82,7 @@ def narrowed_search(request, template='search/narrowed_search.html', load_all=Tr
         'paginator': paginator,
         'result_type': result_type,
         'query': query,
-        'suggestion': None
+        'suggestion': None,
     }
 
     if getattr(settings, 'HAYSTACK_INCLUDE_SPELLING', False):

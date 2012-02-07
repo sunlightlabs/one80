@@ -13,9 +13,9 @@ python-linkedin
 requests
 south
 whoosh
-# xapian-haystack
 yql
 git+https://github.com/sunlightlabs/python-transparencydata.git
 git+https://github.com/dandrinkard/python-inboxinfluence.git
 git+https://github.com/dandrinkard/python-crunchbase.git
 git+https://github.com/liberation/django-jsonfield.git
+-e git+https://github.com/dandrinkard/django-postmark.git#egg=django_postmark-dev

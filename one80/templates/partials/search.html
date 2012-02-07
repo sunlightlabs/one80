@@ -1,0 +1,7 @@
+<form class="clearfix" id="{% if search_id %}{{ search_id }}{% else%}form_search-site{% endif %}" action="{% url search %}" method="get" role="form">
+    <label for="input_search">Search the 180º Project Site Here</label>
+    <input id="input_search" type="text" name="q" placeholder="{% if search_placeholder %}{{ search_placeholder }} {% else %}search site{% endif %}">
+    <button class="replace" id="button_search" role="search" title="sumbit search" type="submit" value="Search">
+        <span>Go!</span>
+    </button>
+</form>

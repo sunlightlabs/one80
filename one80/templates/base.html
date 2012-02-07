@@ -22,7 +22,7 @@
         <script type="text/javascript" src="http://use.typekit.com/mmk3rsc.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     </head>
-    <body class="{% block bodyclass %}main{% endblock %} {% if request.user.is_staff %}superuser{% endif %}">
+    <body class="{% block bodyclass %}main{% endblock %} {% if request.user.is_staff %}superuser{% endif %} {% if request.user.is_anonymous %}not-{% endif %}logged-in">
         {% block preheader %}
         <div id="pre-header" role="banner">
             {% block preheader_content %}
@@ -39,17 +39,11 @@
                 <nav>
                     <ul class="list_nav">
                         {% include "partials/userbar.html" %}
-                        <li><a href="#">the gallery</a></li>
+                        <li><a href="{% url hearing_list %}">tag photos</a></li>
                     </ul>
                     <div class="clear"></div>
                 </nav>
-                <form id="form_search-site" action="{% url search %}" method="get" role="form">
-                    <label for="input_search">Search the 180º Project Site Here</label>
-                    <input id="input_search" type="text" name="q" placeholder="search site">
-                    <button class="replace" id="button_search" role="search" title="sumbit search" type="submit" value="Search">
-                        <span>Go!</span>
-                    </button>
-                </form>
+                {% include 'partials/search.html' %}
             </div>
             {% endblock header_content %}
             <div class="clear"></div>
@@ -59,6 +53,11 @@
         <div id="{% block contentwrapid %}main_1col{% endblock %}" class="{% block contentwrapclass %}matte{% endblock %}">
             {% if messages %}
             <ul class="messages">
+                {% comment %}
+                <li class="info">You're almost done, we just need an email address or phone number to complete your profile.</li>
+                <li class="warning">Ohnoes! Something went horribly wrong :`(</li>
+                <li class="success">You're almost done, we just need an email address or phone number to complete your profile.</li>
+                {% endcomment %}
                 {% for message in messages %}
                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
                 {% endfor %}
@@ -75,8 +74,8 @@
         {% block subnav %}
          <nav id="subnav" role="navigation">
              <ul class="list_nav">
-                 <li id="link_about"><a href="#">about</a></li>
-                 <li id="link_contact"><a href="#">contact us</a></li>
+                 <li id="link_about"><a href="/about/">about</a></li>
+                 <li id="link_contact"><a href="/contact/">contact us</a></li>
              </ul>
         </nav>
         {% endblock %}

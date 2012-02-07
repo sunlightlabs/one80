@@ -1,5 +1,6 @@
 from functools import wraps
 
+from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect
@@ -24,7 +25,7 @@ def complete_profile_required(view):
                 complete = False
 
             if not complete:
-                messages.info(request, 'You\'re almost done&mdash;we just need an email address or phone number to complete your profile.')
+                messages.info(request, settings.COMPLETE_PROFILE_MESSAGE)
                 return redirect('profile', next=request.path_info)
 
         return view(request, *args, **kwargs)

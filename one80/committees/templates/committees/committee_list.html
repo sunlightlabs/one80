@@ -1,1 +1,30 @@
 {% extends "base.html" %}
+{% load repl %}
+
+{% block title %}Committees :: {{ block.super }}{% endblock %}
+
+{% block contentid %}main_2column-wrapper{% endblock %}
+{% block content %}
+{% for chamber, comms in committees.items %}
+<div id="list_{{ chamber }}-committees">
+    <h2 id="h2_comm" class="h2_internal">{{ chamber|title }} Committees</h2>
+    <ol>
+        {% for committee in comms %}
+        <li class="list_columns3">
+            <span class="list_committee"><a href="{% url committee_detail committee.slug %}" title="committee page">{{ committee.name }}</a></span>
+            <span>Hearings <span class="nmbr_results">{% templatetag openbrace %}{{ committee.hearings.count }}{% templatetag closebrace %}</span></span>
+            <ol class="bulleted">
+                {% for hearing in committee.hearings.all %}
+                <li><a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a></li>
+                {% empty %}
+                <li><em class="empty">No hearings yet.</em></li>
+                {% endfor %}
+            </ol>
+        </li>
+        {% empty %}
+        <li class="list_columns3"><em class="empty">No committees yet.</em></li>
+        {% endfor %}
+    </ol>
+</div>
+{% endfor %}
+{% endblock content %}

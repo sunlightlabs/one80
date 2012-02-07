@@ -7,16 +7,14 @@ from one80.committees.models import Committee, Hearing
 from one80.photos.models import Size
 
 def committee_list(request):
-    committee_list = Committee.objects.all()
-    paginator = Paginator(committee_list, settings.PAGINATE)
-    page = request.GET.get('page', 1)
-    try:
-        committees = paginator.page(page)
-    except InvalidPage:
-        raise Http404
+    committees_h = Committee.objects.filter(chamber='H').select_related()
+    committees_s = Committee.objects.filter(chamber="S").select_related()
 
     context = {
-        'page': committees,
+        'committees': {
+            'house': committees_h,
+            'senate': committees_s,
+        },
     }
 
     return render(request, "committees/committee_list.html", context)

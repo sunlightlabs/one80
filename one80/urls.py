@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.views.generic.simple import direct_to_template
@@ -32,6 +32,8 @@ urlpatterns = patterns('',
     # search
     url(r'^search/', include('one80.search.urls')),
 
+    url(r'^contact/', 'one80.views.contact', name='contact'),
+
     # google site verification
     url(r'^google28b165dcee3ec76d.html$', direct_to_template, {'template': 'google_site_verification.html'}),
 
@@ -39,7 +41,7 @@ urlpatterns = patterns('',
     url(r'^$', 'one80.views.index', name='index'),
 )
 
-if settings.DEBUG:
+if not settings.MEDIASYNC['SERVE_REMOTE']:
     urlpatterns += patterns('',
             url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
                 'document_root': settings.STATIC_ROOT,

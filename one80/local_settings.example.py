@@ -1,3 +1,5 @@
+from one80.settings import PROJECT_ROOT, MEDIASYNC
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -6,6 +8,9 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+EMAIL_BACKEND = "postmark.backends.PostmarkBackend"
+EMAIL_FROM = ""
 
 DATABASES = {
     'default': {
@@ -18,6 +23,14 @@ DATABASES = {
     }
 }
 
+HAYSTACK_WHOOSH_PATH = '%s/data/whoosh/one80_index' % PROJECT_ROOT
+
+MEDIASYNC.update({
+    'AWS_KEY': "",
+    'AWS_SECRET': "",
+    'SERVE_REMOTE': False,
+})
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -25,7 +38,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/New_York'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
@@ -52,6 +65,8 @@ FACEBOOK_API_SECRET = ''
 GOOGLE_CONSUMER_KEY = ''
 GOOGLE_CONSUMER_SECRET = ''
 GOOGLE_DISPLAY_NAME = '180&deg; Project'
+BING_APIKEY = ''
+POSTMARK_API_KEY = ''
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

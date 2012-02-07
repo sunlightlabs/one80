@@ -1,27 +1,22 @@
-/* BEGIN: code for button that you use to begin annotation
-.image-annotate-add {
-    background: #fff url(../images/asterisk_yellow.png) no-repeat 3px 3px;
-    border: solid 1px #ccc;
-    color: #000;
-    cursor: pointer;
-    display: block;
-    float: left;
-    font-family: Verdana, Sans-Serif;
-    font-size: 12px;
-    height: 18px;
-    line-height: 18px;
-    padding: 2px 0 2px 24px;
-    margin: 5px 0;
-    width: 64px;
-    text-decoration: none;
-    outline: red solid 1px;
+body.not-logged-in #wrapper_img_gallery .image-annotate-add {
+    display:block;
+    text-indent:-9999px;
+    width:902px;
+    height:539px;
+    background:transparent url('../images/watermark.png') no-repeat 50% 50%;
+    position:absolute;
+    top:0;
+    left:0;
+    pointer-events:none;
+    opacity:0.7;
 }
 
-.image-annotate-add:hover {
-    background-color: #eee;
+body.logged-in #wrapper_img_gallery #image-annotate-add {
+    top:auto;
+    bottom:10px;
+    left:-18px;
+    text-indent: -9999px;
 }
-
- END: code for button for annotation */
 
 .image-annotate-view {
     display: none;
@@ -170,8 +165,10 @@
     background-position: 0 -25px;
 }
 .image-annotate-edit-area {
-    border: 1px solid #d9d5c6;
+    border 1px solid #e1ddd1;
+    background: rgba(255,255,255,.15);
     cursor: move;
+
 }
 .image-annotate-edit-area .ui-resizable-handle {
     opacity: 0.8;

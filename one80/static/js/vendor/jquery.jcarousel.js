@@ -1,5 +1,5 @@
 /*!
- * jCarousel v@VERSION - Riding carousels with jQuery
+ * jCarousel v0.2.8 - Riding carousels with jQuery
  * http://sorgalla.com/jcarousel/
  *
  * Copyright 2011, Jan Sorgalla
@@ -15,7 +15,7 @@
 
     var jCarousel =  {};
 
-    jCarousel.version = '@VERSION';
+    jCarousel.version = '0.2.8';
 
     jCarousel.intval = function(value) {
         value = parseInt(value, 10);

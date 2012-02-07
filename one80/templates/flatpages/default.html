@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load markup %}
+{% block title %}{{ flatpage.title }} :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<div id="flatpage">
+    {{ flatpage.content|markdown }}
+</div>
+{% endblock %}

@@ -3,6 +3,7 @@ import json
 from django.contrib import messages
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.safestring import mark_safe
 
 from one80.committees.models import Hearing
 from one80.photos.models import Annotation, Photo
@@ -20,6 +21,9 @@ def photo_detail(request, slug, photo_id):
 
     photos = hearing.photos.filter(name__gt=photo.name).order_by('name')
     next_photo = photos[0] if len(photos) > 0 else None
+
+    if request.user.is_anonymous():
+        messages.warning(request, mark_safe('You need to be logged in to tag photos. <a href="/login/">Login or register now &raquo;</a>'))
 
     context = {
         'hearing': hearing,

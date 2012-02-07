@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2 class="h2_internal">Contact Us</h2>
+<form action="{% url contact %}" method="POST" id="form_contact" role="form">
+    {% csrf_token %}
+    <p>
+        Have ideas, feedback or complaints? We'd love to hear from you. Please fill out all fields below and we'll be in touch.
+    </p>
+    <ol>
+        <li>
+            <label for="feedback_name">Your name</label>
+            <input type="text" id="feedback_name" name="feedback[name]" value="" placeholder="Jane Smith" />
+        </li>
+        <li>
+            <label for="feedback_email">Your email</label>
+            <input type="text" id="feedback_email" name="feedback[email]" value="" placeholder="jane@example.com" />
+        </li>
+        <li>
+            <label for="feedback_message">Your message</label>
+            <textarea id="feedback_message" name="feedback[message]" value="" placeholder="Your message here."></textarea>
+        </li>
+        <li>
+            <button class="submit-button replace">Submit</button>
+        </li>
+    </ol>
+</form>
+{% endblock content %}

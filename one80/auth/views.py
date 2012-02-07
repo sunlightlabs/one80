@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import resolve, Resolver404
 from django.shortcuts import render, redirect
+from django.utils.safestring import mark_safe
 
 from one80.auth.forms import UserProfileForm
 from one80.auth.models import UserProfile
@@ -38,10 +39,10 @@ def logout_begin(request):
     logout_instructions = ''
     try:
         service = [service for service in settings.AUTHENTICATION_SERVICES if service[0] == request.user.profile.provider][0]
-        logout_instructions = ' Don\'t forget to <a href="%s" target="_blank">log out of %s</a> too!' % (service[1], service[0])
+        logout_instructions = mark_safe(' Don\'t forget to <a href="%s" target="_blank">log out of %s</a> too!' % (service[1], service[0]))
     except:
         pass
-    messages.info(request, 'You are logged out.%s' % logout_instructions)
+    messages.info(request, 'You are now logged out.%s' % logout_instructions)
     return redirect('logout_complete')
 
 @login_required

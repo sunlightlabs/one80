@@ -11,8 +11,9 @@ class PersonManager(models.Manager):
     def with_counts(qset, **kwargs):
         min_tags = kwargs.get('min_tags', None)
         qset = qset.extra(select={
-            'num_tags': '''SELECT COUNT(photos_annotation.id) AS num_tags
-                           FROM photos_annotation
+            'num_tags': '''SELECT COUNT(photos_photo.hearing_id) AS num_tags
+                           FROM photos_photo
+                           LEFT JOIN photos_annotation ON(photos_photo.id = photos_annotation.photo_id)
                            WHERE photos_annotation.is_public = 1
                            AND photos_annotation.person_id = people_person.id
                            '''

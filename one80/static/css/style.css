@@ -451,6 +451,7 @@ h2 {
 }
 
 .h2_internal {
+    line-height: 1em;
     color: #473F3D;
     font-family: "futura-pt", "Helvetica", Arial, sans-serif;
     text-transform: none;

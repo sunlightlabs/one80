@@ -24,7 +24,9 @@ class PersonManager(models.Manager):
         #     select_params=(True,),
         #     # where=['num_tags >= %d' % min_tags]
         #     ).order_by('-num_tags')
-        qset = qset.annotate(num_tags=Count('annotations')).order_by('-num_tags')
+        qset = qset.filter(annotations__is_public=True).annotate(num_tags=Count('annotations')).order_by('-num_tags')
+        if min_tags:
+            qset = qset.filter(num_tags__gte=min_tags)
 
         return qset
 

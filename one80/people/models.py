@@ -11,7 +11,7 @@ class PersonManager(models.Manager):
 
     def with_counts(qset, **kwargs):
         min_tags = kwargs.get('min_tags', 0)
-        qset = qset.filter(annotations__is_public=True).annotate(num_tags=Count('annotations')).order_by('-num_tags')
+        qset = qset.filter(annotations__is_public=True).distinct('annotations__photo__hearing').annotate(num_tags=Count('annotations')).order_by('-num_tags')
         if min_tags:
             qset = qset.filter(num_tags__gte=min_tags)
 

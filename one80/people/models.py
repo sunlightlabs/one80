@@ -1,6 +1,7 @@
 import json
 
 from django.db import models
+from django.db.models import Count
 from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify
 from jsonfield.fields import JSONField
@@ -10,19 +11,20 @@ class PersonManager(models.Manager):
 
     def with_counts(qset, **kwargs):
         min_tags = kwargs.get('min_tags', 0)
-        qset = qset.extra(
-            select={
-            'num_tags': '''SELECT COUNT(DISTINCT photos_photo.hearing_id) AS num_tags
-                           FROM photos_photo
-                           LEFT JOIN photos_annotation ON(photos_photo.id = photos_annotation.photo_id)
-                           LEFT JOIN people_person ON(photos_annotation.person_id = people_person.id)
-                           WHERE photos_annotation.is_public = %s
-                           AND photos_annotation.person_id = people_person.id
-                           '''
-                           },
-            select_params=(True,),
-            # where=['num_tags >= %d' % min_tags]
-            ).order_by('-num_tags')
+        # qset = qset.extra(
+        #     select={
+        #     'num_tags': '''SELECT COUNT(DISTINCT photos_photo.hearing_id) AS num_tags
+        #                    FROM photos_photo
+        #                    LEFT JOIN photos_annotation ON(photos_photo.id = photos_annotation.photo_id)
+        #                    LEFT JOIN people_person ON(photos_annotation.person_id = people_person.id)
+        #                    WHERE photos_annotation.is_public = %s
+        #                    AND photos_annotation.person_id = people_person.id
+        #                    '''
+        #                    },
+        #     select_params=(True,),
+        #     # where=['num_tags >= %d' % min_tags]
+        #     ).order_by('-num_tags')
+        qset = qset.annotate(num_tags=Count('annotations')).order_by('-num_tags')
 
         return qset
 

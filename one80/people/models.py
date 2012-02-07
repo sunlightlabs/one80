@@ -14,7 +14,7 @@ class PersonManager(models.Manager):
             'num_tags': '''SELECT COUNT(photos_photo.hearing_id) AS num_tags
                            FROM photos_photo
                            LEFT JOIN photos_annotation ON(photos_photo.id = photos_annotation.photo_id)
-                           WHERE photos_annotation.is_public = 1
+                           WHERE photos_annotation.is_public = TRUE
                            AND photos_annotation.person_id = people_person.id
                            '''
             }).order_by('-num_tags')

@@ -5,7 +5,7 @@ from haystack import site
 from one80.committees.models import Committee, Hearing
 
 
-class CommitteeIndex(SearchIndex):
+class CommitteeIndex(RealTimeSearchIndex):
     text = CharField(document=True, use_template=True)
     result_type = CharField(faceted=True)
     name = CharField(model_attr='name')
@@ -22,7 +22,7 @@ class CommitteeIndex(SearchIndex):
         return Committee.objects.all()
 
 
-class HearingIndex(SearchIndex):
+class HearingIndex(RealTimeSearchIndex):
     text = CharField(document=True, use_template=True)
     result_type = CharField(faceted=True)
     name = CharField(model_attr='title')

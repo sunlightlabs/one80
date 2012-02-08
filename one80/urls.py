@@ -36,6 +36,8 @@ urlpatterns = patterns('',
 
     # google site verification
     url(r'^google28b165dcee3ec76d.html$', direct_to_template, {'template': 'google_site_verification.html'}),
+    # fb channel
+    url(r'^facebook_channel.html$', direct_to_template, {'template': 'facebook_channel.html'}),
 
     # homepage
     url(r'^$', 'one80.views.index', name='index'),

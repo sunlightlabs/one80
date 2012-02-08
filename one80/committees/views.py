@@ -43,7 +43,6 @@ def hearing_list(request):
 
 def hearing_detail(request, slug):
     hearing = get_object_or_404(Hearing, slug=slug)
-    # photos = [p.get_size(300, 199) for p in hearing.photos.all()] # force resize
     context = {
         'hearing': hearing,
     }

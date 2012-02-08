@@ -725,7 +725,7 @@ h3 {
 
 #tagged-content {
     font-family: "futura-pt", "Helvetica", Arial, sans-serif;
-    padding: 18px 0 10px 12px;
+    padding: 18px 10px 10px 12px;
 }
 
 .tagged_thumbnails, .tagged_thumbnails-hrz, .tagged_thumbnails-md {
@@ -1095,6 +1095,9 @@ li.current .tagged_thumbnails-hrz {
 #subnav li:first-of-type {
     padding: 0 10px 0 0;
 }
+
+#subnav .social * {float:right;}
+#subnav .social span {padding:0;}
 
 #sunlight-products {
     color: #403D3C;

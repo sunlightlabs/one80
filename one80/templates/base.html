@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load media %}
+{% load media flatpages %}
 <!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
@@ -10,8 +10,14 @@
         <title>{% block title %}180° Project{% endblock %}</title>
         <meta name="description" content="{% block meta_description %}{% endblock %}">
         <meta name="author" content="{% block meta_author %}The Sunlight Foundation{% endblock %}">
+        <meta property="fb:app_id" content="115242711915510" />
+        <meta property="og:title" content="{% block meta_og_title %}180° Project{% endblock %}" />
+        <meta property="og:site_name" content="180°" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{% block meta_url %}http://180.sunlighfoundation.com{% endblock %}" />
+        <meta property="og:image" content="{% block meta_image %}http://s3.amazonaws.com/assets.sunlightfoundation.com/one80/static/images/logo_sunlight.png{% endblock %}" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         {% css "css/joined.css" %}
@@ -23,6 +29,28 @@
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     </head>
     <body class="{% block bodyclass %}main{% endblock %} {% if request.user.is_staff %}superuser{% endif %} {% if request.user.is_anonymous %}not-{% endif %}logged-in">
+        <div id="fb-root"></div>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '115242711915510', // App ID
+              channelUrl : '//180.sunlightfoundation.com/facebook_channel.html', // Channel File
+              status     : true, // check login status
+              cookie     : true, // enable cookies to allow the server to access the session
+              xfbml      : true  // parse XFBML
+            });
+
+            // Additional initialization code here
+          };
+
+          // Load the SDK Asynchronously
+          (function(d){
+             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+             js = d.createElement('script'); js.id = id; js.async = true;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             d.getElementsByTagName('head')[0].appendChild(js);
+           }(document));
+        </script>
         {% block preheader %}
         <div id="pre-header" role="banner">
             {% block preheader_content %}
@@ -72,11 +100,18 @@
         </div>
 
         {% block subnav %}
+        {% get_flatpages as flatpages %}
          <nav id="subnav" role="navigation">
              <ul class="list_nav">
-                 <li id="link_about"><a href="/about/">about</a></li>
+                 {% for page in flatpages %}
+                 <li id="link_{{ page.title|slugify }}"><a href="{{ page.url }}">{{ page.title|lower }}</a></li>
+                 {% endfor %}
                  <li id="link_contact"><a href="/contact/">contact us</a></li>
              </ul>
+             <div class="social">
+             <fb:like width="100" layout="button_count" show_faces="false"></fb:like>
+             <a href="https://twitter.com/share" class="twitter-share-button" data-via="sunfoundation">Tweet</a>
+             </div>
         </nav>
         {% endblock %}
 
@@ -88,11 +123,12 @@
                          <h5>Like this project and want to discover others like it?</h5>
                          <span>Join the Sunlight Foundation's open government community to learn more</span>
                      </div>
-                 <form id="form_join" class="box" action="http://sunlightfoundation.com/mailinglist/subscribe/" method="post" role="form">
+                 <form id="form_join" class="box" action="http://organizing.sunlightfoundation.com/page/s/180-degrees-project" method="post" role="form">
                      <label for="input_email">What is your email address?</label>
-                     <input id="input_email" type="text" name="email" placeholder="your email">
+                     <input id="input_email" type="text" name="email" placeholder="your email" />
                      <label for="input_zip">What is your zipcode?</label>
-                     <input id="input_zip" type="text" name="zipcode" placeholder="your zipcode">
+                     <input id="input_zip" type="text" name="zip" placeholder="your zipcode" />
+                     <input type="hidden" name="custom-1050" value="180 Degrees" />
                      <button class="replace" id="button_join" title="click this button to join" type="submit">
                          <span>submit</span>
                      </button>
@@ -108,6 +144,7 @@
              </div>
         </footer>
         {% endblock footer %}
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         {% js "js/joined.js" %}
         {% block js %}{% endblock %}
     </body>

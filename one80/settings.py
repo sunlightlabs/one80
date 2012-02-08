@@ -60,9 +60,13 @@ MEDIASYNC = {
     'BACKEND': 'mediasync.backends.s3',
     'AWS_BUCKET': "assets.sunlightfoundation.com",
     'AWS_PREFIX': "one80/static",
-    'DOCTYPE': 'xhtml',
+    'DOCTYPE': 'html5',
     'CACHE_BUSTER': datetime.datetime.now().strftime('%s'), #only ok with 1 web head!!
     'SERVE_REMOTE': True,
+    'PROCESSORS': (
+        'mediasync.processors.slim.css_minifier',
+        'mediasync.processors.slim.js_minifier',
+    ),
     'JOINED': {
         'css/joined.css': [
             'css/style.css',
@@ -76,6 +80,7 @@ MEDIASYNC = {
             'js/vendor/jquery.jsonSuggest-2.js',
             'js/vendor/jquery.carouFredSel-5.5.0.js',
             'js/vendor/jquery.scrollExtend.js',
+            'js/vendor/jquery.placeholder.js',
             'js/vendor/moment.js',
             'js/vendor/jquery.mouseover-gallery.js',
             'js/app.js',

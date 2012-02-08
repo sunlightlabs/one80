@@ -39,16 +39,15 @@ urlpatterns = patterns('',
     # fb channel
     url(r'^facebook_channel.html$', direct_to_template, {'template': 'facebook_channel.html'}),
 
+    # mediasync
+    url(r'^', include('mediasync.urls')),
+
     # homepage
     url(r'^$', 'one80.views.index', name='index'),
 )
 
-if not settings.MEDIASYNC['SERVE_REMOTE']:
+if settings.DEBUG:
     urlpatterns += patterns('',
-            url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
-                'document_root': settings.STATIC_ROOT,
-            }),
-
             url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
                 'document_root': settings.MEDIA_ROOT,
             }),

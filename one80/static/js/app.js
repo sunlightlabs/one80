@@ -76,54 +76,46 @@ jQuery.noConflict();
     // mouseover galleries
     $('.image_previews').mouseoverGallery();
 
-    // // pass hover event through login watermark on photos
-    // $('body.not-logged-in a.image-annotate-add').hover(function(evt){
-    //   $(this).prev('.image-annotate-canvas').trigger(evt);
-    // }, function(evt){
-    //   $(this).prev('.image-annotate-canvas').trigger(evt);
-    // }).mousemove(function(evt){
-    //   $(this).prev('.image-annotate-canvas').trigger(evt);
+    // legacy placeholders
+    $('input[placeholder], textarea[placeholder]').placeholder();
+
+    // // image annotations should pass events down
+    // $('body.not-logged-in .image-annotate-view').click(function(){
+    //   $(this).parent().nextAll('.image-annotate-add').click();
     // });
-    $('body.not-logged-in .image-annotate.view').click(function(){
-      console.log('clicked');
-      $(this).parent().nextAll('.image-annotate-add').click();
-    });
-
-    // infinite scroll
-    $('#main_1col').onScrollBeyond(function(evt){
-      console.log('scrollin');
-      $.throttle(1000, function(evt){
-        console.log('callin');
-        // page number
-        var doc = $(window)
-          , page = (typeof doc.data('page') != 'number' && 1) || doc.data('page');
-
-        if(isNaN(page)) return false;
-
-        // increment page #
-        doc.data('page', page + 1);
-
-        $.ajax({
-          url: location.href + (!location.search && '?') + '&page=' + doc.data('page'),
-        }).success(function(){
-          switch(true){
-            case location.href.match('/search/'):
-            break;
-            default:
-            break;
-          }
-
-        }).error(function(){
-          console.log('errorin');
-          doc.data('page', NaN);
-        });
-
-      }, {
-        buffer: 0,
-        fireOnBeyondElement: true,
-        fireOnDocEnd: true
-      });
-    });
+    //
+    // // infinite scroll
+    // $('#main_1col').onScrollBeyond(function(evt){
+    //   $.throttle(1000, function(evt){
+    //     // page number
+    //     var doc = $(window)
+    //       , page = (typeof doc.data('page') != 'number' && 1) || doc.data('page');
+    //
+    //     if(isNaN(page)) return false;
+    //
+    //     // increment page #
+    //     doc.data('page', page + 1);
+    //
+    //     $.ajax({
+    //       url: location.href + (!location.search && '?') + '&page=' + doc.data('page'),
+    //     }).success(function(){
+    //       switch(true){
+    //         case location.href.match('/search/'):
+    //         break;
+    //         default:
+    //         break;
+    //       }
+    //
+    //     }).error(function(){
+    //       doc.data('page', NaN);
+    //     });
+    //
+    //   }, {
+    //     buffer: 0,
+    //     fireOnBeyondElement: true,
+    //     fireOnDocEnd: true
+    //   });
+    // });
   });
 
 })(jQuery);

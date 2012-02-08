@@ -33,6 +33,10 @@ class SizeInline(admin.TabularInline):
     model = Size
     extra = 0
 
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    extra = 0
+
 class AnnotationAdmin(InlineImageMixin, admin.ModelAdmin):
     list_display = ('__unicode__', 'photo', 'created_by')
     list_filter = ('created_by', 'is_public', 'photo')
@@ -40,7 +44,7 @@ class AnnotationAdmin(InlineImageMixin, admin.ModelAdmin):
 
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('name', 'hearing')
-    list_filter = ('hearing',)
+    list_filter = ('hearing__title', 'hearing__committee__name')
     inlines = (SizeInline, AnnotationInline)
 
 admin.site.register(Photo, PhotoAdmin)

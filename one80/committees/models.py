@@ -41,7 +41,7 @@ class Hearing(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True)
-    start_datetime = models.DateTimeField(blank=True, null=True)
+    start_datetime = models.DateTimeField()
     location = models.CharField(max_length=128, blank=True)
     is_public = models.BooleanField(default=False)
 

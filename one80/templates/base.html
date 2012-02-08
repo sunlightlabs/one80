@@ -53,19 +53,13 @@
              d.getElementsByTagName('head')[0].appendChild(js);
            }(document));
         </script>
-        {% block preheader %}
-        <div id="pre-header" role="banner">
-            {% block preheader_content %}
-            <a id="banner_logo" class="replace" href="http://sunlightfoundation.com" title="Visit the Sunlight Foundation">Sunlight Foundation</a>
-            {% endblock preheader_content %}
-            <div class="clear"></div>
-        </div>
-        {% endblock preheader %}
         {% block header %}
-        <header class="{% block headerclass %}matte{% endblock %}">
+        <header>
+            <a id="banner_logo" class="replace" href="http://sunlightfoundation.com" title="Visit the Sunlight Foundation">Sunlight Foundation</a>
+            <div class="clear"></div>
             {% block header_content %}
-            <h1><a href="{% url index %}" class="replace" title="180º Project">180º Project</a></h1>
-            <div id="header_nav" role="navigation">
+            <h1><a href="{% url index %}" class="replace">180º Project</a></h1>
+            <div id="header_nav">
                 <nav>
                     <ul class="list_nav">
                         {% include "partials/userbar.html" %}
@@ -80,7 +74,7 @@
         </header>
         {% endblock header %}
 
-        <div id="{% block contentwrapid %}main_1col{% endblock %}" class="{% block contentwrapclass %}matte{% endblock %}">
+        <div id="content">
             {% if messages %}
             <ul class="messages">
                 {% comment %}
@@ -93,33 +87,31 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <div id="{% block contentid %}main_column-wrapper{% endblock %}" class="{% block contentclass %}margin_1col{% endblock %}" role="main">
-                {% block content %}{% endblock %}
-            </div>
+            
+            {% block content %}{% endblock %}
 
             {% block secondary %}{% endblock %}
             <div class="clear"></div>
+            {% block subnav %}
+            {% get_flatpages as flatpages %}
+             <nav id="subnav" role="navigation">
+                 <ul class="list_nav">
+                     {% for page in flatpages %}
+                     <li id="link_{{ page.title|slugify }}"><a href="{{ page.url }}">{{ page.title|lower }}</a></li>
+                     {% endfor %}
+                     <li id="link_contact"><a href="/contact/">contact us</a></li>
+                 </ul>
+                 <div class="social">
+                 <fb:like width="100" layout="button_count" show_faces="false"></fb:like>
+                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="sunfoundation">Tweet</a>
+                 </div>
+            </nav>
+            {% endblock %}
         </div>
-
-        {% block subnav %}
-        {% get_flatpages as flatpages %}
-         <nav id="subnav" role="navigation">
-             <ul class="list_nav">
-                 {% for page in flatpages %}
-                 <li id="link_{{ page.title|slugify }}"><a href="{{ page.url }}">{{ page.title|lower }}</a></li>
-                 {% endfor %}
-                 <li id="link_contact"><a href="/contact/">contact us</a></li>
-             </ul>
-             <div class="social">
-             <fb:like width="100" layout="button_count" show_faces="false"></fb:like>
-             <a href="https://twitter.com/share" class="twitter-share-button" data-via="sunfoundation">Tweet</a>
-             </div>
-        </nav>
-        {% endblock %}
-
+        
         {% block footer %}
         <footer>
-             <div id="sunlight-products" class="matte">
+             <div id="sunlight-products">
                  <span id="badge" class="replace">A Product of the Sunlight Foundation</span>
                      <div id="products-action">
                          <h5>Like this project and want to discover others like it?</h5>

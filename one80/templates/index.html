@@ -1,28 +1,21 @@
 {% extends "base.html" %}
 {% load photo_tags %}
+{% load media %}
 
 {% block contentwrapid %}main_2col{% endblock %}
 {% block contentid %}main_column-wrapper{% endblock %}
 {% block contentclass %}float_2col{% endblock %}
-{% block content %}
-<div id="banner_feature" role="banner">
-    <h2>Click. Tag. Identify.</h2>
-    <span class="h2_sub">Help us find out who's watching Congress.</span>
-    <div class="expando" id="banner_feature-overlay">
-        <p>Take a look at the photos in our <a href="{% url hearing_list %}" title="gallery">gallery of hearings</a>. If you see someone you recognize, please click on the person and enter as much information about him or her as possible. Also include information about yourself so we can follow up with any questions we might have.</p>
-        <span>As we gather and verify identities, you'll see them reflected on the photos.</span>
-        <span>Thanks in advance for your help!</span>
-    </div>
-    <a class="toggle" id="toggle_overlay" href="#"><em>read more</em></a>
-</div>
 
-{% with latest_hearings.0 as hearing %}
-<img src="{% getsize featured_photo 678 408 %}" alt="The audience at {{ hearing.title }}" id="img_feature" />
-<a href="{% url photo_detail hearing.slug featured_photo.pk %}" class="feature-link replace">Click to tag.</a>
-<div class="img_caption">figure 1. <span id="caption_hearing-name">{{ hearing.title|truncatewords:7 }}</span> (taken <span id="caption_hearing-date">{{ hearing.start_datetime|date:"n/j/y"}}</span>)
-<a href="{% url photo_detail hearing.slug featured_photo.pk %}" id="banner_callout" class="replace">Tag This Photo!</a>
+{% block content %}
+<div id="feature">
+    <img src="{% media_url "/images/img_feature.jpg"  %}"/>
+    <div id="featureOverlay">
+        <h2 class="replace">Help us find out who's watching Congress</h2>
+        <span>Recognize someone in one of our hearing photos? Tag them now!</span>
+        <a href="#">Start Tagging</a>
+    </div>
+    <div class="clear"></div>
 </div>
-{% endwith %}
 
 <section class="list_col-wrapper">
     <h3>Browse Committees</h3>
@@ -62,34 +55,3 @@
 </section>
 {% endblock content %}
 
-{% block secondary %}
-<section id="recently-tagged" role="complementary">
-    <div id="tagged-content" class="box">
-        <h3>Recently Tagged</h3>
-        <ol>
-            {% for annot in latest_annotations %}
-            <li>
-                <a href="{% url photo_detail annot.photo.hearing.slug annot.photo.id %}"><img src="{{ annot.thumbnail.url }}" alt="{{ annot.first_name }} {{ annot.last_name}}" class="tagged_thumbnails" /></a>
-                <h5 class="tagged_names"><a href="{% url photo_detail annot.photo.hearing.slug annot.photo.id %}">{{ annot.first_name }} {{ annot.last_name }}</a></h5>
-                {% if annot.title or annot.organization %}
-                <dl>
-                    {% if annot.title %}
-                    <dt class="hidden">Title
-                        <dd class="tagged_titles">{{ annot.title }}</dd>
-                    </dt>
-                    {% endif %}
-                    {% if annot.organization %}
-                    <dt class="hidden">Employer:
-                        <dd class="tagged_employers">{{ annot.organization }}</dd>
-                    </dt>
-                    {% endif %}
-                </dl>
-                {% endif %}
-                <span class="tagged_hearings"><a href="{% url hearing_detail annot.hearing.slug %}" title="hearing page">At <span>{{ annot.hearing.title }}</span></a></span>
-            </li>
-            {% endfor %}
-        </ol>
-    </div>
-    <div class="clear"></div>
-</section>
-{% endblock secondary %}

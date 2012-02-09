@@ -142,26 +142,26 @@ body.logged-in #wrapper_img_gallery #image-annotate-add {
 
 #image-annotate-edit-form button {
     width: 75px;
-    height: 26px;
+    height: 23px;
     border: none;
-    margin: 7px 5px 0;
+    margin: 10px 5px 0;
     float: left;
 }
 
 #image-annotate-edit-ok {
-    background: url('../images/sprite_okay-button.png') top left no-repeat;
+    background: url('../images/btn_submitSm.png') top left no-repeat;
 }
 
 #image-annotate-edit-delete {
-    background: url('../images/sprite_delete-button.png') top left no-repeat;
+    background: url('../images/btn_delete.png') top left no-repeat;
 }
 
 #image-annotate-edit-close {
-    background: url('../images/sprite_cancel-button.png') top left no-repeat;
+    background: url('../images/btn_cancel.png') top left no-repeat;
 }
 
 #image-annotate-edit-close:hover, #image-annotate-edit-delete:hover, #image-annotate-edit-ok:hover {
-    background-position: 0 -25px;
+    background-position: 0 -23px;
 }
 .image-annotate-edit-area {
     border: 1px solid #e1ddd1;

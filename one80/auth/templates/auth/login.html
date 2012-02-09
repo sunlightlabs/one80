@@ -8,18 +8,18 @@
 <p>Choose from the list of providers below to create an account. We promise we won't push any information to your social networks—we just need to verify that you're a real person. If you sign in with Twitter, we'll also need an email address or phone number just in case we need to ask you about one of your tags.</p>
 
 <h3>Connect with Facebook, Twitter, Google, or Yahoo.</h3>
-<ul>
+<ul id="signUp">
     <li>
-        <a href="{% url socialauth_begin 'facebook' %}" id="facebook" class="replace" title="facebook">connect with Facebook</a>
+        <a href="{% url socialauth_begin 'facebook' %}" id="facebook" title="facebook">Connect with Facebook</a>
     </li>
     <li>
-        <a href="{% url socialauth_begin 'twitter' %}" id="twitter" class="replace" title="twitter">connect with Twitter</a>
+        <a href="{% url socialauth_begin 'twitter' %}" id="twitter" title="twitter">Connect with Twitter</a>
     </li>
     <li>
-        <a href="{% url socialauth_begin 'google' %}" id="google" class="replace" title="google+">connect with Google+</a>
+        <a href="{% url socialauth_begin 'google' %}" id="google" title="google+">Connect with Google+</a>
     </li>
     <li>
-        <a href="{% url socialauth_begin 'yahoo' %}" id="yahoo" class="replace" title="yahoo">connect with Yahoo!</a>
+        <a href="{% url socialauth_begin 'yahoo' %}" id="yahoo" title="yahoo">Connect with Yahoo!</a>
     </li>
 </ul>
 <div class="clear"></div>

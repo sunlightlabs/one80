@@ -260,17 +260,43 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 
 #list_2up li { margin-bottom: 40px; }
 
-#facebook:hover, #twitter:hover, #google:hover, #yahoo:hover { background-position: 0 -45px; }
-#facebook { background: url('../images/sprite_facebook2.png') top left no-repeat; }
-#twitter {  background: url('../images/sprite_twitter2.png') top left no-repeat; }
-#google { background: url('../images/sprite_google2.png') top left no-repeat; }
-#yahoo { background: url('../images/sprite_yahoo2.png') top left no-repeat;}
+#signUp li {
+    width: 194px;
+    margin: 20px 30px 0 0;
+    padding: 15px;
+    float: left;
+    border: 1px dashed #D4CFCB;
+    font-size: 115%;
+    background-color: #faf9f6;
+}
+#signUp li:hover { background-color: #f6f5f2; }
+
+#signUp li a { padding-left: 23px;}
+#facebook { background: url('../images/social_sprites.png') left -187px no-repeat; }
+#signUp li:hover #facebook { background: url('../images/social_sprites.png') left -51px no-repeat; }
+#twitter {  background: url('../images/social_sprites.png') left -102px no-repeat; }
+#signUp li:hover #twitter {  background: url('../images/social_sprites.png') left top no-repeat; }
+#google { background: url('../images/social_sprites.png') top left no-repeat; }
+#yahoo { background: url('../images/sprite_yahoo.png') left -16px no-repeat;}
+#signUp li:hover #yahoo { background: url('../images/sprite_yahoo.png') left top no-repeat;}
 
 .grid_names, .grid_tagged {
     width: 245px;
     font-family: "futura-pt", "Helvetica", Arial, sans-serif;
     font-size: 18px;
     margin: 5px 0 7px;
+    display: block;
+}
+
+.logged-in #image-annotate-add {
+    width: 161px;
+    height: 31px;
+    text-indent:-9999px;
+    background: url('../images/tag-this-photo.png') top left no-repeat;
+    position: relative;
+    z-index: 5;
+    bottom: 60px;
+    left: -15px;
     display: block;
 }
 
@@ -417,15 +443,6 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
     padding: 9px 0 13px 0;
 }
 
-#banner_callout, .logged-in #image-annotate-add {
-    width: 161px;
-    height: 31px;
-    text-indent:-9999px;
-    background: url('../images/tag-this-photo.png') top left no-repeat;
-    position: absolute;
-    z-index: 5;
-}
-
 .list_columns2, .list_columns3 {
     padding: 0 0 1px 8px;
     margin-bottom: 20px;
@@ -507,12 +524,6 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 
 li.current .tagged_thumbnails-hrz {
     border-color:#456f74;
-}
-
-#facebook, #twitter, #google, #yahoo {
-    width: 194px;
-    height: 44px;
-    margin: 20px 30px 0 0;
 }
 
 .nmbr_results {

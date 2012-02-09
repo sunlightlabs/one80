@@ -12,7 +12,7 @@ python-dateutil==1.5
 python-linkedin
 requests
 slimmer
-south
+south==0.7.3
 whoosh
 yql
 -e git+https://github.com/sunlightlabs/python-transparencydata.git#egg=python_transparencydata-dev

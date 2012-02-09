@@ -116,6 +116,6 @@ jQuery.noConflict();
     //     fireOnDocEnd: true
     //   });
     // });
-  });
 
+  });
 })(jQuery);

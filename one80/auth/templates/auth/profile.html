@@ -28,17 +28,14 @@
 {% endblock js %}
 
 {% block content %}
-<h2 class="h2_internal"><span class="timename">Hello</span>, {{ user.username }}!</h2>
-<h3>Stay Connected!</h3>
-<p id="p_internal2">
-    By providing your email address or mobile number, you will help us
-    contact you in case there are questions or problems with one of your tags.
-</p>
-<form id="form_account" method="post">
-    {% csrf_token %}
-    <ul>
-    {{ form.as_ul }}
-    </ul>
-    <button id="button_update" class="replace">update</button>
-</form>
+    <h2><span class="timename">Hello</span>, {{ user.username }}!</h2>
+    <h3 class="withTip">Stay Connected!</h3>
+    <p>By providing your email address or mobile number, you will help us contact you in case there are questions or problems with one of your tags.</p>
+    <form id="form_account" method="post">
+        {% csrf_token %}
+        <ul>
+        {{ form.as_ul }}
+        </ul>
+        <button id="button_update" class="replace">update</button>
+    </form>
 {% endblock content %}

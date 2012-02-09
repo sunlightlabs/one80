@@ -294,6 +294,15 @@ td {
 
 table td:first-of-type { border-left: none; }
 
+#button_update {
+    background: url('../images/btn_update.png') top left no-repeat;
+    width: 132px;
+    height: 53px;
+    border: none;
+}
+
+#button_update:hover { background: url('../images/btn_update.png') bottom left no-repeat;}
+
 
 /* forms  */
 
@@ -305,17 +314,18 @@ input, textarea {
     border-color:#A3948F;
     border-color:rgba(163,148,143,0.75);
     font-size: 100%;
+    width: 300px;
 }
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #A3948F; }
 input:-moz-placeholder, textarea:-moz-placeholder { color: #A3948F; }
 #content form li { margin-bottom: 25px; }
-#form_contact label { display:block; margin-bottom: 10px; }
-#form_contact input { width: 300px;}
+label { display:block; margin-bottom: 10px; }
 #form_contact textarea {  width:400px;  height:150px; }
 
 .submit-button { background: url(../images/btn_submitLg.png) top left no-repeat; width: 132px; height: 53px; border: none;}
 .submit-button:hover { background: url(../images/btn_submitLg.png) bottom left no-repeat; }
+
 
 /* footer */
 footer { margin: 0 auto; width: 950px; padding: 0 5px; }
@@ -346,7 +356,7 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
     color: #403D3C;
     height: 74px;
     margin: 10px auto;
-    padding: 10px 25px;
+    padding: 5px 25px;
     background-color: #efeeeb;
     -moz-border-radius: 5px; -webkit-border-radius: 5px;
 }
@@ -503,43 +513,6 @@ li.current .tagged_thumbnails-hrz {
     width: 194px;
     height: 44px;
     margin: 20px 30px 0 0;
-}
-
-
-#form_account label, #form_account input {
-    display: block;
-}
-
-#form_account label {
-    color: #473F3D;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-#form_account span {
-    font-style: italic;
-}
-
-#form_account input {
-    width: 255px;
-    font-size: 14px;
-    margin: 5px 0 25px 0;
-    padding: 4px 0 5px;
-}
-
-#form_account input:last-child {
-    margin: 5px 0 15px 0;
-}
-
-#button_update {
-    background: url('../images/sprite_update-button.png') top left no-repeat;
-    width: 65px;
-    height: 25px;
-    border: none;
-}
-
-#button_update:hover {
-    background-position: 0 -24px;
 }
 
 .nmbr_results {

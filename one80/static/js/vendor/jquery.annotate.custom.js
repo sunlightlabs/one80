@@ -276,7 +276,7 @@
         // Add the note (which we'll load with the form afterwards)
         var form = $('<div id="image-annotate-edit-form">\
                         <form>\
-                          <p id="image-annotate-edit-form-header">Who is this?</p>\
+                          <h4 id="image-annotate-edit-form-header">Who is this?</h4>\
                           <ul class="clearfix">\
                           <li><label for="image-annotate-first">First name:</label>\
                             <input type="text" class="required" id="image-annotate-first" placeholder="first name" name="first" value="' + this.note.first_name + '" />\

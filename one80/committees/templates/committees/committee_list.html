@@ -16,7 +16,7 @@
                 {% for hearing in committee.hearings.all %}
                 <li><a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a></li>
                 {% empty %}
-                <li><em class="empty">No hearings yet.</em></li>
+                <li><em class="empty">No hearings yet</em></li>
                 {% endfor %}
             </ol>
         </li>

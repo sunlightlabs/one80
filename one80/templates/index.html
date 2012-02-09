@@ -12,7 +12,7 @@
     <div id="featureOverlay">
         <h2 class="replace">Help us find out who's watching Congress</h2>
         <span>Recognize someone in one of our hearing photos? Tag them now!</span>
-        <a href="#">Start Tagging</a>
+        <a id="startBtn" class="replace" href="#">Start Tagging</a>
     </div>
     <div class="clear"></div>
 </div>
@@ -32,7 +32,7 @@
     <ol class="list_columns">
         {% for hearing in latest_hearings %}
         <li class="{% if not hearing.is_public %}private{% endif %}">
-            <span class="hearing-date">({{ hearing.start_datetime|date:"n/j/y" }})</span>
+            <span class="hearing-date">{{ hearing.start_datetime|date:"n/j/y" }}</span>
             <a href="{% url hearing_detail hearing.slug %}">{{ hearing.title|truncatewords:7 }}</a>
         </li>
         {% endfor %}

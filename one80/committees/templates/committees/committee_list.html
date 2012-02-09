@@ -6,7 +6,7 @@
 {% block content %}
 {% for chamber, comms in committees.items %}
 <div id="list_{{ chamber }}-committees">
-    <h2 id="h2_comm" class="h2_internal">{{ chamber|title }} Committees</h2>
+    <h2>{{ chamber|title }} Committees</h2>
     <ol>
         {% for committee in comms %}
         <li class="list_columns3">

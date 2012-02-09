@@ -75,6 +75,11 @@
         {% endblock header %}
 
         <div id="content">
+            <div class="social">
+            <fb:like width="100" layout="button_count" show_faces="false"></fb:like>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="sunfoundation">Tweet</a>
+            </div>
+            <div class="clear"></div>
             {% if messages %}
             <ul class="messages">
                 {% comment %}
@@ -101,10 +106,6 @@
                      {% endfor %}
                      <li id="link_contact"><a href="/contact/">contact us</a></li>
                  </ul>
-                 <div class="social">
-                 <fb:like width="100" layout="button_count" show_faces="false"></fb:like>
-                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="sunfoundation">Tweet</a>
-                 </div>
             </nav>
             {% endblock %}
         </div>

@@ -3,12 +3,13 @@
 {% block title %}Contact Us :: {{ block.super }}{% endblock %}
 
 {% block content %}
-<h2 class="h2_internal">Contact Us</h2>
+<div class="module">
+    <h2 class="withTip">Contact Us</h2>
+    <p>Have ideas, feedback or complaints? We'd love to hear from you. Please fill out all fields below and we'll be in touch.</p>
+</div>
 <form action="{% url contact %}" method="POST" id="form_contact" role="form">
     {% csrf_token %}
-    <p>
-        Have ideas, feedback or complaints? We'd love to hear from you. Please fill out all fields below and we'll be in touch.
-    </p>
+    
     <ol>
         <li>
             <label for="feedback_name">Your name</label>

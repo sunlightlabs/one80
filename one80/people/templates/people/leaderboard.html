@@ -4,13 +4,9 @@
 {% block title %}Most Tagged :: {{ block.super }}{% endblock %}
 
 {% block content %}
-<h2 class="h2_internal">Most Tagged</h2>
+    <h2 class="h2_internal">Most Tagged</h2>
 
-<div class="table_wrapper">
-    <table id="table_leaderboard" class="tables">
-        <colgroup span="1"></colgroup>
-        <colgroup class="long" style="width:75%" span="1"></colgroup>
-        <colgroup span="1"></colgroup>
+    <table>
         <thead>
             <tr>
                 <th>Rank</th>
@@ -21,8 +17,8 @@
         <tbody>
             {% for leader in leaders %}
             {% with forloop.counter as i %}
-            <tr>
-                <td class="right">{% unique_rank i %}</td>
+            <tr class="{% cycle 'even' 'odd' %}">
+                <td>{% unique_rank i %}</td>
                 <td><a href="{% url person_detail leader.slug %}">
                     {{ leader.name }}
                     {% if leader.position %} -
@@ -30,7 +26,7 @@
                     {% endif %}
                     </a>
                 </td>
-                <td class="right">
+                <td>
                     {{ leader.num_tags }}
                 </td>
             </tr>
@@ -38,5 +34,4 @@
             {% endfor %}
         </tbody>
     </table>
-</div>
 {% endblock %}

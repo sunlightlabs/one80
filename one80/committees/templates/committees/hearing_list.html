@@ -5,21 +5,22 @@
 
 {% block contentid %}{% endblock %}
 {% block content %}
-<h2 class="h2_internal">Choose a Hearing</h2>
-<span id="h2_title" class="h2_internal">Click a photo to select a hearing to tag.</span>
-
+<div class="module">
+    <h2 class="withTip">Choose a Hearing</h2>
+    <span>Click a photo to select a hearing to tag</span>
+</div>
 <div id="photo_grid">
     <ol>
         {% for hearing in page.object_list %}
         <li>
             <a class="image_previews" href="{% url hearing_detail hearing.slug %}">
                 {% for photo in hearing.photos.all %}
-                <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ hearing.title }}" class="grid_thumbnails" />
+                <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ hearing.title }}" />
                 {% endfor %}
             </a>
-            <span class="grid_names"><a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a></span>
-            <span class="grid_sub"><a href="{% url committee_detail hearing.committee.slug %}">{{ hearing.committee.name }}</a></span>
             <span class="hearing-date">{{ hearing.start_datetime|date:"n/j/y" }}</span>
+            <span class="grid_names"><a href="{% url hearing_detail hearing.slug %}">{{ hearing.title }}</a></span>
+            <span><a href="{% url committee_detail hearing.committee.slug %}">{{ hearing.committee.name }}</a></span>
         </li>
         {% endfor %}
     </ol>

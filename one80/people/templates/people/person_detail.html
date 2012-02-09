@@ -4,10 +4,12 @@
 {% block title %}{{ person.name }} :: {{ block.super }}{% endblock %}
 
 {% block content %}
-<h2 id="h2_name">{{ person.name }}</h2>
-{% if person.title %}<span id="h2_title">{{ person.title }},</span>{% endif %}
-{% if person.organization %}<span id="h2_company">{{ person.organization }}</span>{% endif %}
-{% if person.url %}<p>{{ person.url|link_if:person.url }}</p>{% endif %}
+    <div class="module">
+        <h2 class="withTip">{{ person.name }}</h2>
+        {% if person.title %}<span id="h2_title">{{ person.title }},</span>{% endif %}
+        {% if person.organization %}<span id="h2_company">{{ person.organization }}</span>{% endif %}
+        {% if person.url %}<p>{{ person.url|link_if:person.url }}</p>{% endif %}
+    </div>
 
 {% if recent_hearings %}
 <h3>Recent Appearances</h3>
@@ -26,16 +28,14 @@
 {% if person.annotations.published %}
 <section id="carousel_attendee" role="complementary">
     <h3>Tags of {{ person.name }}</h3>
-    <div id="carousel_wrapper2" class="box">
+    <div id="carousel_wrapper2">
         <a href="#" id="arrow_prev" class="replace" title="previous">previous</a>
         <ol>
             {% for tag in person.annotations.published %}
             <li class="recent_hearings">
-                <a href="{% url photo_detail tag.photo.hearing.slug tag.photo.pk %}" title="hearing page">
-                    <img src="{{ tag.thumbnail.url }}" alt="a small photo of {{ tag.name }}" class="tagged_thumbnails-md" /><br/>
-                    <span>{{ tag.hearing.title }}</span>
-                </a>
-                <span class="hearing-date">({{ tag.published_date|date:"n/j/Y" }})</span>
+                <a href="{% url photo_detail tag.photo.hearing.slug tag.photo.pk %}"><img src="{{ tag.thumbnail.url }}" alt="a small photo of {{ tag.name }}" class="tagged_thumbnails-md" /></a>
+                <span class="hearing-date">{{ tag.published_date|date:"n/j/Y" }}</span>
+                <a href="{% url photo_detail tag.photo.hearing.slug tag.photo.pk %}"><span>{{ tag.hearing.title }}</span></a>
             </li>
             {% endfor %}
         </ol>

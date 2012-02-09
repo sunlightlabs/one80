@@ -69,12 +69,9 @@
 {% block contentid %}wrapper_img_gallery{% endblock %}
 {% block contentclass %}{% endblock %}
 {% block content %}
-<div id="banner_gallery" role="banner">
-
-    <!-- #h2_hearing and #span_hearing must be generated to match the photograph -->
-
-    <h2 id="h2_hearing">{{ hearing.title }}</h2>
-    <!-- <a href="{% url hearing_detail hearing.slug %}"> --><span id="span_hearing" class="h2_sub">a hearing of the {{ hearing.committee.name}}</span><!-- </a> -->
+<div id="banner_gallery">
+    <h2 class="withTip">{{ hearing.title }}</h2>
+    <!-- <a href="{% url hearing_detail hearing.slug %}"> --><span>a hearing of the {{ hearing.committee.name}}</span><!-- </a> -->
 </div>
 <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
 {% comment %}
@@ -85,9 +82,9 @@
 {% endblock content %}
 
 {% block secondary %}
-<section class="list_col-left">
+<div class="list_col-left">
     <h3>Appearing in this photo...</h3>
-    <ol id="img_gallery_tagged" class="list_columns tagged">
+    <ol class="list_columns">
         {% for annot in annotations %}
         <li><a href="{% if annot.person.slug %}{% url person_detail annot.person.slug %}{% else %}#{% endif %}" data-id={{ annot.id }}>{{ annot }}</a> {% annotation_buttons annot %}
             <span class="list_title">{{ annot.title }}, </span><span class="list_employer">{{ annot.organization }}</span>
@@ -97,9 +94,9 @@
         {% endfor %}
     </ol>
     {# <span class="list_view-all"><a href="#">View All Appearances >></a></span> #}
-</section>
+</div>
 
-<section id="carousel_gallery" role="complementary">
+<div id="list_col-right">
     <h3>All Photos in this Hearing</h3>
     <div id="carousel_wrapper" class="box">
         <a id="arrow_prev" class="replace" href="#" title="previous">previous</a>
@@ -117,6 +114,6 @@
         <a id="arrow_fw" class="replace" href="#" title="forward">forward</a>
         <div class="clear"></div>
     </div>
-</section>
+</div>
 <div class="clear"></div>
 {% endblock secondary %}

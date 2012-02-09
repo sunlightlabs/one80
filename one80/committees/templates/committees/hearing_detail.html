@@ -5,11 +5,12 @@
 
 {% block contentid %}{% endblock %}
 {% block content %}
-
-    <h2 class="h2_internal">Images for <span id="hearing_indiv-name">{{ hearing.title }}</span></h2>
-    <span id="h2_title" class="h2_internal">A hearing of the <a href="{% url committee_detail hearing.committee.slug %}">{{ hearing.committee.name }}</a></span>
+    <div class="module">
+        <h2 class="withTip">Images for <span id="hearing_indiv-name">{{ hearing.title }}</span></h2>
+        <span>A hearing of the <a href="{% url committee_detail hearing.committee.slug %}">{{ hearing.committee.name }}</a></span>
+    </div>
     {% if hearing.description %}
-    <p id="p_internal3">{{ hearing.description|linebreaks }}</p>
+    <p>{{ hearing.description|linebreaks }}</p>
     {% endif %}
 
     <div id="photo_grid">

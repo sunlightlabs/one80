@@ -72,7 +72,6 @@ button {  width: auto; overflow: visible; }
 .main a:visited {color: #456f74;}
 .list_columns a:hover, .tagged_names a:hover, .recent_hearings a:hover, .list_hearing a:hover, .tables a:hover, .rid_names a:hover, .list_committee a:hover {color: #ee603d; border-bottom: 1px dotted rgba(238,96,61,0.5); border-bottom-color:#ff603d; border-bottom-color:rgba(238,96,61,0.5);}
 .list_view-all a:hover, .tagged_hearings a:hover, .bulleted a:hover, .hearing-date a:hover, .hearing-tags a:hover, .grid_sub a:hover {color: #456F74; border-bottom: none;}
-.committee-sm a:hover {color: #456F74; border-bottom: none; margin-bottom: 1px;}
 #header_nav a:focus, .main a:focus, footer a:focus, button:focus {background-color: #000; background-color: rgba(0,0,0,0.02);outline: 1px dotted rgba(0,0,0,0.25);}
 
 .clear { clear: both; }
@@ -133,7 +132,7 @@ body {
 
 h2 { color: #403D3C; font-family: "futura-pt", "Helvetica", Arial, sans-serif; font-size: 260%; margin-bottom: 25px; line-height: 35px;}
 h3 { color: #403D3C; font-family: "futura-pt", "Helvetica", Arial, sans-serif; font-size: 170%; font-weight: 500; margin-bottom: 25px; line-height: 25px;}
-h4 { font-size: 140px; font-weight: bold; margin-bottom: 15px; line-height: 23px; }
+h4 { font-size: 140%; font-weight: bold; margin-bottom: 15px; line-height: 23px; }
 h5 { font-size: 120%; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;}
 
 .withTip { margin-bottom: 10px;}
@@ -244,6 +243,23 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
     -moz-border-radius: 5px; -webkit-border-radius: 5px;
 }
 
+#arrow_prev, #arrow_fw {
+    width: 24px;
+    height: 39px;
+    display: block;
+    position: absolute;
+    top: 40%;
+}
+#arrow_prev, #arrow_prev.disabled:hover { background: url('../images/arrow_lt.jpg') top left no-repeat;  left: -1px; }
+#arrow_fw, #arrow_fw.disabled:hover {  background: url('../images/arrow_rt.jpg') top left no-repeat; right: -1px; }
+
+#carousel_wrapper span {
+    margin-top: 3px;
+    display: block;
+}
+
+#list_2up li { margin-bottom: 40px; }
+
 #facebook:hover, #twitter:hover, #google:hover, #yahoo:hover { background-position: 0 -45px; }
 #facebook { background: url('../images/sprite_facebook2.png') top left no-repeat; }
 #twitter {  background: url('../images/sprite_twitter2.png') top left no-repeat; }
@@ -276,6 +292,7 @@ td {
 }
 .odd { background-color: #f6f5f2;}
 
+table td:first-of-type { border-left: none; }
 
 
 /* forms  */
@@ -359,7 +376,6 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 
 
 
-
 #wrapper_img_gallery {
     width: 902px;
     height: 539px;
@@ -367,8 +383,6 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
     border: 4px solid #000;
     position:relative;
 }
-
-
 
 #img_gallery_tagged a.delete, #img_gallery_tagged a.approve {
     display:inline-block;
@@ -393,11 +407,6 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
     padding: 9px 0 13px 0;
 }
 
-#caption_hearing-name {
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
 #banner_callout, .logged-in #image-annotate-add {
     width: 161px;
     height: 31px;
@@ -406,11 +415,6 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
     position: absolute;
     z-index: 5;
 }
-
-#banner_callout {
-    margin: -83px 0 0 -18px;
-}
-
 
 .list_columns2, .list_columns3 {
     padding: 0 0 1px 8px;
@@ -427,54 +431,6 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 
 .list_columns3 span:first-of-type {
     font-size: 18px;
-}
-
-#list_2up li {
-    margin-bottom: 40px;
-}
-
-#list_2up li:last-of-type {
-    margin-bottom: 16px;
-}
-
-#list_house-committees, #list_senate-committees {
-    width: 420px;
-}
-
-#list_house-committees h2, #list_senate-committees h2 {
-    margin-bottom: 20px;
-}
-
-#list_house-committees {
-    float: left;
-}
-
-#list_senate-committees {
-    margin-left: 30px;
-    display: inline-block;
-}
-
-#recently-tagged {
-    width: 218px;
-    background: url('../images/bgimg_home-bottom.png') bottom left no-repeat;
-    margin: 0 -10px 0 0;
-    padding: 0 10px 17px 6px;
-    float: right;
-}
-
-
-.margin_1col h3 {
-    margin: 16px 0 16px 0;
-}
-
-#recently-tagged h3 {
-    margin: 0 0 20px 0;
-}
-
-
-#tagged-content {
-    font-family: "futura-pt", "Helvetica", Arial, sans-serif;
-    padding: 18px 10px 10px 12px;
 }
 
 .tagged_thumbnails, .tagged_thumbnails-hrz, .tagged_thumbnails-md {
@@ -531,64 +487,23 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
     text-overflow: ellipsis;
 }
 
-
-
 .recent_hearings a:hover {
     padding: 0;
-}
-
-#carousel_wrapper span {
-    margin-top: 3px;
-    display: block;
 }
 
 .tagged_hearings a, .recent_hearings a {
     display: block;
 }
 
-
-#carousel_attendee {
-    margin-top: 52px;
-}
-
-
-
-
 li.current .tagged_thumbnails-hrz {
     border-color:#456f74;
 }
-
-
-
-#arrow_prev, #arrow_fw {
-    width: 21px;
-    height: 9px;
-    display: block;
-    position:absolute;
-    top:48%;
-}
-
-#arrow_prev, #arrow_prev.disabled:hover {
-    background: url('../images/sprite_prev.png') top left no-repeat;
-    left:1px;
-}
-
-#arrow_fw, #arrow_fw.disabled:hover {
-    background: url('../images/sprite_fw.png') top left no-repeat;
-    right:1px;
-}
-
-#arrow_prev:hover, #arrow_fw:hover {
-    background-position: 0 -9px;
-}
-
 
 #facebook, #twitter, #google, #yahoo {
     width: 194px;
     height: 44px;
     margin: 20px 30px 0 0;
 }
-
 
 
 #form_account label, #form_account input {
@@ -633,48 +548,6 @@ li.current .tagged_thumbnails-hrz {
     margin-left: 5px;
 }
 
-
-
-.tables td:first-of-type {
-    border-left: none;
-}
-
-.tables tr:nth-child(even) {
-    background-color: #E7E9E7;
-}
-
-.list_table {
-    margin: 0 0 7px 0;
-}
-
-.list_table a, .list_table span{
-    display: block;
-}
-
-.list_table a:link {
-    padding-bottom: 1px;
-}
-
-.list_table a:hover {
-    padding-bottom: 0;
-}
-
-#table_wrapper2 {
-    margin: 25px 0 0 0;
-}
-
-.list_hearing {
-    font-family: "futura-pt", "Helvetica", Arial, sans-serif;
-    font-size: 16px;
-    padding: 0 0 2px 0;
-    display: block;
-}
-
-.committee-sm {
-    font-size: 13px;
-    font-style: italic;
-}
-
 .col_sort {
     background: url('../images/sort_arrows.png') 5px 8px no-repeat;
 }
@@ -682,11 +555,6 @@ li.current .tagged_thumbnails-hrz {
 .col_sort-push {
     padding-left: 8px;
 }
-
-
-
-
-
 
 
 

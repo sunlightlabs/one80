@@ -12,21 +12,23 @@
     </div>
 
 {% if recent_hearings %}
-<h3>Recent Appearances</h3>
-<ol id="list_2up">
-    {% for hearing in recent_hearings %}
-    <li class="list_columns2">
-        <a href="{% url hearing_detail hearing.slug %}" class="list_hearing" title="hearing page">{{ hearing.title }}</a>
-        <span class="committee-sm"><a href="{% url committee_detail hearing.committee.slug %}" title="committee page">{{ hearing.committee.name }}</a></span>
-    </li>
-    {% endfor %}
-</ol>
+    <div class="module">
+        <h3>Recent Appearances</h3>
+        <ol id="list_2up">
+            {% for hearing in recent_hearings %}
+            <li class="list_columns">
+                <a href="{% url hearing_detail hearing.slug %}" class="list_hearing" title="hearing page">{{ hearing.title }}</a>
+                <span class="committee-sm"><a href="{% url committee_detail hearing.committee.slug %}" title="committee page">{{ hearing.committee.name }}</a></span>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
 {% endif %}
 {% endblock content %}
 
 {% block secondary %}
 {% if person.annotations.published %}
-<section id="carousel_attendee" role="complementary">
+<div>
     <h3>Tags of {{ person.name }}</h3>
     <div id="carousel_wrapper2">
         <a href="#" id="arrow_prev" class="replace" title="previous">previous</a>
@@ -41,6 +43,6 @@
         </ol>
         <a id="arrow_fw" class="replace" href="#" title="forward">forward</a>
     </div>
-</section>
+</div>
 {% endif %}
 {% endblock secondary %}

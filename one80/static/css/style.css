@@ -92,9 +92,7 @@ p { margin-bottom: 1.5em;}
 .messages { margin-bottom: 20px; }
 
 .messages li {
-    border: 2px solid #e75700;
     color: #444;
-    background-color: #f9bd98;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -102,11 +100,13 @@ p { margin-bottom: 1.5em;}
 }
 
 .messages .error, .messages .warning {
-    border-color:#c73924;
+    border: 2px solid #c73924;
+    background-color: #f9bd98;
 }
 
 .messages .success {
-    border-color:#4a837e;
+    border: 2px solid #beca05;
+    background-color: #eff4e7;
 }
 
 ol, ul {
@@ -148,9 +148,9 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 #header_nav { width: 261px; padding: 35px 0 0 0; float: right; }
 #header_nav li { float: right; }
 
-#button_search { background: url('../images/btn_go.png') top left no-repeat; width: 62px; height: 27px; border: none; float: right;}
+#button_search { background: url('../images/btn_go.png') top left no-repeat; width: 62px; height: 28px; border: none; float: right;}
 #button_search:hover { background: url('../images/btn_go.png') bottom left no-repeat;}
-#input_search { width: 185px; font-size: 14px; margin: 1px 0 0 0; padding: 4px 0 5px; float: left; background-color: #fff;}
+#input_search { width: 175px; font-size: 14px; margin: 1px 0 0 0; padding: 4px 5px 5px; float: left; background-color: #fff;}
 #form_search-site { width: 260px; margin: 20px 0 0 0; }
 #form_search-site label { display: none; }
 
@@ -204,7 +204,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 }
 
 #banner_gallery {
-    width: 895px;
+    width: 880px;
     background-color: #000;
     background-color: rgba(0,0,0,0.45);
     color: #EFECE6;
@@ -216,7 +216,8 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 #banner_gallery h2 { color: #EFECE6; }
 
 #img_gallery {
-    width: 889px;
+    width: 889px ;
+    padding: 3px; border: 1px solid #D4CFCB;
 }
 
 #carousel_wrapper li, #carousel_wrapper2 li {
@@ -242,6 +243,8 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
     text-align: center;
     -moz-border-radius: 5px; -webkit-border-radius: 5px;
 }
+
+#carousel_wrapper li.current { background-color: #b3b6b7;}
 
 #arrow_prev, #arrow_fw {
     width: 24px;
@@ -276,7 +279,8 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 #signUp li:hover #facebook { background: url('../images/social_sprites.png') left -51px no-repeat; }
 #twitter {  background: url('../images/social_sprites.png') left -102px no-repeat; }
 #signUp li:hover #twitter {  background: url('../images/social_sprites.png') left top no-repeat; }
-#google { background: url('../images/social_sprites.png') top left no-repeat; }
+#google { background: url('../images/sprite_googlePlus.png') left -16px no-repeat; }
+#signUp li:hover #google { background: url('../images/sprite_googlePlus.png') top left no-repeat; }
 #yahoo { background: url('../images/sprite_yahoo.png') left -16px no-repeat;}
 #signUp li:hover #yahoo { background: url('../images/sprite_yahoo.png') left top no-repeat;}
 
@@ -360,9 +364,9 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 #sunlight-footer a { color: #C3C0BB; border-bottom: 1px dotted #C3C0BB; padding: 0 1px; }
 #sunlight-footer a:hover { color: #EFECE6; }
 
-#input_email { width: 195px; margin-bottom: 10px; }
-#input_zip { width: 123px; margin: 1px 12px 0 0;  float: left; }
-#input_email, #input_zip { font-size: 11px; padding: 3px 0 5px 0; }
+#input_email { width: 185px; margin-bottom: 10px; }
+#input_zip { width: 113px; margin: 1px 12px 0 0;  float: left; }
+#input_email, #input_zip { font-size: 11px; padding: 3px 5px 5px; }
 
 #logo_footer:link { width: 151px; height: 46px; background: url('../images/logo_sunlight-dkbg.png') top left no-repeat; margin: 0 20px 15px 0; float: left; border-bottom: none;}
 
@@ -402,11 +406,11 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 
 #button_join {
     width: 61px;
-    height: 24px;
-    background: url('../images/sprite_join-button.png') top left no-repeat;
+    height: 23px;
+    background: url('../images/btn_submitSmSm.png') top left no-repeat;
     border: none;
 }
-#button_join:hover { background: url('../images/sprite_join-button.png') bottom left no-repeat; }
+#button_join:hover { background: url('../images/btn_submitSmSm.png') bottom left no-repeat; }
 
 
 

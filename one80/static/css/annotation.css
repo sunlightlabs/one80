@@ -254,8 +254,7 @@ body.logged-in #wrapper_img_gallery #image-annotate-add {
 
 /* Suggestions */
 ul.jsonSuggest {
-    background-color:#f8f4e8;
-    background-color:rgba(232,228,220,0.5);
+    background-color:#f6f5f2;
     width:auto !important;
     border: 1px dotted rgba(163,148,143,0.75);
     border-color:#A3948F;
@@ -269,8 +268,7 @@ ul.jsonSuggest li a {
     cursor:pointer;
     padding:0.5em;
     color:#6a685f;
-    background-color:#A3948F;
-    background-color:rgba(163,148,143,0.5);
+    background-color:#fff;
 }
 
 ul.jsonSuggest li.even a {
@@ -280,11 +278,11 @@ ul.jsonSuggest li.even a {
 
 ul.jsonSuggest li a:hover {
     color:#444;
-    background-color:rgba(184,177,172,0.8);
+    background-color: #e2e0dc;
 }
 
 ul.jsonSuggest li.even a:hover {
-    background-color:rgba(224,225,218,0.8);
+    background-color: #e2e0dc;
 }
 
 /* Other*/

@@ -5,7 +5,7 @@
 {% block contentid %}main_2column-wrapper{% endblock %}
 {% block content %}
 {% for chamber, comms in committees.items %}
-<div id="list_{{ chamber }}-committees">
+<div class="module" id="list_{{ chamber }}-committees">
     <h2>{{ chamber|title }} Committees</h2>
     <ol>
         {% for committee in comms %}

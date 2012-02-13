@@ -1,25 +1,25 @@
 {% if result.result_type == 'annotations' %}
-<tr class="{% cycle 'even' 'odd' %}">
+<tr class="{{ stripe }}">
     <td><a href="{% url photo_detail result.object.hearing.slug result.object.photo.id %}">{{ result.object.name }}</a></td>
     <td><a href="{% url hearing_detail result.object.hearing.slug %}">{{ result.object.hearing.title }}</a></td>
     <td>{{ result.object.hearing.start_datetime|date:"n/j/Y" }}</td>
 </tr>
 {% endif %}
 {% if result.result_type == 'people' %}
-<tr class="{% cycle 'even' 'odd' %}">
+<tr class="{{ stripe }}">
     <td><a href="{% url person_detail result.object.slug %}">{{ result.object.name }}</a></td>
     <td>{{ result.object.title }}</td>
     <td>{{ result.object.organization }}</td>
 </tr>
 {% endif %}
 {% if result.result_type == 'committees' %}
-<tr class="{% cycle 'even' 'odd' %}">
+<tr class="{{ stripe }}">
     <td><a href="{% url committee_detail result.object.slug %}">{{ result.object.name }}</a></td>
     <td>{{ result.object.chamber_name }}</td>
 </tr>
 {% endif %}
 {% if result.result_type == 'hearings' %}
-<tr class="{% cycle 'even' 'odd' %}">
+<tr class="{{ stripe }}">
     <td><a href="{% url hearing_detail result.object.slug %}">{{ result.object.title }}</a></td>
     <td><a href="{% url committee_detail result.object.committee.slug %}">{{ result.object.committee }}</a></td>
     <td>{{ result.object.start_datetime|date:"n/j/Y" }}</td>

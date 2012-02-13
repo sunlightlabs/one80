@@ -13,6 +13,7 @@
         {% include 'partials/search_table_header.html' %}
         <tbody>
             {% for result in page.object_list %}
+            {% cycle 'even' 'odd' as stripe silent %}
             {% include 'partials/search_result.html' %}
             {% empty %}
             <tr>

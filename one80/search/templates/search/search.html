@@ -5,15 +5,16 @@
 
 {% block content %}
     <h2>Matching results for: <span id="h2_results">{{ query|escape }}</span></h2>
-   
+
     {% for result_type, results in facet_results.items %}
         <div class="moduleSearch">
             <h3 class="withTip">Matching {{ result_type|search_display_name|title }} <span class="nmbr_results">{% templatetag openbrace %}{{ results.count }}{% templatetag closebrace %}</span></h3>
-    
+
             <table id="table_{{ result_type|search_display_name }}">
                 {% include 'partials/search_table_header.html' %}
                 <tbody>
                     {% for result in results.objects %}
+                    {% cycle 'even' 'odd' as stripe silent %}
                     {% include 'partials/search_result.html' %}
                     {% empty %}
                     <tr>

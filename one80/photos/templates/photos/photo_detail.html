@@ -92,6 +92,8 @@
             {% if annot.title %}
             <span class="list_title">{{ annot.title }},</span>
             <span class="list_employer">{{ annot.organization }}</span>
+            {% else %}
+            <div class="clear"></div>
             {% endif %}
         </li>
         {% empty %}

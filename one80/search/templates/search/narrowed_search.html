@@ -5,9 +5,11 @@
 
 {% block content %}
 <h2 class="h2_internal">All {{ result_type|search_display_name }} for: <span id="h2_results">{{ query|escape }}</span></h2>
+{% comment %}
 {% with 'form_search-again' as search_id %}{% with 'search again' as search_placeholder %}
 {% include 'partials/search.html' %}
 {% endwith %}{% endwith %}
+{% endcomment %}
 <div class="table_wrapper">
     <table id="table_{{ result_type|search_display_name }}" class="tables">
         {% include 'partials/search_table_header.html' %}

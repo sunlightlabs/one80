@@ -39,7 +39,7 @@ jQuery.noConflict();
     });
 
     // activate photo detail canvas when links below are hovered
-    $('#img_gallery_tagged a').hover(function(){
+    $('.gallery_tagged a').hover(function(){
       $('.image-annotate-canvas').mouseover()
           .find('.image-annotate-area[data-id='+$(this).attr('data-id') + ']').mouseover();
     }, function(){

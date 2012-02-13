@@ -86,7 +86,7 @@
 {% block secondary %}
 <div class="list_col-left">
     <h3>Appearing in this photo...</h3>
-    <ol class="list_columns">
+    <ol class="list_columns gallery_tagged">
         {% for annot in annotations %}
         <li><a href="{% if annot.person.slug %}{% url person_detail annot.person.slug %}{% else %}#{% endif %}" data-id={{ annot.id }}>{{ annot.name }}</a> {% annotation_buttons annot %}
             {% if annot.title %}

@@ -69,11 +69,13 @@
 {% block contentid %}wrapper_img_gallery{% endblock %}
 {% block contentclass %}{% endblock %}
 {% block content %}
-<div id="banner_gallery">
-    <h2 class="withTip">{{ hearing.title }}</h2>
-    <!-- <a href="{% url hearing_detail hearing.slug %}"> --><span>a hearing of the {{ hearing.committee.name}}</span><!-- </a> -->
+<div id="img_gallery_wrap">
+    <div id="banner_gallery">
+        <h2 class="withTip">{{ hearing.title }}</h2>
+        <span>a hearing of the {{ hearing.committee.name}}</span>
+    </div>
+    <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
 </div>
-<img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
 {% comment %}
 {% if request.user.is_anonymous %}
 <a href="{% url login %}" class="image-annotate-add">Login to tag this photo</a>

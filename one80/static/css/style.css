@@ -175,7 +175,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 .list_columns li { margin-bottom: 20px; }
 
 #startBtn { background: url(../images/btn_start.png) top left no-repeat; width: 235px; height: 53px; margin-top: 20px;}
-#startBtn:hover { background: url(../images/btn_start.png) bottom left no-repeat; } 
+#startBtn:hover { background: url(../images/btn_start.png) bottom left no-repeat; }
 
 
 /*  Other Pages  */
@@ -215,9 +215,13 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 }
 #banner_gallery h2 { color: #EFECE6; }
 
+#img_gallery_wrap{
+    position:relative;
+    padding:3px; border:1px solid #D4CFCB;
+}
 #img_gallery {
-    width: 889px ;
-    padding: 3px; border: 1px solid #D4CFCB;
+    width: 897px ;
+    padding:0;
 }
 
 #carousel_wrapper li, #carousel_wrapper2 li {
@@ -379,7 +383,7 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 #subnav li:first-of-type { padding: 0 15px 0 0; }
 .social { float:right; margin-bottom: 15px; margin-top: -10px;}
 .social * { float: right;}
- 
+
 #subnav .social span { padding:0; }
 
 #sunlight-products {

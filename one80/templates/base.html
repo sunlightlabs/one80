@@ -74,7 +74,7 @@
         </header>
         {% endblock header %}
 
-        <div id="content">
+        <div id="content" class="{% block contentclass %}{% endblock %}">
             <div class="social">
             <fb:like width="100" layout="button_count" show_faces="false"></fb:like>
             <a href="https://twitter.com/share" class="twitter-share-button" data-via="sunfoundation">Tweet</a>
@@ -92,7 +92,7 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            
+
             {% block content %}{% endblock %}
 
             {% block secondary %}{% endblock %}
@@ -109,7 +109,7 @@
             </nav>
             {% endblock %}
         </div>
-        
+
         {% block footer %}
         <footer>
              <div id="sunlight-products">

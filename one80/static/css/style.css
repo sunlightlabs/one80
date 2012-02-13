@@ -145,13 +145,13 @@ header { margin: 0 auto; background: url(../images/bg_header.jpg) center top no-
 h1 { padding: 35px 0 0 0; float: left; width: 337px; height: 68px;}
 h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; height: 68px; }
 
-#header_nav { width: 261px; padding: 35px 0 0 0; float: right; }
+#header_nav { width: 450px; padding: 35px 0 0 0; float: right; }
 #header_nav li { float: right; }
 
 #button_search { background: url('../images/btn_go.png') top left no-repeat; width: 62px; height: 28px; border: none; float: right;}
 #button_search:hover { background: url('../images/btn_go.png') bottom left no-repeat;}
 #input_search { width: 175px; font-size: 14px; margin: 1px 0 0 0; padding: 4px 5px 5px; float: left; background-color: #fff;}
-#form_search-site { width: 260px; margin: 20px 0 0 0; }
+#form_search-site { width: 260px; margin: 20px 0 0 0; float:right; }
 #form_search-site label { display: none; }
 
 #subnav .list_nav { margin: 0 auto; width: 150px;}
@@ -171,11 +171,14 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 .list_col-wrapper { width: 265px; padding: 0 15px; margin: 20px 0 0 0; float: left; }
 .list_col-wrapper h3 { border-bottom: 1px dashed #D4CFCB; padding-bottom: 4px;}
 
-.list_columns a { font-size: 15px; line-height: 18px; display: block;}
+.list_columns a { font-size: 15px; line-height: 18px; display: block; }
+.wrapper-img-gallery .list_columns a {float:left;}
+.wrapper-img-gallery .list_columns span.list_title,
+.wrapper-img-galelry .list_columns span.list_employer {display:block;clear:left;}
 .list_columns li { margin-bottom: 20px; }
 
 #startBtn { background: url(../images/btn_start.png) top left no-repeat; width: 235px; height: 53px; margin-top: 20px;}
-#startBtn:hover { background: url(../images/btn_start.png) bottom left no-repeat; } 
+#startBtn:hover { background: url(../images/btn_start.png) bottom left no-repeat; }
 
 
 /*  Other Pages  */
@@ -204,7 +207,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 }
 
 #banner_gallery {
-    width: 880px;
+    width: 872px;
     background-color: #000;
     background-color: rgba(0,0,0,0.45);
     color: #EFECE6;
@@ -215,9 +218,16 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 }
 #banner_gallery h2 { color: #EFECE6; }
 
-#img_gallery {
-    width: 889px ;
-    padding: 3px; border: 1px solid #D4CFCB;
+#img_gallery_wrap{
+    position:relative;
+    padding:3px; border:1px solid #D4CFCB;
+}
+#img_gallery,
+#content #img_gallery {
+    width: 882px;
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 
 #carousel_wrapper li, #carousel_wrapper2 li {
@@ -385,7 +395,7 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 #subnav li:first-of-type { padding: 0 15px 0 0; }
 .social { float:right; margin-bottom: 15px; margin-top: -10px;}
 .social * { float: right;}
- 
+
 #subnav .social span { padding:0; }
 
 #sunlight-products {

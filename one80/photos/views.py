@@ -11,6 +11,8 @@ from one80.photos.models import Annotation, Photo
 DNE = "Couldn't get that annotation, does it exist?"
 NOT_PERMITTED = "You don't have permission to edit annotations."
 
+FULLSIZE_WIDTH = 882
+
 def photo_detail(request, slug, photo_id):
     '''Gets a photo resource for permalink display'''
     hearing = get_object_or_404(Hearing, slug=slug)
@@ -28,7 +30,7 @@ def photo_detail(request, slug, photo_id):
     context = {
         'hearing': hearing,
         'photo': photo,
-        'fullsize': photo.get_size(902),
+        'fullsize': photo.get_size(FULLSIZE_WIDTH),
         'annotations': photo.annotations.published(request.user),
         'previous_photo': previous_photo,
         'next_photo': next_photo,
@@ -37,7 +39,7 @@ def photo_detail(request, slug, photo_id):
 
 def photo_annotations(request, slug, photo_id):
     '''Handles all photo annotation CRUD operations'''
-    size = int(request.GET.get('size', 902))
+    size = int(request.GET.get('size', FULLSIZE_WIDTH))
     action = request.GET.get('action', 'get')
     hearing = get_object_or_404(Hearing, slug=slug)
     try:

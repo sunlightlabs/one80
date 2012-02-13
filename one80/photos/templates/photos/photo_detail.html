@@ -67,13 +67,15 @@
 {% endblock %}
 
 {% block contentid %}wrapper_img_gallery{% endblock %}
-{% block contentclass %}{% endblock %}
+{% block contentclass %}wrapper-img-gallery{% endblock %}
 {% block content %}
-<div id="banner_gallery">
-    <h2 class="withTip">{{ hearing.title }}</h2>
-    <!-- <a href="{% url hearing_detail hearing.slug %}"> --><span>a hearing of the {{ hearing.committee.name}}</span><!-- </a> -->
+<div id="img_gallery_wrap">
+    <div id="banner_gallery">
+        <h2 class="withTip">{{ hearing.title }}</h2>
+        <span>a hearing of the {{ hearing.committee.name}}</span>
+    </div>
+    <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
 </div>
-<img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
 {% comment %}
 {% if request.user.is_anonymous %}
 <a href="{% url login %}" class="image-annotate-add">Login to tag this photo</a>
@@ -86,8 +88,9 @@
     <h3>Appearing in this photo...</h3>
     <ol class="list_columns">
         {% for annot in annotations %}
-        <li><a href="{% if annot.person.slug %}{% url person_detail annot.person.slug %}{% else %}#{% endif %}" data-id={{ annot.id }}>{{ annot }}</a> {% annotation_buttons annot %}
-            <span class="list_title">{{ annot.title }}, </span><span class="list_employer">{{ annot.organization }}</span>
+        <li><a href="{% if annot.person.slug %}{% url person_detail annot.person.slug %}{% else %}#{% endif %}" data-id={{ annot.id }}>{{ annot.name }}</a> {% annotation_buttons annot %}
+            <span class="list_title">{{ annot.title }},</span>
+            <span class="list_employer">{{ annot.organization }}</span>
         </li>
         {% empty %}
         <li>No tags yet. Little help?</li>

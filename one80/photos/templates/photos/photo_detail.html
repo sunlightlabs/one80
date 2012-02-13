@@ -89,8 +89,10 @@
     <ol class="list_columns">
         {% for annot in annotations %}
         <li><a href="{% if annot.person.slug %}{% url person_detail annot.person.slug %}{% else %}#{% endif %}" data-id={{ annot.id }}>{{ annot.name }}</a> {% annotation_buttons annot %}
+            {% if annot.title %}
             <span class="list_title">{{ annot.title }},</span>
             <span class="list_employer">{{ annot.organization }}</span>
+            {% endif %}
         </li>
         {% empty %}
         <li>No tags yet. Little help?</li>

@@ -248,13 +248,19 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 
 #arrow_prev, #arrow_fw {
     width: 24px;
-    height: 39px;
+    height: 38px;
     display: block;
     position: absolute;
     top: 40%;
 }
-#arrow_prev, #arrow_prev.disabled:hover { background: url('../images/arrow_lt.jpg') top left no-repeat;  left: -1px; }
-#arrow_fw, #arrow_fw.disabled:hover {  background: url('../images/arrow_rt.jpg') top left no-repeat; right: -1px; }
+
+#arrow_prev { background: url('../images/arrow_lt.jpg') top left no-repeat; left: 0;}
+#arrow_prev:hover { background: url('../images/arrow_lt.jpg') left -38px no-repeat; }
+#arrow_prev.disabled { background: url('../images/arrow_lt.jpg') left -76px no-repeat;}
+
+#arrow_fw {  background: url('../images/arrow_rt.jpg') top left no-repeat; right: -2px;}
+#arrow_fw:hover { background: url('../images/arrow_rt.jpg') left -38px no-repeat; }
+#arrow_fw.disabled { background: url('../images/arrow_rt.jpg') left -76px no-repeat; }
 
 #carousel_wrapper span {
     margin-top: 3px;
@@ -297,7 +303,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
     height: 31px;
     text-indent:-9999px;
     background: url('../images/tag-this-photo.png') top left no-repeat;
-    position: relative;
+    position: absolute;
     z-index: 5;
     bottom: 60px;
     left: -15px;

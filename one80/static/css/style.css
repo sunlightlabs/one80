@@ -162,7 +162,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 
 #subnav .list_nav { margin: 0 auto; width: 150px;}
 .list_nav li { font-family: "futura-pt", "Helvetica", Arial, sans-serif; font-size: 14px; font-weight: 500; padding: 0 10px; border-right: 1px dotted #A3948F; }
-#link_signup, #link_account, #link_contact { border-right: none; }
+.list_nav li:first-child { border-right:none; }
 
 #link_account a { width: 21px; height: 21px; background: url('../images/sprite_account.png') top left no-repeat; margin: -3px 0 0 0; }
 #link_account a:hover { width: 21px; height: 21px; background: url('../images/sprite_account.png') bottom left no-repeat; }

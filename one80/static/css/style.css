@@ -206,7 +206,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 #content img { padding: 3px; border: 1px solid #D4CFCB;}
 
 .image_previews img { display:none; }
-.image_previews img:first-child { display:block; }
+.image_previews img:first-child { display:inline; }
 
 .bulleted li {
     color: #456F74;

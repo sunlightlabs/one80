@@ -145,13 +145,13 @@ header { margin: 0 auto; background: url(../images/bg_header.jpg) center top no-
 h1 { padding: 35px 0 0 0; float: left; width: 337px; height: 68px;}
 h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; height: 68px; }
 
-#header_nav { width: 261px; padding: 35px 0 0 0; float: right; }
+#header_nav { width: 450px; padding: 35px 0 0 0; float: right; }
 #header_nav li { float: right; }
 
 #button_search { background: url('../images/btn_go.png') top left no-repeat; width: 62px; height: 28px; border: none; float: right;}
 #button_search:hover { background: url('../images/btn_go.png') bottom left no-repeat;}
 #input_search { width: 175px; font-size: 14px; margin: 1px 0 0 0; padding: 4px 5px 5px; float: left; background-color: #fff;}
-#form_search-site { width: 260px; margin: 20px 0 0 0; }
+#form_search-site { width: 260px; margin: 20px 0 0 0; float:right; }
 #form_search-site label { display: none; }
 
 #subnav .list_nav { margin: 0 auto; width: 150px;}

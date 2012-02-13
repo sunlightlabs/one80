@@ -1,0 +1,7 @@
+nav { border: 1px solid #efeeeb;  }
+#subnav { border-left: none; border-right: none; border-bottom: none;}
+#featureOverlay { float: left; margin-left: -880px; z-index: 3;}
+
+.fb_iframe_widget { width: 110px;}
+
+.fn, .title, .tel {  width: auto;}

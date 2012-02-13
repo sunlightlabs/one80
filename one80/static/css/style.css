@@ -409,6 +409,7 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
     height: 23px;
     background: url('../images/btn_submitSmSm.png') top left no-repeat;
     border: none;
+    margin-top: 1px;
 }
 #button_join:hover { background: url('../images/btn_submitSmSm.png') bottom left no-repeat; }
 

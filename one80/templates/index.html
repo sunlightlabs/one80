@@ -5,10 +5,11 @@
 {% block contentwrapid %}main_2col{% endblock %}
 {% block contentid %}main_column-wrapper{% endblock %}
 {% block contentclass %}float_2col{% endblock %}
+{% block bodyclass %}home main{% endblock %} 
 
 {% block content %}
 <div id="feature">
-    <img src="{% media_url "/images/img_feature.jpg"  %}"/>
+    <a href="{% url hearing_list %}"><img src="{% media_url "/images/img_feature.jpg"  %}"/></a>
     <div id="featureOverlay">
         <h2 class="replace">Help us find out who's watching Congress</h2>
         <span>Recognize someone in one of our hearing photos? Tag them now!</span>
@@ -17,30 +18,47 @@
     <div class="clear"></div>
 </div>
 
-<section class="list_col-wrapper">
-    <h3>Browse Committees</h3>
-    <ol class="list_columns">
-    {% for committee in committees %}
-        <li><a href="{% url committee_detail committee.slug %}">{{ committee.name }}</a></li>
-    {% endfor %}
-    </ol>
-    <span class="list_view-all"><a href="{% url committee_list %}">View All Committees &raquo;</a></span>
-</section>
-
-<section class="list_col-wrapper">
-    <h3>Latest Hearings</h3>
-    <ol class="list_columns">
-        {% for hearing in latest_hearings %}
-        <li class="{% if not hearing.is_public %}private{% endif %}">
-            <span class="hearing-date">{{ hearing.start_datetime|date:"n/j/y" }}</span>
-            <a href="{% url hearing_detail hearing.slug %}">{{ hearing.title|truncatewords:7 }}</a>
+<div class="list_col-left">
+    <h3>Help Now by Tagging the Recent Photos Below</h3>
+    <ul>
+        <li class="module">
+            <a href="#"><img src="{% media_url '/images/att-tmobile-mdm.jpeg'  %}" /></a>
+            <div class="photoDetails">
+                <span class="hearing-date">1/27/12</span>
+                <span class="grid_names">
+                    <a href="/hearings/barley-whats-it-good/">Barley: What's it good for?</a>
+                </span>
+                <span><a href="/committees/house-agricultural-committee/">House Agricultural Committee</a></span>
+            </div>    
+            <div class="clear"></div>
         </li>
-        {% endfor %}
-    </ol>
-    <span class="list_view-all"><a href="{% url hearing_list %}">View All Hearings &raquo;</a></span>
-</section>
+        <li class="module">
+            <a href="#"><img src="{% media_url '/images/att-tmobile-mdm.jpeg'  %}" /></a>
+            <div class="photoDetails">
+                <span class="hearing-date">1/27/12</span>
+                <span class="grid_names">
+                    <a href="/hearings/barley-whats-it-good/">Barley: What's it good for?</a>
+                </span>
+                <span><a href="/committees/house-agricultural-committee/">House Agricultural Committee</a></span>
+            </div>    
+            <div class="clear"></div>
+        </li>
+        <li class="module">
+            <a href="#"><img src="{% media_url '/images/att-tmobile-mdm.jpeg'  %}" /></a>
+            <div class="photoDetails">
+                <span class="hearing-date">1/27/12</span>
+                <span class="grid_names">
+                    <a href="/hearings/barley-whats-it-good/">Barley: What's it good for?</a>
+                </span>
+                <span><a href="/committees/house-agricultural-committee/">House Agricultural Committee</a></span>
+            </div>    
+            <div class="clear"></div>
+        </li>
+    </ul>
+    <span class="list_view-all"><a href="{% url hearing_list %}">View More Recent Photos &raquo;</a></span>
+</div>    
 
-<section class="list_col-wrapper">
+<div id="list_col-right">
     <h3>Most Appearances</h3>
     <ol class="list_columns">
         {% for leader in leaderboard %}
@@ -52,6 +70,8 @@
         {% endfor %}
     </ol>
     <span class="list_view-all"><a href="{% url leaderboard %}">View The Leaders &raquo;</a></span>
-</section>
+</div>
+<div class="clear"></div>
+
 {% endblock content %}
 

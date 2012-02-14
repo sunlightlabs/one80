@@ -63,13 +63,12 @@ input:invalid, textarea:invalid { border-radius: 1px; -moz-box-shadow: 0px 0px 5
 
 ::-moz-selection{ background: #456f74; color: #e5e2db; text-shadow: none; }
 ::selection { background:#456f74; color: #e5e2db; text-shadow: none; }
-a:link { -webkit-tap-highlight-color: #456f74; }
+a:link, a:visited { -webkit-tap-highlight-color: #456f74; }
 button {  width: auto; overflow: visible; }
 .ie7 img { -ms-interpolation-mode: bicubic; }
 
-.main a:link, .list_columns a:link, .tagged_names a:link, .tables a:link {text-decoration: none; outline: none; color: #456f74;}
+.main a:link, .list_columns a:link, .tagged_names a:link, .tables a:link, .main a:visited {text-decoration: none; outline: none; color: #456f74;}
 .list_view-all a:link, .tagged_hearings a:link, .bulleted a:link, .hearing-date a:link, .hearing-tags a:link, .committee-sm a:link, .grid_sub a:link {color: #456f74; color: rgba(69,111,116,0.65); text-decoration: none;}
-.main a:visited {color: #456f74;}
 .list_columns a:hover, .tagged_names a:hover, .recent_hearings a:hover, .list_hearing a:hover, .tables a:hover, .rid_names a:hover, .list_committee a:hover {color: #ee603d; border-bottom: 1px dotted rgba(238,96,61,0.5); border-bottom-color:#ff603d; border-bottom-color:rgba(238,96,61,0.5);}
 .list_view-all a:hover, .tagged_hearings a:hover, .bulleted a:hover, .hearing-date a:hover, .hearing-tags a:hover, .grid_sub a:hover {color: #456F74; border-bottom: none;}
 #header_nav a:focus, .main a:focus, footer a:focus, button:focus {background-color: #000; background-color: rgba(0,0,0,0.02);outline: 1px dotted rgba(0,0,0,0.25);}
@@ -129,7 +128,9 @@ body {
 }
 
 #content { background-color: #fff; margin: 0 auto; padding: 30px 30px 0; width: 890px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+.home .list_col-left { width: 570px;}
 .list_col-left { width: 360px; margin-right: 30px; float: left; margin-top: 40px;}
+.home #list_col-right { width: 290px;}
 #list_col-right { width: 500px; float: left; margin-top: 40px; }
 
 .module { margin-bottom: 30px;}
@@ -160,7 +161,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 #form_search-site { width: 260px; margin: 20px 0 0 0; float:right; }
 #form_search-site label { display: none; }
 
-#subnav .list_nav { margin: 0 auto; width: 150px;}
+#subnav .list_nav { margin: 0 auto; width: 300px;}
 .list_nav li { font-family: "futura-pt", "Helvetica", Arial, sans-serif; font-size: 14px; font-weight: 500; padding: 0 10px; border-right: 1px dotted #A3948F; }
 #header_nav .list_nav li:first-child, .list_nav #link_contact { border-right:none; padding-right:0; }
 
@@ -168,14 +169,13 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 #link_account a:hover { width: 21px; height: 21px; background: url('../images/sprite_account.png') bottom left no-repeat; }
 
 /* home page */
-#feature { margin-bottom: 10px;}
 #content #feature img { float: left; padding: 0; border: none;}
 #feature span { font-size: 120%; color: #fff; line-height: 24px;}
 #feature h2 { background: url(../images/title_homeFeature.png) top left no-repeat; width: 230px; height: 144px;}
-#featureOverlay { position: absolute; padding: 60px 30px; width: 250px; }
+#featureOverlay { position: absolute; padding: 35px 30px; width: 250px; }
 
 .list_col-wrapper { width: 265px; padding: 0 15px; margin: 20px 0 0 0; float: left; }
-.list_col-wrapper h3 { border-bottom: 1px dashed #D4CFCB; padding-bottom: 4px;}
+.home h3 { border-bottom: 1px dashed #D4CFCB; padding-bottom: 4px;}
 
 .list_columns a { font-size: 15px; line-height: 18px; display: block; }
 .wrapper-img-gallery .list_columns a {float:left;}
@@ -185,6 +185,9 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 
 #startBtn { background: url(../images/btn_start.png) top left no-repeat; width: 235px; height: 53px; margin-top: 20px;}
 #startBtn:hover { background: url(../images/btn_start.png) bottom left no-repeat; }
+
+.home .list_col-left img { width: 250px; float: left; margin-right: 25px;}
+.photoDetails { float: left; margin-top: 30px;;}
 
 
 /*  Other Pages  */

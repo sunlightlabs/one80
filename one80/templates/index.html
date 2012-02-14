@@ -5,7 +5,7 @@
 {% block contentwrapid %}main_2col{% endblock %}
 {% block contentid %}main_column-wrapper{% endblock %}
 {% block contentclass %}float_2col{% endblock %}
-{% block bodyclass %}home main{% endblock %} 
+{% block bodyclass %}home main{% endblock %}
 
 {% block content %}
 <div id="feature">
@@ -21,42 +21,26 @@
 <div class="list_col-left">
     <h3>Help Now by Tagging the Recent Photos Below</h3>
     <ul>
+        {% for hearing in latest_hearings.all %}
         <li class="module">
-            <a href="#"><img src="{% media_url '/images/att-tmobile-mdm.jpeg'  %}" /></a>
+            <a href="{% url hearing_detail hearing.slug %}" class="image_previews">
+                {% for photo in hearing.photos.all %}
+                <img src="{% getsize photo 250 166 %}" width="250" height="166" alt="Photo of the audience at '{{ hearing.title }}'" />
+                {% endfor %}
+            </a>
             <div class="photoDetails">
-                <span class="hearing-date">1/27/12</span>
+                <span class="hearing-date">{{ hearing.start_datetime|date:"n/j/y" }}</span>
                 <span class="grid_names">
-                    <a href="/hearings/barley-whats-it-good/">Barley: What's it good for?</a>
+                    <a href="{% url hearing_detail hearing.slug %}">{{ hearing.title|truncatewords:7 }}</a>
                 </span>
-                <span><a href="/committees/house-agricultural-committee/">House Agricultural Committee</a></span>
-            </div>    
+                <span><a href="{% url committee_detail hearing.committee.slug %}">{{ hearing.committee.name }}</a></span>
+            </div>
             <div class="clear"></div>
         </li>
-        <li class="module">
-            <a href="#"><img src="{% media_url '/images/att-tmobile-mdm.jpeg'  %}" /></a>
-            <div class="photoDetails">
-                <span class="hearing-date">1/27/12</span>
-                <span class="grid_names">
-                    <a href="/hearings/barley-whats-it-good/">Barley: What's it good for?</a>
-                </span>
-                <span><a href="/committees/house-agricultural-committee/">House Agricultural Committee</a></span>
-            </div>    
-            <div class="clear"></div>
-        </li>
-        <li class="module">
-            <a href="#"><img src="{% media_url '/images/att-tmobile-mdm.jpeg'  %}" /></a>
-            <div class="photoDetails">
-                <span class="hearing-date">1/27/12</span>
-                <span class="grid_names">
-                    <a href="/hearings/barley-whats-it-good/">Barley: What's it good for?</a>
-                </span>
-                <span><a href="/committees/house-agricultural-committee/">House Agricultural Committee</a></span>
-            </div>    
-            <div class="clear"></div>
-        </li>
+        {% endfor %}
     </ul>
     <span class="list_view-all"><a href="{% url hearing_list %}">View More Recent Photos &raquo;</a></span>
-</div>    
+</div>
 
 <div id="list_col-right">
     <h3>Most Appearances</h3>

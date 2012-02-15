@@ -213,8 +213,8 @@ a.image_previews small.photo-credit { bottom:0.75em !important; }
 #content img { padding: 3px; border: 1px solid #D4CFCB;}
 
 .image_previews { position:relative; display:block; }
-.image_previews img { display:none; }
-.image_previews img:first-child { display:inline; }
+.image_previews span.photo { display:none; }
+.image_previews span.photo:first-child { display:inline; }
 
 .bulleted li {
     color: #456F74;

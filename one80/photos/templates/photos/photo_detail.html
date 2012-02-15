@@ -76,7 +76,7 @@
     </div>
     <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
 </div>
-<small class="photo-credit">Photo: {{ fullsize.photo.credit|markdown }}</small>
+{% if fullsize.photo.credit %}<small class="photo-credit">Photo: {{ fullsize.photo.credit|markdown }}</small>{% endif %}
 {% comment %}
 {% if request.user.is_anonymous %}
 <a href="{% url login %}" class="image-annotate-add">Login to tag this photo</a>

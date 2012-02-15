@@ -26,7 +26,7 @@
                 {% for photo in hearing.photos.all %}
                 <span class="photo">
                     <img src="{% getsize photo 250 166 %}" width="250" height="166" alt="Photo of the audience at '{{ hearing.title }}'" />
-                    <small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>
+                    {% if photo.credit %}<small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>{% endif %}
                 </span>
                 {% endfor %}
             </a>

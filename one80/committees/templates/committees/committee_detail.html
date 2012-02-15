@@ -11,16 +11,9 @@
 <ol>
 {% for hearing in committee.hearings.published %}
     <li class="list_columns2">
+        <span class="hearing-date">{{ hearing.start_datetime|date:"n/j/y" }}</span>
         <h4 class="list_hearing"><a href="{% url hearing_detail hearing.slug %}" title="Hearing page">{{ hearing }}</a></h4>
-        <span class="hearing-date">({{ hearing.start_datetime|date:"n/j/y" }})</span>
-        <span>Tagged Appearances:</span>
-        {% if hearing.annotated_names %}
-        <ol class="bulleted">
-            {% for name in hearing.annotated_names %}
-            <li><a href="#">{{ name }}</a></li>
-            {% endfor %}
-        </ol>
-        {% endif %}
+        <span>Tagged: {% templatetag openbrace %}{{ hearing.annotated_names|length }}{% templatetag closebrace %}</span>
     </li>
 {% endfor %}
 </ol>

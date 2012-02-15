@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load markup one80_tags photo_tags %}
+{% load markup one80_tags photo_tags markup %}
 
 {% block title %}{{ hearing.title }} :: {{ block.super}}{% endblock %}
 
@@ -19,6 +19,7 @@
             <li>
                 <a href="{% url photo_detail hearing.slug photo.pk %}">
                 <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ hearing.title }}" class="grid_thumbnails" />
+                <small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>
                 <span class="grid_tagged">Tagged: <span class="nmbr_tagged">{% templatetag openbrace %}{{ photo.annotations.published.count }}{% templatetag closebrace %}</span></span>
                 </a>
             </li>

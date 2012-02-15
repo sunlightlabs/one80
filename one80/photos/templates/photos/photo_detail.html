@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load media photo_tags %}
+{% load media photo_tags markup %}
 
 {% block title %}{{ hearing.title }} :: {{ block.super }}{% endblock %}
 
@@ -76,6 +76,7 @@
     </div>
     <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
 </div>
+<small class="photo-credit">Photo: {{ fullsize.photo.credit|markdown }}</small>
 {% comment %}
 {% if request.user.is_anonymous %}
 <a href="{% url login %}" class="image-annotate-add">Login to tag this photo</a>

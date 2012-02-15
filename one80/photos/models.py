@@ -32,6 +32,7 @@ class Photo(models.Model):
     hearing = models.ForeignKey(Hearing, related_name="photos")
     name = models.CharField(max_length=128)
     extension = models.CharField(max_length=4, choices=EXTENSIONS)
+    credit = models.CharField(max_length=255, blank=True)
 
     class Meta:
         ordering = ('name',)

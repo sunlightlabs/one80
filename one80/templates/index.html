@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load photo_tags %}
-{% load media %}
+{% load photo_tags media markup %}
 
 {% block contentwrapid %}main_2col{% endblock %}
 {% block contentid %}main_column-wrapper{% endblock %}
@@ -25,7 +24,10 @@
         <li class="module">
             <a href="{% url hearing_detail hearing.slug %}" class="image_previews">
                 {% for photo in hearing.photos.all %}
-                <img src="{% getsize photo 250 166 %}" width="250" height="166" alt="Photo of the audience at '{{ hearing.title }}'" />
+                <span class="photo">
+                    <img src="{% getsize photo 250 166 %}" width="250" height="166" alt="Photo of the audience at '{{ hearing.title }}'" />
+                    <small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>
+                </span>
                 {% endfor %}
             </a>
             <div class="photoDetails">

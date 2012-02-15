@@ -74,7 +74,7 @@ jQuery.noConflict();
     });
 
     // mouseover galleries
-    $('.image_previews').mouseoverGallery();
+    $('.image_previews').mouseoverGallery({selector: 'span.photo'});
 
     // legacy placeholders
     $('input[placeholder], textarea[placeholder]').placeholder();

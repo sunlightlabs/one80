@@ -6,7 +6,7 @@ import os
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.template import Context
 from django.template.loader import get_template
 from PIL import Image
@@ -308,11 +308,17 @@ class Annotation(models.Model):
         self.thumbnail.save(self.get_filename(), ContentFile(bffr.getvalue()), save=False)
         bffr.close()
 
-def save_annotation_handler(sender, instance, *args, **kwargs):
+def pre_save_annotation_handler(sender, instance, *args, **kwargs):
     if instance.is_public and not instance.person:
         instance.person = Person.objects.get_or_create(first_name=instance.first_name,
                                                        last_name=instance.last_name,
                                                        title=instance.title,
                                                        organization=instance.organization,)[0]
 
-pre_save.connect(save_annotation_handler, sender=Annotation)
+def post_save_annotation_handler(sender, instance, *args, **kwargs):
+    if not instance.is_public:
+        from django.core.management import call_command
+        call_command('newtagnotifications', sender='hook')
+
+pre_save.connect(pre_save_annotation_handler, sender=Annotation)
+post_save.connect(post_save_annotation_handler, sender=Annotation)

@@ -1,0 +1,15 @@
+Hello there,
+
+This is just a friendly email to let you know there are some new annotations awaiting your approval:
+
+{% for annot in annotations %}
+ - {{ annot.name }}, {{ annot.position }} in {{ annot.hearing.title }}
+   http://180.sunlightfoundation.com/admin/photos/annotation/{{ annot.pk }}/
+
+{% endfor %}
+
+As a reminder, you can always see the unapproved queue at http://180.sunlightfoundation.com/admin/photos/annotation/?is_public__exact=0
+
+Thanks and have a great day!
+
+- The 180° Project

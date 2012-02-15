@@ -19,4 +19,5 @@ yql
 -e git+https://github.com/dandrinkard/python-inboxinfluence.git#egg=python_inboxinfluence-dev
 -e git+https://github.com/dandrinkard/python-crunchbase.git#egg=python_crunchbase-dev
 -e git+https://github.com/liberation/django-jsonfield.git#egg=django_jsonfield-dev
+# important to stick with this fork; relies on a new model field
 -e git+https://github.com/dandrinkard/django-postmark.git#egg=django_postmark-dev

@@ -199,6 +199,7 @@ a.image_previews small.photo-credit { bottom:0.75em !important; }
 
 #photo_grid li {
     width: 251px;
+    height: 255px;
     margin: 0 40px 40px 0;
     float: left;
     position: relative;

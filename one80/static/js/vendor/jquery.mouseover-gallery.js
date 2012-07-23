@@ -1,7 +1,7 @@
 (function($){
 
-  $.fn.mouseoverGallery = function(opts){
-    var el = $(this)
+  $.mouseoverGallery = function(el, opts){
+    var el = $(el)
       , els
       , options = {}
       , defaults = {
@@ -32,13 +32,18 @@
               , size = els.length
               , imgToShow = Math.floor(((mouseX - elX) / elW) * size)
               ;
-
               els.eq(imgToShow).show().siblings().hide();
           }
         }
       ;
 
     return init();
-  }
+  };
+
+  $.fn.mouseoverGallery = function(opts){
+    return $(this).each(function(){
+      return $.mouseoverGallery($(this), opts);
+    });
+  };
 
 })(jQuery);

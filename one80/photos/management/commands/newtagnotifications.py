@@ -25,7 +25,7 @@ class Command(BaseCommand):
            This is run 2 ways: crontab and post-save hook.
            If called from cron, it will only email every hour at most.
            If called from a hook, it will send if n or more new annotations are queued,
-           and 5 minutes have passed since the last annotation was submitted, not more than every 30 minutes.
+           and 5 minutes have passed since the last annotation was submitted, not more than every 20 minutes.
            '''
 
     def handle(self, *args, **options):

@@ -155,7 +155,7 @@ class Annotation(models.Model):
     y_pct = models.FloatField()
     width_pct = models.FloatField()
     height_pct = models.FloatField()
-    thumbnail = models.ImageField(upload_to=annotation_thumbnail_path, blank=True, null=True)
+    thumbnail = models.ImageField(upload_to=annotation_thumbnail_path, blank=True, null=True, max_length=255)
 
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)

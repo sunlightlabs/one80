@@ -77,7 +77,7 @@ class Size(models.Model):
     photo = models.ForeignKey(Photo, related_name='sizes')
     width = models.IntegerField(blank=True)
     height = models.IntegerField(blank=True)
-    image = models.ImageField(upload_to=resize_path, height_field='height', width_field='width')
+    image = models.ImageField(upload_to=resize_path, height_field='height', width_field='width', max_length=255)
     is_original = models.BooleanField(default=False)
 
     def __unicode__(self):

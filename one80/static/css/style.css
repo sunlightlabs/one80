@@ -189,7 +189,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 .home .list_col-left a.image_previews { float: left; margin-right: 25px; }
 .home .list_col-left img { width: 250px; }
 .photoDetails { float: left; margin-top: 30px; }
-.photoDetails a { display:block; width:245px; }
+.photoDetails a.cmte { display:block; width:245px; }
 small.photo-credit { display:block; padding: 0.5em;font-style:italic; }
 small.photo-credit p { display:inline !important;margin:0; float:none; position:static; }
 a.image_previews small.photo-credit, #photo_grid li small.photo-credit { position:absolute; bottom:0.5em; left:0.5em; color:#fff; background:#000; background: rgba(0,0,0,0.6); }

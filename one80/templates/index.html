@@ -36,7 +36,7 @@
                 <span class="grid_names">
                     <a href="{% url hearing_detail hearing.slug %}">{{ hearing.title|truncatewords:7 }}</a>
                 </span>
-                <span><a href="{% url committee_detail hearing.committee.slug %}">{{ hearing.committee.name }}</a></span>
+                <span><a href="{% url committee_detail hearing.committee.slug %}" class="cmte">{{ hearing.committee.name }}</a></span>
             </div>
             <div class="clear"></div>
         </li>

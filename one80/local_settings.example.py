@@ -1,4 +1,4 @@
-from one80.settings import PROJECT_ROOT, MEDIASYNC
+from one80.settings import PROJECT_ROOT
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -25,19 +25,17 @@ DATABASES = {
 
 HAYSTACK_WHOOSH_PATH = '%s/data/whoosh/one80_index' % PROJECT_ROOT
 
-MEDIASYNC.update({
-    'AWS_KEY': "",
-    'AWS_SECRET': "",
-    'SERVE_REMOTE': False,
-})
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = ''
+S3_URL = ''
+COMPRESS_URL = S3_URL + ''
+COMPRESS_STORAGE = ''
+STATICFILES_STORAGE = COMPRESS_STORAGE
+STATIC_URL = COMPRESS_URL
+COMPRESS_ENABLED = True
+
 TIME_ZONE = 'America/New_York'
 
 # Make this unique, and don't share it with anybody.
@@ -64,8 +62,14 @@ FACEBOOK_APP_ID = ''
 FACEBOOK_API_SECRET = ''
 GOOGLE_CONSUMER_KEY = ''
 GOOGLE_CONSUMER_SECRET = ''
-GOOGLE_DISPLAY_NAME = '180&deg; Project'
+GOOGLE_DISPLAY_NAME = ''
 BING_APIKEY = ''
+LINKEDIN_APIKEY = ''
+LINKEDIN_API_SECRET = ''
+LINKEDIN_REQUEST_TOKEN = ''
+LINKEDIN_REQUEST_TOKEN_SECRET = ''
+LINKEDIN_ACCESS_TOKEN = ''
+LINKEDIN_ACCESS_TOKEN_SECRET = ''
 POSTMARK_API_KEY = ''
 
 # A sample logging configuration. The only tangible logging
@@ -79,12 +83,16 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+        'print_to_screen': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
         }
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'print_to_screen'],
             'level': 'ERROR',
             'propagate': True,
         },

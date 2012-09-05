@@ -26,6 +26,7 @@
                     <span class="committee-sm"><a href="{% url event_detail event.parent_event.slug %}" title="committee page">{{ event.parent_event.name }}</a></span>
                     {% endif %}
                 {% else %}
+                {% endif %}
             </li>
             {% endfor %}
         </ol>

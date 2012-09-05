@@ -3,7 +3,7 @@ Hello there,
 This is just a friendly email to let you know there are some new annotations awaiting your approval:
 
 {% for annot in annotations %}
- - {{ annot.name }}, {{ annot.position }} in {{ annot.hearing.title }}
+ - {{ annot.name }}, {{ annot.position }} in {{ annot.event.title }}
    http://180.sunlightfoundation.com/admin/photos/annotation/{{ annot.pk }}/
 
 {% endfor %}

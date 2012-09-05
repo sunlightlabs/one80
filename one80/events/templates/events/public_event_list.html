@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load photo_tags markup %}
+
+{% block title %}Public Events :: {{ block.super }}{% endblock %}
+
+{% block contentid %}{% endblock %}
+{% block content %}
+<div class="module" id="list_house-committees">
+    <h2>Public Events</h2>
+    <ol>
+        {% for event in page %}
+        <li class="list_columns3">
+            <span class="list_committee"><a href="{% url event_detail event.slug %}" title="event list page">{{ event.title }}</a></span>
+            <span>Events here <span class="nmbr_results">{% templatetag openbrace %}{{ event.child_events.count }}{% templatetag closebrace %}</span></span>
+            <ol class="bulleted">
+                {% for event in event.child_events.all %}
+                <li><a href="{% url event_detail event.slug %}">{{ event.title }}</a></li>
+                {% empty %}
+                <li><em class="empty">No events yet</em></li>
+                {% endfor %}
+            </ol>
+        </li>
+        {% empty %}
+        <li class="list_columns3"><em class="empty">No events yet.</em></li>
+        {% endfor %}
+    </ol>
+</div>
+{% comment %}
+<div class="module">
+    <h2 class="withTip">Choose an Event</h2>
+    <span>Click a photo to select an event to tag</span>
+</div>
+<div id="photo_grid">
+    <ol>
+        {% for event in page.object_list %}
+        <li>
+            <a class="image_previews" href="{% url event_detail event.slug %}">
+                {% for photo in event.photos.all %}
+                <span class="photo">
+                    <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ event.title }}" />
+                    {% if photo.credit %}<small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>{% endif %}
+                </span>
+                {% endfor %}
+            </a>
+            <span class="hearing-date">{{ event.start_datetime|date:"n/j/y" }}</span>
+            <span class="grid_names"><a href="{% url event_detail event.slug %}">{{ event.title }}</a></span>
+            {% if event.parent_event %}
+            <span><a href="{% url event_detail event.parent_event.slug %}">{{ event.parent_event.title }}</a></span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+    <div class="clear"></div>
+</div>
+{% endcomment %}
+{% endblock %}

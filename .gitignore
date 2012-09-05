@@ -4,3 +4,5 @@ one80/data/*
 one80/media/*
 *.DS_Store
 local_settings.py
+.static_cache
+.media_cache

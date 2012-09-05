@@ -1,10 +1,9 @@
-import json
-
 from django.db import models
 from django.db.models import Count
 from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify
 from jsonfield.fields import JSONField
+
 
 class PersonManager(models.Manager):
     use_for_related_fields = True
@@ -16,6 +15,7 @@ class PersonManager(models.Manager):
             qset = qset.filter(num_tags__gte=min_tags)
 
         return qset
+
 
 class Person(models.Model):
     slug = models.SlugField(max_length=64)
@@ -58,6 +58,7 @@ class Person(models.Model):
             'org': self.organization,
             'title': self.title,
         }
+
 
 def ensure_unique_slug(sender, *args, **kwargs):
     instance = kwargs['instance']

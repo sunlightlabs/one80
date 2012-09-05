@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load photo_tags media markup %}
+{% load static photo_tags markup %}
 
 {% block contentwrapid %}main_2col{% endblock %}
 {% block contentid %}main_column-wrapper{% endblock %}
@@ -8,11 +8,11 @@
 
 {% block content %}
 <div id="feature">
-    <a href="{% url hearing_list %}"><img src="{% media_url "/images/img_feature.jpg"  %}"/></a>
+    <a href="{% url event_list %}"><img src="{% static "images/img_feature.jpg"  %}"/></a>
     <div id="featureOverlay">
-        <h2 class="replace">Help us find out who's watching Congress</h2>
-        <span>Recognize someone in one of our hearing photos? Tag them now!</span>
-        <a id="startBtn" class="replace" href="{% url hearing_list %}">Start Tagging</a>
+        <h2 class="replace">Help us find out who's watching our Politicians</h2>
+        <span>Recognize someone in one of our photos? Tag them now!</span>
+        <a id="startBtn" class="replace" href="{% url event_list %}">Start Tagging</a>
     </div>
     <div class="clear"></div>
     <small class="photo-credit">Photo: <p>Rick Bloom, <a href="http://nationaljournal.com" rel="noindex nofollow" target="_blank">National Journal</a></p></small>
@@ -21,28 +21,44 @@
 <div class="list_col-left">
     <h3>Help Now by Tagging the Recent Photos Below</h3>
     <ul>
-        {% for hearing in latest_hearings.all %}
+        {% for event in latest_events %}
         <li class="module">
-            <a href="{% url hearing_detail hearing.slug %}" class="image_previews">
-                {% for photo in hearing.photos.all %}
+            <a
+            {% if event.object_type == 'hearing' %}
+            href="{% url hearing_detail event.slug %}"
+            {% else %}
+            href="{% url event_detail event.slug %}"
+            {% endif %}
+            class="image_previews">
+                {% for photo in event.photos.all %}
                 <span class="photo">
-                    <img src="{% getsize photo 250 166 %}" width="250" height="166" alt="Photo of the audience at '{{ hearing.title }}'" />
+                    <img src="{% getsize photo 250 166 %}" width="250" height="166" alt="Photo of the audience at '{{ event.title }}'" />
                     {% if photo.credit %}<small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>{% endif %}
                 </span>
                 {% endfor %}
             </a>
             <div class="photoDetails">
-                <span class="hearing-date">{{ hearing.start_datetime|date:"n/j/y" }}</span>
+                <span class="hearing-date">{{ event.start_datetime|date:"n/j/y" }}</span>
                 <span class="grid_names">
-                    <a href="{% url hearing_detail hearing.slug %}">{{ hearing.title|truncatewords:7 }}</a>
+                    <a
+                    {% if event.object_type == 'hearing' %}
+                    href="{% url hearing_detail event.slug %}"
+                    {% else %}
+                    href="{% url event_detail event.slug %}"
+                    {% endif %}
+                    >{{ event.title|truncatewords:7 }}</a>
                 </span>
-                <span><a href="{% url committee_detail hearing.committee.slug %}" class="cmte">{{ hearing.committee.name }}</a></span>
+                {% if event.committee %}
+                <span><a href="{% url committee_detail event.committee.slug %}" class="cmte">{{ event.committee.name }}</a></span>
+                {% elif event.parent_event %}
+                <span><a href="{% url event_detail event.parent_event.slug %}" class="cmte">{{ event.parent_event.title }}</a></span>
+                {% endif %}
             </div>
             <div class="clear"></div>
         </li>
         {% endfor %}
     </ul>
-    <span class="list_view-all"><a href="{% url hearing_list %}">View More Photos &raquo;</a></span>
+    <span class="list_view-all"><a href="{% url index %}?page=1">View More Photos &raquo;</a></span>
 </div>
 
 <div id="list_col-right">

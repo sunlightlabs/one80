@@ -161,7 +161,7 @@ h1 a {  background: url('../images/logo.png') top left no-repeat; width: 337px; 
 #form_search-site { width: 260px; margin: 20px 0 0 0; float:right; }
 #form_search-site label { display: none; }
 
-#subnav .list_nav { margin: 0 auto; width: 300px;}
+#subnav .list_nav { margin: 0 auto; display:inline-block; }
 .list_nav li { font-family: "futura-pt", "Helvetica", Arial, sans-serif; font-size: 14px; font-weight: 500; padding: 0 10px; border-right: 1px dotted #A3948F; }
 #header_nav .list_nav li:first-child, .list_nav #link_contact { border-right:none; padding-right:0; }
 
@@ -368,7 +368,7 @@ table td:first-of-type { border-left: none; }
     border: none;
 }
 
-#button_update:hover { background: url('../images/btn_update.png') bottom left no-repeat;}
+#button_update:hover { background: url('../images/btn_update.png') bottom left no-repeat; }
 
 
 /* forms  */
@@ -408,9 +408,10 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 #logo_footer:link { width: 151px; height: 46px; background: url('../images/logo_sunlight-dkbg.png') top left no-repeat; margin: 0 20px 15px 0; float: left; border-bottom: none;}
 
 #subnav {
-    padding: 11px 25px 27px;
+    padding: 11px 25px;
     border-top: 1px dashed #D4CFCB;
     margin-top: 60px;
+    text-align: center;
 }
 #subnav li { float: left; }
 #subnav li:first-of-type { padding: 0 15px 0 0; }
@@ -451,29 +452,29 @@ footer { margin: 0 auto; width: 950px; padding: 0 5px; }
 }
 #button_join:hover { background: url('../images/btn_submitSmSm.png') bottom left no-repeat; }
 
-
-
-
-
-#wrapper_img_gallery {
+/*#content.wrapper-img-gallery {
     width: 902px;
     height: 539px;
     margin: 0 0 16px 0;
     border: 4px solid #000;
     position:relative;
-}
+}*/
 
-#img_gallery_tagged a.delete, #img_gallery_tagged a.approve {
+#content.wrapper-img-gallery a.delete,
+#content.wrapper-img-gallery a.approve {
     display:inline-block;
     *display:block;
     zoom:1;
     width:16px;
     height:16px;
-    background: transparent url('../images/check-mark.png') no-repeat 0 0;
+    color:#3D8753;
+    margin-left:0.35em;
+    font-size:120%;
 }
 
-#img_gallery_tagged a.delete {
-    background-image: url('../images/x-mark.png');
+#content.wrapper-img-gallery a.delete {
+    color:#872831;
+    font-size:136%;
 }
 
 .img_caption {

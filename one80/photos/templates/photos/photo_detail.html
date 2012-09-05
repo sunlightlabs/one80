@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load media photo_tags markup %}
+{% load static photo_tags markup %}
 
-{% block title %}{{ hearing.title }} :: {{ block.super }}{% endblock %}
+{% block title %}{{ event.title }} :: {{ block.super }}{% endblock %}
 
 {% block js %}
     <script>
@@ -71,10 +71,14 @@
 {% block content %}
 <div id="img_gallery_wrap">
     <div id="banner_gallery">
-        <h2 class="withTip">{{ hearing.title }}</h2>
-        <span>a hearing of the {{ hearing.committee.name}}</span>
+        <h2 class="withTip">{{ event.title }}</h2>
+        {% if event.committee %}
+        <span>A hearing of the {{ event.committee.name}}</span>
+        {% elif event.parent_event %}
+        <span>An event of the {{ event.parent_event.title }}</span>
+        {% endif %}
     </div>
-    <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ hearing.title }}">
+    <img id="img_gallery" src="{{ fullsize.image.url }}" alt="a photograph showing audience members of {{ event.title }}">
 </div>
 {% if fullsize.photo.credit %}<small class="photo-credit">Photo: {{ fullsize.photo.credit|markdown }}</small>{% endif %}
 {% comment %}
@@ -105,13 +109,13 @@
 </div>
 
 <div id="list_col-right">
-    <h3>All Photos in this Hearing</h3>
+    <h3>All Photos in this {{ event.object_type }}</h3>
     <div id="carousel_wrapper" class="box">
         <a id="arrow_prev" class="replace" href="#" title="previous">previous</a>
         <ol class="clearfix">
-            {% for thumb in hearing.photos.all %}
+            {% for thumb in event.photos.all %}
             <li class="{% if photo.pk == thumb.pk %}current{% endif %}">
-                <a href="{% url photo_detail hearing.slug thumb.pk %}" title="hearing page">
+                <a href="{% url photo_detail event.slug thumb.pk %}" title="hearing page">
                     <img class="tagged_thumbnails-hrz" src="{% getsize thumb 147 88 %}" alt="a small photo of a recent hearing that shows the audience members" />
                     <span class="recent_hearings">{{ thumb.name }}</span>
                 </a>

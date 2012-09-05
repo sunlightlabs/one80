@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% load media %}
+{% load static %}
 
 {% block js %}
 {{ block.super }}
-{% js js/vendor/moment.js %}
-<script type="text/javascript">
+<script src="{% static 'js/vendor/moment.js' %}"></script>
+<script>
 (function($){
     window.one80 || (one80 = {})
     one80.timeNames = {

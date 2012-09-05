@@ -10,7 +10,7 @@ class AnnotationIndex(RealTimeSearchIndex):
     desc = CharField(faceted=True)
     name = CharField(model_attr='name')
     position = CharField(model_attr='position')
-    hearing = CharField(model_attr='hearing')
+    content_type = CharField(model_attr='event')
     date = DateTimeField(model_attr='published_date', null=True)
 
     def prepare_result_type(self, obj):

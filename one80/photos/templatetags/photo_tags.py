@@ -15,9 +15,9 @@ def annotation_buttons(context, annot):
     if user.is_staff:
         approve_url = reverse('annotation_approve', args=(annot.id,))
         delete_url = reverse('annotation_delete', args=(annot.id,))
-        buttons = [ '<a href="%s" class="delete replace">Delete</a>' % delete_url, ]
+        buttons = [ '<a href="%s" class="delete icon icon-remove-circle"></a>' % delete_url, ]
         if not annot.is_public:
-            buttons.append('<a href="%s" class="approve replace">Approve &raquo;</a>' % approve_url)
+            buttons.append('<a href="%s" class="approve icon icon-check"></a>' % approve_url)
         return ' '.join(buttons)
     # except:
     #     pass

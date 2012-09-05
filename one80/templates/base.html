@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load media flatpages %}
+{% load flatpages compress static %}
 <!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
@@ -11,23 +11,34 @@
         <meta name="description" content="{% block meta_description %}{% endblock %}">
         <meta name="author" content="{% block meta_author %}The Sunlight Foundation{% endblock %}">
         <meta property="fb:app_id" content="115242711915510" />
-        <meta property="og:title" content="{% block meta_og_title %}180° Project{% endblock %}" />
+        {# <meta property="og:title" content="{% block meta_og_title %}180° Project{% endblock %}" /> #}
         <meta property="og:site_name" content="180°" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{% block meta_url %}http://180.sunlighfoundation.com{% endblock %}" />
         <meta property="og:image" content="{% block meta_image %}http://s3.amazonaws.com/assets.sunlightfoundation.com/one80/static/images/logo_sunlight.png{% endblock %}" />
+        <meta property="og:title" content="Identify the Bundlers from the RNC with 180° from Sunlight">
+        <meta property="og:description"
+              content="Help the Sunlight Foundation &amp; Brian Ross identify the lobbying
+bundlers in these photos from the Republican National Convention">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-        {% css "css/joined.css" %}
-        <!--[if IE 7]><link rel="stylesheet" href="/static/css/buggy_7.css" type="text/css" media="screen, projection" /><![endif]-->
+        {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/annotation.css' %}">
+        {% endcompress %}
+        <!--[if IE 7]><link rel="stylesheet" href="{% static 'css/buggy_7.css' %}" type="text/css" media="screen, projection" /><![endif]-->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css">
         {% block css %}{% endblock %}
 
-        <!--[if lt IE 9]> <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/r23/html5.js"></script> <![endif]-->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
-        <script type="text/javascript" src="http://use.typekit.com/mmk3rsc.js"></script>
-        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        {# <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r23/html5.js"></script> <![endif]--> #}
+        <!--[if lt IE 9]><script src="{% static 'js/html5shiv.js' %}"></script> <![endif]-->
+        {# <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script> #}
+        <script src="{% static 'js/modernizr.min.js' %}"></script>
+        {# <script src="//use.typekit.com/mmk3rsc.js"></script> #}
+        <script src="{% static 'js/typekit.js' %}"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
     </head>
     <body class="{% block bodyclass %}main{% endblock %} {% if request.user.is_staff %}superuser{% endif %} {% if request.user.is_anonymous %}not-{% endif %}logged-in">
         <div id="fb-root"></div>
@@ -75,7 +86,7 @@
         <div id="content" class="{% block contentclass %}{% endblock %}">
             <div class="social">
             <fb:like width="100" layout="button_count" show_faces="false"></fb:like>
-            <a href="https://twitter.com/share" class="twitter-share-button" data-via="sunfoundation">Tweet</a>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Help @sunfoundation &amp; @brianross identify the #lobbying bundlers in these photos from #GOP2012" data-via="sunfoundation">Tweet</a>
             </div>
             <div class="clear"></div>
             {% if messages %}
@@ -101,6 +112,7 @@
                  <ul class="list_nav">
                      <li><a href="{% url hearing_list %}">Hearings</a></li>
                      <li><a href="{% url committee_list %}">Committees</a></li>
+                     <li><a href="{% url event_list %}">Events</a></li>
                      {% for page in flatpages %}
                      <li id="link_{{ page.title|slugify }}"><a href="{{ page.url }}">{{ page.title }}</a></li>
                      {% endfor %}
@@ -140,7 +152,19 @@
         </footer>
         {% endblock footer %}
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-        {% js "js/joined.js" %}
+        {% compress js %}
+            <script src="{% static 'js/vendor/jquery.min.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery-ui.min.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery.ba-throttle-debounce.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery.annotate.custom.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery.jsonSuggest-2.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery.carouFredSel-5.5.0.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery.scrollExtend.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery.placeholder.js' %}"></script>
+            <script src="{% static 'js/vendor/moment.js' %}"></script>
+            <script src="{% static 'js/vendor/jquery.mouseover-gallery.js' %}"></script>
+            <script src="{% static 'js/app.js' %}"></script>
+        {% endcompress %}
         {% block js %}{% endblock %}
         {% block analytics %}
         <script type="text/javascript">

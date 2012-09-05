@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
-from django.core.urlresolvers import reverse
 from django.views.generic.simple import direct_to_template
 
 admin.autodiscover()
@@ -18,10 +17,14 @@ urlpatterns = patterns('',
     url(r'^committees/$', 'one80.committees.views.committee_list', name='committee_list'),
     url(r'^committees/(?P<slug>[\w-]+)/$', 'one80.committees.views.committee_detail', name='committee_detail'),
 
+    url(r'^events/$', 'one80.events.views.public_event_list', name='event_list'),
+    url(r'^events/(?P<slug>[\w-]+)/$', 'one80.events.views.public_event_detail', name='event_detail'),
+
     url(r'^hearings/$', 'one80.committees.views.hearing_list', name='hearing_list'),
     url(r'^hearings/(?P<slug>[\w-]+)/$', 'one80.committees.views.hearing_detail', name='hearing_detail'),
-    url(r'^hearings/(?P<slug>[\w-]+)/(?P<photo_id>\d+)/$', 'one80.photos.views.photo_detail', name='photo_detail'),
-    url(r'^hearings/(?P<slug>[\w-]+)/(?P<photo_id>\d+)/annotations.json$', 'one80.photos.views.photo_annotations', name='photo_annotations'),
+
+    url(r'^photos/(?P<slug>[\w-]+)/(?P<photo_id>\d+)/$', 'one80.photos.views.photo_detail', name='photo_detail'),
+    url(r'^photos/(?P<slug>[\w-]+)/(?P<photo_id>\d+)/annotations.json$', 'one80.photos.views.photo_annotations', name='photo_annotations'),
 
     url(r'^annotations/(?P<annot_id>\d+)/approve/$', 'one80.photos.views.approve_annotation', name='annotation_approve'),
     url(r'^annotations/(?P<annot_id>\d+)/delete/$', 'one80.photos.views.delete_annotation', name='annotation_delete'),
@@ -39,9 +42,6 @@ urlpatterns = patterns('',
     # fb channel
     url(r'^facebook_channel.html$', direct_to_template, {'template': 'facebook_channel.html'}),
 
-    # mediasync
-    url(r'^', include('mediasync.urls')),
-
     # homepage
     url(r'^$', 'one80.views.index', name='index'),
 )
@@ -51,4 +51,7 @@ if settings.DEBUG:
             url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
                 'document_root': settings.MEDIA_ROOT,
             }),
+            url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+                'document_root': settings.STATIC_ROOT,
+            })
     )

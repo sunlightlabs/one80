@@ -25,3 +25,14 @@
     <td>{{ result.object.start_datetime|date:"n/j/Y" }}</td>
 </tr>
 {% endif %}
+{% if result.result_type == 'public events' %}
+<tr class="{{ stripe }}">
+    <td><a href="{% url event_detail result.object.slug %}">{{ result.object.title }}</a></td>
+    <td>
+    {% if event.parent_event %}
+        <a href="{% url event_detail result.object.parent_event.slug %}">{{ result.object.parent_event }}</a>
+    {% endif %}
+    </td>
+    <td>{{ result.object.start_datetime|date:"n/j/Y" }}</td>
+</tr>
+{% endif %}

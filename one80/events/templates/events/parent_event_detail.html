@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load markup one80_tags photo_tags %}
+
+{% block title %}{{ event.name }} :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="module">
+    <h2 class="withTip">{{ event.name }}</h2>
+    <span>{{ event.chamber_name }}</span>
+</div>
+<h3>Events here:</h3>
+<div id="photo_grid">
+    <ol>
+        {% for child_event in event.child_events.published %}
+        <li>
+            <a class="image_previews" href="{% url event_detail child_event.slug %}">
+                {% for photo in child_event.photos.all %}
+                <span class="photo">
+                    <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ child_event.title }}" />
+                    {% if photo.credit %}<small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>{% endif %}
+                </span>
+                {% endfor %}
+            </a>
+            <span class="hearing-date">{{ child_event.start_datetime|date:"n/j/y" }}</span>
+            <span class="grid_names"><a href="{% url event_detail event.slug %}">{{ child_event.title }}</a></span>
+            {% comment %}
+            {% if event.parent_event %}
+            <span><a href="{% url event_detail event.parent_event.slug %}">{{ event.parent_event.title }}</a></span>
+            {% endif %}
+            {% endcomment %}
+        </li>
+        {% endfor %}
+    </ol>
+    <div class="clear"></div>
+</div>
+{% comment %}
+<ol>
+{% for child_event in event.child_events.published %}
+    <li class="list_columns2">
+        <span class="hearing-date">{{ child_event.start_datetime|date:"n/j/y" }}</span>
+        <h4 class="list_hearing"><a href="{% url event_detail child_event.slug %}" title="Event page">{{ child_event }}</a></h4>
+        <span>Tagged: {% templatetag openbrace %}{{ child_event.annotated_names|length }}{% templatetag closebrace %}</span>
+    </li>
+{% endfor %}
+</ol>
+{% endcomment %}
+{% endblock content %}

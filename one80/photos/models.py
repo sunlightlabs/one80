@@ -1,24 +1,25 @@
 import cStringIO
 import datetime
-import json
 import os
 
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 from django.core.files.base import ContentFile
 from django.db import models
 from django.db.models.signals import pre_save, post_save
-from django.template import Context
-from django.template.loader import get_template
 from PIL import Image
 
-from one80.committees.models import Hearing
+# from one80.committees.models import Hearing
 from one80.people.models import Person
 
 EXTENSIONS = ((x, x) for x in ('jpg',))
 
+
 def resize_path(instance, filename):
     filename = "%s-%sx%s.%s" % (instance.photo.name, instance.width, instance.height, instance.photo.extension)
-    return os.path.join(instance.photo.hearing.slug, filename)
+    return os.path.join(instance.photo.event.slug, filename)
+
 
 def annotation_thumbnail_path(instance, filename):
     original = instance.photo.sizes.filter(is_original=True)[0]
@@ -26,10 +27,14 @@ def annotation_thumbnail_path(instance, filename):
                                          instance.width(original.width), instance.height(original.height),
                                          instance.photo.extension)
     filename = filename.lower()
-    return os.path.join(instance.photo.hearing.slug, 'annotations', filename)
+    return os.path.join(instance.photo.event.slug, 'annotations', filename)
+
 
 class Photo(models.Model):
-    hearing = models.ForeignKey(Hearing, related_name="photos")
+    content_type = models.ForeignKey(ContentType, related_name='photos')
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    # hearing = models.ForeignKey(Hearing, related_name="photos")
     name = models.CharField(max_length=128)
     extension = models.CharField(max_length=4, choices=EXTENSIONS)
     credit = models.CharField(max_length=255, blank=True, help_text="Markdown is supported")
@@ -39,6 +44,10 @@ class Photo(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def event(self):
+        return self.content_object
 
     def get_filename(self):
         return "%s.%s" % (self.name, self.extension)
@@ -72,6 +81,7 @@ class Photo(models.Model):
         bffr.close()
 
         return resized
+
 
 class Size(models.Model):
     photo = models.ForeignKey(Photo, related_name='sizes')
@@ -147,6 +157,7 @@ class AnnotationManager(models.Manager):
     def unpublished(qset, user=None):
         return qset.filter(is_public=False)
 
+
 class Annotation(models.Model):
     photo = models.ForeignKey(Photo, related_name='annotations')
     created_by = models.ForeignKey(User, related_name='annotations')
@@ -165,7 +176,7 @@ class Annotation(models.Model):
 
     person = models.ForeignKey(Person, related_name='annotations', blank=True, null=True)
 
-    created_date = models.DateTimeField(auto_now_add = True)
+    created_date = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(blank=True, null=True)
 
     objects = AnnotationManager()
@@ -208,9 +219,8 @@ class Annotation(models.Model):
         return "%s%s" % (self.title + ', ' if self.title else '', self.organization)
 
     @property
-    def hearing(self):
-        return self.photo.hearing
-
+    def event(self):
+        return unicode(self.photo.content_object)
 
     def area(self, img_width, img_height):
 
@@ -308,6 +318,7 @@ class Annotation(models.Model):
         self.thumbnail.save(self.get_filename(), ContentFile(bffr.getvalue()), save=False)
         bffr.close()
 
+
 def pre_save_annotation_handler(sender, instance, *args, **kwargs):
     if instance.is_public and not instance.person:
         instance.person = Person.objects.get_or_create(first_name=instance.first_name,
@@ -315,10 +326,12 @@ def pre_save_annotation_handler(sender, instance, *args, **kwargs):
                                                        title=instance.title,
                                                        organization=instance.organization,)[0]
 
+pre_save.connect(pre_save_annotation_handler, sender=Annotation)
+
+
 def post_save_annotation_handler(sender, instance, *args, **kwargs):
     if not instance.is_public:
         from django.core.management import call_command
         call_command('newtagnotifications', sender='hook')
 
-pre_save.connect(pre_save_annotation_handler, sender=Annotation)
 post_save.connect(post_save_annotation_handler, sender=Annotation)

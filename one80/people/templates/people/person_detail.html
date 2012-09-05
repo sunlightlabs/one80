@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load media one80_tags %}
+{% load one80_tags %}
 
 {% block title %}{{ person.name }} :: {{ block.super }}{% endblock %}
 
@@ -11,14 +11,21 @@
         {% if person.url %}<p>{{ person.url|link_if:person.url }}</p>{% endif %}
     </div>
 
-{% if recent_hearings %}
+{% if recent_events %}
     <div class="module">
         <h3>Recent Appearances</h3>
         <ol id="list_2up">
-            {% for hearing in recent_hearings %}
+            {% for event in recent_events %}
             <li class="list_columns">
-                <a href="{% url hearing_detail hearing.slug %}" class="list_hearing" title="hearing page">{{ hearing.title }}</a>
-                <span class="committee-sm"><a href="{% url committee_detail hearing.committee.slug %}" title="committee page">{{ hearing.committee.name }}</a></span>
+                {% if event.object_type == 'hearing' %}
+                <a href="{% url hearing_detail event.slug %}" class="list_hearing" title="hearing page">{{ event.title }}</a>
+                <span class="committee-sm"><a href="{% url committee_detail event.committee.slug %}" title="committee page">{{ event.committee.name }}</a></span>
+                {% elif event.object_type == 'public event' %}
+                <a href="{% url event_detail event.slug %}" class="list_hearing" title="hearing page">{{ event.title }}</a>
+                    {% if event.parent_event %}
+                    <span class="committee-sm"><a href="{% url event_detail event.parent_event.slug %}" title="committee page">{{ event.parent_event.name }}</a></span>
+                    {% endif %}
+                {% else %}
             </li>
             {% endfor %}
         </ol>
@@ -35,9 +42,9 @@
         <ol>
             {% for tag in person.annotations.published %}
             <li class="recent_hearings">
-                <a href="{% url photo_detail tag.photo.hearing.slug tag.photo.pk %}"><img src="{{ tag.thumbnail.url }}" alt="a small photo of {{ tag.name }}" class="tagged_thumbnails-md" /></a>
+                <a href="{% url photo_detail tag.photo.event.slug tag.photo.pk %}"><img src="{{ tag.thumbnail.url }}" alt="a small photo of {{ tag.name }}" class="tagged_thumbnails-md" /></a>
                 <span class="hearing-date">{{ tag.published_date|date:"n/j/Y" }}</span>
-                <a href="{% url photo_detail tag.photo.hearing.slug tag.photo.pk %}"><span>{{ tag.hearing.title }}</span></a>
+                <a href="{% url photo_detail tag.photo.event.slug tag.photo.pk %}"><span>{{ tag.event.title }}</span></a>
             </li>
             {% endfor %}
         </ol>

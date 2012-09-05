@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load markup one80_tags photo_tags %}
+
+{% block title %}{{ event.title }} :: {{ block.super}}{% endblock %}
+
+{% block contentid %}{% endblock %}
+{% block content %}
+    <div class="module">
+        <h2 class="withTip">Images for <span id="hearing_indiv-name">{{ event.title }}</span></h2>
+        {% if event.parent_event %}
+        <span><a href="{% url event_detail event.parent_event.slug %}">{{ event.parent_event.title }}</a></span>
+        {% endif %}
+    </div>
+    {% if event.description %}
+    <p>{{ event.description|linebreaks }}</p>
+    {% endif %}
+
+    <div id="photo_grid">
+        <ol>
+            {% for photo in event.photos.all %}
+            <li>
+                <a class="image_previews" href="{% url photo_detail event.slug photo.pk %}">
+                <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ event.title }}" class="grid_thumbnails" />
+                {% if photo.credit %}<small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>{% endif %}
+                </a>
+                <span class="grid_tagged">Tagged: <span class="nmbr_tagged">{% templatetag openbrace %}{{ photo.annotations.published.count }}{% templatetag closebrace %}</span></span>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+{% endblock content %}

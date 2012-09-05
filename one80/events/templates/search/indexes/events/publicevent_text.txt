@@ -1,0 +1,5 @@
+{{ object.title }}
+{{ object.description }}
+{{ object.start_datetime }}
+{{ object.location }}
+{{ object.parent_event.title }}

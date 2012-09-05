@@ -5,7 +5,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.safestring import mark_safe
 
-from one80.committees.models import Hearing
+from one80.search_utils import search, search_one_or_404
 from one80.photos.models import Annotation, Photo
 
 DNE = "Couldn't get that annotation, does it exist?"
@@ -13,22 +13,28 @@ NOT_PERMITTED = "You don't have permission to edit annotations."
 
 FULLSIZE_WIDTH = 882
 
+
+def photo_index(request):
+    pass
+
+
 def photo_detail(request, slug, photo_id):
     '''Gets a photo resource for permalink display'''
-    hearing = get_object_or_404(Hearing, slug=slug)
-    photo = hearing.photos.get(pk=photo_id)
+    # hearing = get_object_or_404(Hearing, slug=slug)
+    event = search_one_or_404('hearings', 'public events', slug=slug).object
+    photo = event.photos.get(pk=photo_id)
 
-    photos = hearing.photos.filter(name__lt=photo.name).order_by('-name')
+    photos = event.photos.filter(name__lt=photo.name).order_by('-name')
     previous_photo = photos[0] if len(photos) > 0 else None
 
-    photos = hearing.photos.filter(name__gt=photo.name).order_by('name')
+    photos = event.photos.filter(name__gt=photo.name).order_by('name')
     next_photo = photos[0] if len(photos) > 0 else None
 
     if request.user.is_anonymous():
         messages.warning(request, mark_safe('You need to be logged in to tag photos. <a href="/login/">Login or register now &raquo;</a>'))
 
     context = {
-        'hearing': hearing,
+        'event': event,
         'photo': photo,
         'fullsize': photo.get_size(FULLSIZE_WIDTH),
         'annotations': photo.annotations.published(request.user),
@@ -37,14 +43,15 @@ def photo_detail(request, slug, photo_id):
     }
     return render(request, "photos/photo_detail.html", context)
 
+
 def photo_annotations(request, slug, photo_id):
     '''Handles all photo annotation CRUD operations'''
     size = int(request.GET.get('size', FULLSIZE_WIDTH))
     action = request.GET.get('action', 'get')
-    hearing = get_object_or_404(Hearing, slug=slug)
+    event = search_one_or_404('hearings', 'public events', slug=slug).object
     try:
-        photo = hearing.photos.get(pk=photo_id)
-    except DoesNotExist:
+        photo = event.photos.get(pk=photo_id)
+    except Photo.DoesNotExist:
         raise Http404
 
     sized_photo = photo.get_size(size)
@@ -71,7 +78,7 @@ def photo_annotations(request, slug, photo_id):
             try:
                 id = int(id)
                 annot = photo.annotations.get(id=id)
-            except DoesNotExist:
+            except Photo.DoesNotExist:
                 raise Http404
 
         if annot.is_editable_by(request.user):
@@ -85,7 +92,7 @@ def photo_annotations(request, slug, photo_id):
             annot.title = title
             annot.organization = organization
             if request.user.is_staff:
-                annot.is_public = True;
+                annot.is_public = True
             annot.save()
         else:
             return cannot_edit_error
@@ -99,7 +106,7 @@ def photo_annotations(request, slug, photo_id):
             annot = photo.annotations.get(id=id)
         except KeyError:
             return field_error
-        except DoesNotExist:
+        except Annotation.DoesNotExist:
             raise Http404
 
         if annot.is_editable_by(request.user):

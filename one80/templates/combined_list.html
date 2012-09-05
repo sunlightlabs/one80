@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load photo_tags markup %}
+
+{% block title %}All Events :: {{ block.super }}{% endblock %}
+
+{% block contentid %}{% endblock %}
+{% block content %}
+<div class="module">
+    <h2 class="withTip">Choose an Event</h2>
+    <span>Click a photo to select an event to tag</span>
+</div>
+<div id="photo_grid">
+    <ol>
+        {% for event in page.object_list %}
+        <li>
+            <a class="image_previews"
+            {% if event.object_type == 'hearing' %}
+            href="{% url hearing_detail event.slug %}"
+            {% else %}
+            href="{% url event_detail event.slug %}"
+            {% endif %}
+            >
+                {% for photo in event.photos.all %}
+                <span class="photo">
+                    <img src="{% getsize photo 243 161 %}" alt="a photo of the audience at {{ event.title }}" />
+                    {% if photo.credit %}<small class="photo-credit">Photo: {{ photo.credit|markdown|striptags }}</small>{% endif %}
+                </span>
+                {% endfor %}
+            </a>
+            <span class="hearing-date">{{ event.start_datetime|date:"n/j/y" }}</span>
+            <span class="grid_names"><a
+                {% if event.object_type == 'hearing' %}
+                href="{% url hearing_detail event.slug %}"
+                {% else %}
+                href="{% url event_detail event.slug %}"
+                {% endif %}
+            >{{ event.title }}</a></span>
+            <span>
+                {% if event.object_type == 'hearing' %}
+                <a href="{% url committee_detail event.committee.slug %}">{{ event.committee.name }}</a>
+                {% else %}
+                <a href="{% url event_detail event.parent_event.slug %}">{{ event.parent_event.title }}</a>
+                {% endif %}
+            </span>
+        </li>
+        {% endfor %}
+    </ol>
+    <div class="clear"></div>
+</div>
+{% endblock %}

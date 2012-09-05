@@ -1,4 +1,3 @@
-import datetime
 from haystack.indexes import *
 from haystack import site
 from one80.people.models import Person
@@ -9,6 +8,7 @@ class PersonIndex(RealTimeSearchIndex):
     result_type = CharField(faceted=True)
     desc = CharField(model_attr='desc')
     name = CharField(model_attr='name')
+    slug = CharField(model_attr='slug')
     position = CharField(model_attr='position')
 
     def prepare_result_type(self, obj):

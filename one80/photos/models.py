@@ -220,7 +220,7 @@ class Annotation(models.Model):
 
     @property
     def event(self):
-        return unicode(self.photo.content_object)
+        return self.photo.content_object
 
     def area(self, img_width, img_height):
 

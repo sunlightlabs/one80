@@ -10,7 +10,7 @@
                 $('img#img_gallery').each(function(){
                     var width = $(this).width();
                     $(this).annotateImage({
-                        editable: {{ request.user.is_authenticated|lower }},
+                        editable: {{ user.is_authenticated|lower }},
                         getUrl: 'annotations.json?size=' + width,
                         saveUrl: 'annotations.json?action=save&size=' + width,
                         deleteUrl: 'annotations.json?action=delete'

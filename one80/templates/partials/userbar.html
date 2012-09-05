@@ -1,4 +1,3 @@
-{% with request.user as user %}
 {% if user.is_authenticated %}
     <li id="link_account"><a class="replace" href="{% url profile %}" title="account settings">account settings</a></li>
     {% if user.is_staff %}
@@ -8,4 +7,3 @@
 {% else %}
     <li id="link_login"><a href="{% url login %}">sign up or login</a></li>
 {% endif %}
-{% endwith %}

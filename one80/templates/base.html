@@ -40,7 +40,7 @@ bundlers in these photos from the Republican National Convention">
         <script src="{% static 'js/typekit.js' %}"></script>
         <script>try{Typekit.load();}catch(e){}</script>
     </head>
-    <body class="{% block bodyclass %}main{% endblock %} {% if request.user.is_staff %}superuser{% endif %} {% if request.user.is_anonymous %}not-{% endif %}logged-in">
+    <body class="{% block bodyclass %}main{% endblock %} {% if user.is_staff %}superuser{% endif %} {% if user.is_anonymous %}not-{% endif %}logged-in">
         <div id="fb-root"></div>
         <script>
           window.fbAsyncInit = function() {

@@ -7,19 +7,19 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+
         # Deleting field 'Photo.hearing'
         db.delete_column('photos_photo', 'hearing_id')
 
         # Adding field 'Photo.content_type'
-        db.add_column('photos_photo', 'content_type', self.gf('django.db.models.fields.related.ForeignKey')(default='hearings_hearing', related_name='photos', to=orm['contenttypes.ContentType']), keep_default=False)
+        db.add_column('photos_photo', 'content_type', self.gf('django.db.models.fields.related.ForeignKey')(default=18, related_name='photos', to=orm['contenttypes.ContentType']), keep_default=False)
 
         # Adding field 'Photo.object_id'
         db.add_column('photos_photo', 'object_id', self.gf('django.db.models.fields.PositiveIntegerField')(default=1), keep_default=False)
 
 
     def backwards(self, orm):
-        
+
         # User chose to not deal with backwards NULL issues for 'Photo.hearing'
         raise RuntimeError("Cannot reverse this migration. 'Photo.hearing' and its values cannot be restored.")
 
